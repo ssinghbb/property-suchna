@@ -2,7 +2,8 @@ import { View, Text, Image, StyleSheet, Button } from "react-native";
 import React from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 
-export default function Login() {
+
+export default function Login({navigation}) {
   return (
     <SafeAreaView style={styles?.login}>
       <View style={styles.container}>
@@ -14,7 +15,7 @@ export default function Login() {
             <Button title="Login" />
           </View>
           <View style={styles?.btnDiv}>
-            <Button title="Sign Up" />
+          <Button title="Sign Up" onPress={()=>navigation.navigate('register')}/>
           </View>
         </View>
       </View>
