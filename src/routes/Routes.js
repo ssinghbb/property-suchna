@@ -11,8 +11,9 @@ export default function Routes() {
         headerShown:false,
         contentStyle:{backgroundColor:'#000'}
     }}>
-    <Stack.Screen name="register" component={Register} />
+   
     <Stack.Screen name="login" component={Login} />
+    <Stack.Screen name="register" component={Register} />
    
     {/* <Stack.Screen name="Notifications" component={Notifications} />
     <Stack.Screen name="Profile" component={Profile} />

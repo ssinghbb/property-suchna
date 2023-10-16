@@ -4,39 +4,42 @@ import {
   StyleSheet,
   Image,
   TextInput,
-  Pressable,
   ScrollView,
+  TouchableOpacity,
 } from "react-native";
 import React from "react";
 import CoustomButton from "../common/CoustomButton";
+import RadioButtons from "../common/coustomRadioButton";
 
 export default function Register() {
   return (
     <View style={Styles.pageContainer}>
       <ScrollView style={Styles.formContainer}>
         <View style={Styles.imgStyle}>
-          <Image style={Styles.logo} source={require("../../../assets/logo.png")} />
+          <Image
+            style={Styles.logo}
+            source={require("../../../assets/logo.png")}
+          />
         </View>
-
         <Text style={Styles.text}>Register your self </Text>
-
         <View style={Styles.inputContainer}>
+          <Text style={Styles.label}>First Name:</Text>
           <TextInput
             style={Styles.input}
             placeholder="Enter your name"
             placeholderTextColor={"gray"}
           />
         </View>
-
         <View style={Styles.inputContainer}>
+          <Text style={Styles.label}>Phone number</Text>
           <TextInput
             style={Styles.input}
             placeholder="Enter phone"
             placeholderTextColor={"gray"}
           />
         </View>
-
         <View style={Styles.inputContainer}>
+          <Text style={Styles.label}>Password</Text>
           <TextInput
             style={Styles.input}
             placeholder="Enter password"
@@ -44,6 +47,7 @@ export default function Register() {
           />
         </View>
         <View style={Styles.inputContainer}>
+          <Text style={Styles.label}>Confirm Password</Text>
           <TextInput
             style={Styles.input}
             placeholder="Re-enter password"
@@ -53,9 +57,13 @@ export default function Register() {
         <View>
           <Text style={Styles.brokerLabel}>Are you a Broker ?</Text>
         </View>
+
+        <View>
+          <RadioButtons />
+        </View>
       </ScrollView>
       <View style={Styles.btnContainer}>
-        <CoustomButton title={"Continue"}/>
+        <CoustomButton title={"Continue"} />
       </View>
     </View>
   );
@@ -68,8 +76,7 @@ const Styles = StyleSheet.create({
   },
   formContainer: {
     flex: 1,
-    marginTop:100,
-    
+    marginTop: 100,
   },
   text: {
     color: "white",
@@ -79,9 +86,9 @@ const Styles = StyleSheet.create({
     alignItems: "center",
     marginVertical: 55,
   },
-  logo:{
-  height:45,
-  width:90,
+  logo: {
+    height: 45,
+    width: 90,
   },
   input: {
     borderRadius: 5,
@@ -93,6 +100,11 @@ const Styles = StyleSheet.create({
   },
   inputContainer: {
     marginBottom: 20,
+  },
+  label: {
+    color: "#FBFEFF",
+    fontSize: 12,
+    marginBottom: 12,
   },
   brokerLabel: {
     color: "white",
