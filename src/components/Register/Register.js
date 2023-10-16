@@ -6,12 +6,13 @@ import {
   TextInput,
   ScrollView,
   TouchableOpacity,
+  Button,
 } from "react-native";
 import React from "react";
 import CoustomButton from "../common/CoustomButton";
 import RadioButtons from "../common/coustomRadioButton";
 
-export default function Register() {
+export default function Register({ navigation }) {
   return (
     <View style={Styles.pageContainer}>
       <ScrollView style={Styles.formContainer}>
@@ -62,8 +63,9 @@ export default function Register() {
           <RadioButtons />
         </View>
       </ScrollView>
-      <View style={Styles.btnContainer}>
-        <CoustomButton title={"Continue"} />
+      <View style={Styles.btnContainer} >
+      <Button title="Continue" onPress={() => navigation.navigate('verification')} />
+        {/* <CoustomButton   title={"Continue"}  /> */}
       </View>
     </View>
   );
