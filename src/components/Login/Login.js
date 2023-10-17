@@ -1,56 +1,92 @@
+import React from "react";
 import {
   View,
   Text,
   StyleSheet,
   Image,
-  TextInput,
   ScrollView,
-  TouchableOpacity,
+  Button,
 } from "react-native";
-import React from "react";
+import { useFormik } from "formik";
+import * as yup from "yup";
+import InputField from "../common/InputField";
 import CoustomButton from "../common/CoustomButton";
-import RadioButtons from "../common/coustomRadioButton";
 
-export default function Login() {
+// Validation schema using Yup
+const validationSchema = yup.object().shape({
+  phoneNumber: yup.string().required("Phone number is required"),
+  password: yup.string().required("Password is required"),
+});
+
+const Login = ({navigation}) => {
+  const formik = useFormik({
+    initialValues: {
+      phoneNumber: "",
+      password: "",
+    },
+    validationSchema,
+    onSubmit: (values) => {
+      // Handle form submission
+      console.log("Form data:", values);
+      navigation.navigate("post");
+
+      // Simulate login logic
+      if (
+        values.phoneNumber === "yourPhoneNumber" &&
+        values.password === "yourPassword"
+      ) {
+        // Navigate to the next screen or perform authentication logic
+        console.log("Login successful!");
+      } else {
+        // Handle login failure
+        console.log("Login failed!");
+      }
+    },
+  });
+
   return (
-    <View style={Styles.pageContainer}>
-      <ScrollView style={Styles.formContainer}>
-        <View style={Styles.imgStyle}>
+    <View style={styles.pageContainer}>
+      <ScrollView style={styles.formContainer}>
+        <View style={styles.imgStyle}>
           <Image
-            style={Styles.logo}
+            style={styles.logo}
             source={require("../../../assets/logo.png")}
           />
         </View>
-        <Text style={Styles.text}>Log in for the best property </Text>
-        <Text style={[Styles.text, { fontSize: 12, color: 'gray' }]}>Enter your phone number to continue</Text>
-
-        <View style={Styles.inputContainer}>
-          <Text style={Styles.label}>Phone number</Text>
-          <TextInput
-            style={Styles.input}
-            placeholder="Enter phone"
-            placeholderTextColor={"gray"}
-          />
-        </View>
-        <View style={Styles.inputContainer}>
-          <Text style={Styles.label}>Password</Text>
-          <TextInput
-            style={Styles.input}
-            placeholder="Enter password"
-            placeholderTextColor={"gray"}
-          />
-        </View>
-        <Text style={[Styles.text, { fontSize: 12, color: 'gray' }]}>By continuing, you agree to Property Suchna Terms of Use and Privacy Policy  </Text>
-
+        <Text style={styles.text}>Log in for the best property </Text>
+        <Text style={[styles.text, { fontSize: 12, color: "gray" }]}>
+          Enter your phone number to continue
+        </Text>
+        <InputField
+          placeholder="Enter your phone"
+          label="Phone"
+          onChangeText={formik.handleChange("phoneNumber")}
+          onBlur={formik.handleBlur("phoneNumber")}
+          value={formik.values.phoneNumber}
+          error={formik.touched.phoneNumber && formik.errors.phoneNumber}
+        />
+        <InputField
+          placeholder="Enter password"
+          label="Password"
+          secureTextEntry
+          onChangeText={formik.handleChange("password")}
+          onBlur={formik.handleBlur("password")}
+          value={formik.values.password}
+          error={formik.touched.password && formik.errors.password}
+        />
+        <Text style={[styles.text, { fontSize: 12, color: "gray" }]}>
+          By continuing, you agree to Property Suchna Terms of Use and Privacy
+          Policy
+        </Text>
       </ScrollView>
-      <View style={Styles.btnContainer}>
-        <CoustomButton title={"Continue"} />
+      <View style={styles.btnContainer}>
+        <CoustomButton title="Continue" onPress={formik.handleSubmit} />
       </View>
     </View>
   );
-}
+};
 
-const Styles = StyleSheet.create({
+const styles = StyleSheet.create({
   pageContainer: {
     flex: 1,
     justifyContent: "center",
@@ -97,10 +133,6 @@ const Styles = StyleSheet.create({
     borderColor: "gray",
     borderTopWidth: 1,
   },
-  // btn: {
-  //   backgroundColor: "#29D4FF",
-  //   alignItems: "center",
-  //   padding: 12,
-  //   borderRadius: 4,
-  // },
 });
+
+export default Login;

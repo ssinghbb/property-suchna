@@ -2,9 +2,9 @@ import { Pressable, Text ,StyleSheet} from "react-native";
 
 
 
-const CoustomButton =({title})=>{
+const CoustomButton =({title ,onPress})=>{
     return(
-        <Pressable style={style.btn}>
+        <Pressable style={style.btn} onPress={onPress}>
           <Text style={style.textInput}>{title}</Text>
         </Pressable>
     )
@@ -19,7 +19,7 @@ const style= StyleSheet.create({
       },
       textInput:{
         fontStyle:"normal",
-        fontWeight: "400"
+        fontWeight: "800"
       },   
 })
 export default CoustomButton;

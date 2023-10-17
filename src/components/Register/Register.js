@@ -1,18 +1,32 @@
+import React from "react";
 import {
   View,
   Text,
   StyleSheet,
   Image,
-  TextInput,
   ScrollView,
-  TouchableOpacity,
   Button,
 } from "react-native";
-import React from "react";
-import CoustomButton from "../common/CoustomButton";
+import { useFormik } from "formik";
+import InputField from "../common/InputField";
+import { validationSchema } from "./validationSchema";
 import RadioButtons from "../common/coustomRadioButton";
 
 export default function Register({ navigation }) {
+  const formik = useFormik({
+    initialValues: {
+      name: "",
+      phone: "",
+      password: "",
+      confirmPassword: "",
+    },
+    validationSchema: validationSchema,
+    onSubmit: (values) => {
+      console.log("Form data:", values);
+      navigation.navigate("verification");
+    },
+  });
+
   return (
     <View style={Styles.pageContainer}>
       <ScrollView style={Styles.formContainer}>
@@ -22,39 +36,44 @@ export default function Register({ navigation }) {
             source={require("../../../assets/logo.png")}
           />
         </View>
-        <Text style={Styles.text}>Register your self </Text>
-        <View style={Styles.inputContainer}>
-          <Text style={Styles.label}>First Name:</Text>
-          <TextInput
-            style={Styles.input}
-            placeholder="Enter your name"
-            placeholderTextColor={"gray"}
-          />
-        </View>
-        <View style={Styles.inputContainer}>
-          <Text style={Styles.label}>Phone number</Text>
-          <TextInput
-            style={Styles.input}
-            placeholder="Enter phone"
-            placeholderTextColor={"gray"}
-          />
-        </View>
-        <View style={Styles.inputContainer}>
-          <Text style={Styles.label}>Password</Text>
-          <TextInput
-            style={Styles.input}
-            placeholder="Enter password"
-            placeholderTextColor={"gray"}
-          />
-        </View>
-        <View style={Styles.inputContainer}>
-          <Text style={Styles.label}>Confirm Password</Text>
-          <TextInput
-            style={Styles.input}
-            placeholder="Re-enter password"
-            placeholderTextColor={"gray"}
-          />
-        </View>
+        <Text style={Styles.text}>Register yourself</Text>
+        <InputField
+          placeholder="Enter your name"
+          label={"Name"}
+          value={formik.values.name}
+          onChangeText={formik.handleChange("name")}
+          onBlur={formik.handleBlur("name")}
+          error={formik.touched.name && formik.errors.name}
+        />
+        <InputField
+          placeholder="Enter your phone"
+          label={"Phone"}
+          value={formik.values.phone}
+          onChangeText={formik.handleChange("phone")}
+          onBlur={formik.handleBlur("phone")}
+          error={formik.touched.phone && formik.errors.phone}
+        />
+        <InputField
+          placeholder="Enter password"
+          label={"Password"}
+          secureTextEntry
+          value={formik.values.password}
+          onChangeText={formik.handleChange("password")}
+          onBlur={formik.handleBlur("password")}
+          error={formik.touched.password && formik.errors.password}
+        />
+        <InputField
+          placeholder="Re-enter your password"
+          label={"Confirm password"}
+          secureTextEntry
+          value={formik.values.confirmPassword}
+          onChangeText={formik.handleChange("confirmPassword")}
+          onBlur={formik.handleBlur("confirmPassword")}
+          error={
+            formik.touched.confirmPassword && formik.errors.confirmPassword
+          }
+        />
+
         <View>
           <Text style={Styles.brokerLabel}>Are you a Broker ?</Text>
         </View>
@@ -63,9 +82,8 @@ export default function Register({ navigation }) {
           <RadioButtons />
         </View>
       </ScrollView>
-      <View style={Styles.btnContainer} >
-      <Button title="Continue" onPress={() => navigation.navigate('verification')} />
-        {/* <CoustomButton   title={"Continue"}  /> */}
+      <View style={Styles.btnContainer}>
+        <Button title="Continue" onPress={formik.handleSubmit} />
       </View>
     </View>
   );
@@ -78,7 +96,7 @@ const Styles = StyleSheet.create({
   },
   formContainer: {
     flex: 1,
-    marginTop: 100,
+    marginTop: 20,
   },
   text: {
     color: "white",
@@ -106,7 +124,7 @@ const Styles = StyleSheet.create({
   label: {
     color: "#FBFEFF",
     fontSize: 12,
-    marginBottom: 12,
+    marginBottom: 4,
   },
   brokerLabel: {
     color: "white",

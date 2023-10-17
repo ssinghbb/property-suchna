@@ -5,6 +5,7 @@ import Login from '../components/Login/Login'
 import Register from '../components/Register/Register'
 import Home from '../components/Home/Home'
 import PhoneVerification from '../components/PhoneVerification/PhoneVerification'
+import Post from '../components/post/post'
 
 export default function Routes() {
   const Stack = createNativeStackNavigator()
@@ -15,9 +16,10 @@ export default function Routes() {
     }}>
 
       <Stack.Screen name="home" component={Home} />
-      <Stack.Screen name="login" component={Login} />
       <Stack.Screen name="register" component={Register} />
       <Stack.Screen name="verification" component={PhoneVerification} />
+      {/* <Stack.Screen name="login" component={Login} /> */}
+      {/* <Stack.Screen name="post" component={Post} /> */}
 
       {/* <Stack.Screen name="Notifications" component={Notifications} />
     <Stack.Screen name="Profile" component={Profile} />
