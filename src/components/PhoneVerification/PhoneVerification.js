@@ -82,6 +82,10 @@ export default function PhoneVerification({ navigation }) {
               onBlur={handleOnBlur}
             />
           </OTPInputContainer>
+
+          <View style={Styles.secondText}>
+            <Text>Trying to Auto Capture </Text>
+          </View>
         </ScrollView>
         <View style={Styles.btnContainer}>
           <CoustomButton

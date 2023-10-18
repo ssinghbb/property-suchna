@@ -12,13 +12,12 @@ import * as yup from "yup";
 import InputField from "../common/InputField";
 import CoustomButton from "../common/CoustomButton";
 
-// Validation schema using Yup
 const validationSchema = yup.object().shape({
   phoneNumber: yup.string().required("Phone number is required"),
   password: yup.string().required("Password is required"),
 });
 
-const Login = ({navigation}) => {
+const Login = ({ navigation }) => {
   const formik = useFormik({
     initialValues: {
       phoneNumber: "",
@@ -29,8 +28,6 @@ const Login = ({navigation}) => {
       // Handle form submission
       console.log("Form data:", values);
       navigation.navigate("post");
-
-      // Simulate login logic
       if (
         values.phoneNumber === "yourPhoneNumber" &&
         values.password === "yourPassword"

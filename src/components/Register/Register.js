@@ -26,7 +26,6 @@ export default function Register({ navigation }) {
       navigation.navigate("verification");
     },
   });
-
   return (
     <View style={Styles.pageContainer}>
       <ScrollView style={Styles.formContainer}>
@@ -73,11 +72,9 @@ export default function Register({ navigation }) {
             formik.touched.confirmPassword && formik.errors.confirmPassword
           }
         />
-
         <View>
           <Text style={Styles.brokerLabel}>Are you a Broker ?</Text>
         </View>
-
         <View>
           <RadioButtons />
         </View>
