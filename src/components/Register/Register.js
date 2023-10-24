@@ -35,6 +35,7 @@ export default function Register({ navigation }) {
             source={require("../../../assets/logo.png")}
           />
         </View>
+        
         <Text style={Styles.text}>Register yourself</Text>
         <InputField
           placeholder="Enter your name"

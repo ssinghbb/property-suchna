@@ -18,6 +18,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     fontSize: 30,
     marginVertical: 100,
+    
   },
 });
 

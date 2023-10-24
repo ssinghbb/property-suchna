@@ -1,10 +1,17 @@
 import { Text, View, StyleSheet, Button } from "react-native";
+import ButtomNavbar from "../components/BottomNavbar/bottomNavbar";
 
 const Profile = ({ navigation }) => {
   return (
-    <View style={styles.mainContainer}>
-      <Text style={styles.text}>welcom to profile page</Text>
+   
+   <View style={styles.mainContainer}>
+    <View style={styles.profilePage}>
+      <Text style={styles.trex}> </Text>
     </View>
+    <View>
+      <ButtomNavbar />
+    </View>
+   </View>
   );
 };
 const styles = StyleSheet.create({
@@ -18,6 +25,9 @@ const styles = StyleSheet.create({
     alignItems: "center",
     fontSize: 30,
     marginVertical: 100,
+  },
+  profilePage:{
+    flex:1,
   },
 });
 
