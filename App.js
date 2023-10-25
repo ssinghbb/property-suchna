@@ -7,7 +7,7 @@ import { SafeAreaProvider } from "react-native-safe-area-context";
 export default function App() {
   return (
     <>
-      <SafeAreaProvider>
+      <SafeAreaProvider style={{flex:1}}>
         <NavigationContainer>
           <Routes />
           <StatusBar style="auto" />

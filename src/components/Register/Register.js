@@ -91,6 +91,8 @@ const Styles = StyleSheet.create({
   pageContainer: {
     flex: 1,
     justifyContent: "center",
+    paddingLeft:12,
+    paddingRight:12
   },
   formContainer: {
     flex: 1,

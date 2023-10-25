@@ -90,7 +90,7 @@ export default function PhoneVerification({ navigation }) {
         <View style={Styles.btnContainer}>
           <CoustomButton
             title={"Verify"}
-            onPress={() => navigation.navigate("home")}
+            onPress={() => navigation.navigate("post")}
           />
         </View>
       </View>
@@ -102,6 +102,9 @@ const Styles = StyleSheet.create({
   pageContainer: {
     flex: 1,
     justifyContent: "center",
+    paddingRight: 12,
+    paddingLeft: 12,
+
   },
   formContainer: {
     flex: 1,

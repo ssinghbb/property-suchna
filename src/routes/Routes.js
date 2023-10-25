@@ -16,9 +16,12 @@ export default function Routes() {
   const Stack = createNativeStackNavigator();
   return (
     <Stack.Navigator
+    
       screenOptions={{
         headerShown: false,
+        statusBarColor:'black',
         contentStyle: { backgroundColor: "#000" },
+        
       }}
     >
       

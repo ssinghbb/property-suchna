@@ -28,6 +28,7 @@ export const SplitBoxes = styled.View`
   border-radius: 5px;
   padding: 12px;
   min-width: 50px;
+  margin:18px;
 `;
 
 export const SplitBoxText = styled.Text`
