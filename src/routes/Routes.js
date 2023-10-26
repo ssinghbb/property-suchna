@@ -23,6 +23,7 @@ export default function Routes() {
         contentStyle: { backgroundColor: "#000" },
         
       }}
+      // initialRouteName="post"
     >
       
       <Stack.Screen name="home" component={Home} />
