@@ -119,6 +119,7 @@ const styles = StyleSheet.create({
   mainContainer: {
     flex: 1,
     alignItems: "center",
+    paddingTop:0,
     
   },
   profile: {
@@ -126,21 +127,34 @@ const styles = StyleSheet.create({
     alignItems: "center",
     gap: 15,
     width: "100%",
-    padding: 2,
-    paddingTop: 40,
-    paddingLeft: 20,
+    height:60,
+     padding: 2,
+     paddingTop: 20,
+     paddingBottom:20,
+     paddingLeft: 20,
+    margin:0,
+  },
+  
+  userName: {
+    color: "white",
+    fontSize: 12,
+    fontWeight: "600",
   },
   postImg: {
     width: "100%",
-    paddingVertical: 10,
+    // paddingVertical: 10,
+    height:400,
   },
   post: {
     width: "100%",
+    height:400,
+    
   },
   likeComment: {
     flexDirection: "row",
     gap: 20,
     paddingLeft: 20,
+    paddingTop:20,
   },
   saveIconContainer:{
     paddingLeft:220,
@@ -153,15 +167,17 @@ const styles = StyleSheet.create({
     color: "white",
     fontSize: 13,
   },
-  userName: {
-    color: "white",
-    fontSize: 12,
-    fontWeight: "600",
-  },
+ 
   postPage: {
-    flex: 1,
+    
     width: "100%",
+   
   },
+  postCard: {
+    flex: 1,
+    height: "100%", // Set the height to the full screen height
+  },
+  
 });
 
 export default Post;
