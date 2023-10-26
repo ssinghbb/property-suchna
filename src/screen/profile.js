@@ -3,15 +3,15 @@ import ButtomNavbar from "../components/BottomNavbar/bottomNavbar";
 
 const Profile = ({ navigation }) => {
   return (
-   
-   <View style={styles.mainContainer}>
-    <View style={styles.profilePage}>
-      <Text style={styles.trex}> </Text>
+
+    <View style={styles.mainContainer}>
+      <View style={styles.profilePage}>
+        <Text style={styles.text}>Profile section </Text>
+      </View>
+      <View>
+        <ButtomNavbar />
+      </View>
     </View>
-    <View>
-      <ButtomNavbar />
-    </View>
-   </View>
   );
 };
 const styles = StyleSheet.create({
@@ -26,8 +26,8 @@ const styles = StyleSheet.create({
     fontSize: 30,
     marginVertical: 100,
   },
-  profilePage:{
-    flex:1,
+  profilePage: {
+    flex: 1,
   },
 });
 

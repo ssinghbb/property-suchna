@@ -1,11 +1,12 @@
-import React from "react";
-import { Text, View, StyleSheet, Pressable } from "react-native";
+import React  from "react";
+import {  View, StyleSheet, Pressable, Button,  } from "react-native";
 import Icon from "react-native-vector-icons/FontAwesome";
 import { useNavigation, useRoute } from "@react-navigation/native";
 
 const ButtomNavbar = () => {
   const navigation = useNavigation();
   const route = useRoute();
+
 
   const navigateToScreen = (screenName) => {
     navigation.navigate(screenName);
@@ -18,11 +19,12 @@ const ButtomNavbar = () => {
       navigation.goBack();
     }
   };
-
+ 
   return (
     // <View style={styles.mainContainer}>
 
     <View style={styles.navigationBar}>
+
       <View style={styles.iconContainer}>
         <Pressable onPress={() => navigateToScreen("post")}>
           <Icon color={"white"} name={"home"} size={32} />
@@ -43,13 +45,13 @@ const ButtomNavbar = () => {
       </View>
       <View style={styles.iconContainer}>
         <Pressable onPress={() => navigateToScreen("profile")}>
-          <Icon color={"white"} name={"user-o"} size={32} />
+          <Icon color={"white"} name={"user-circle-o"} size={32} />
           {/* <Text style={styles.iconText}>Profile</Text> */}
         </Pressable>
       </View>
       <View style={styles.iconContainer}>
         <Pressable onPress={() => navigateToScreen("notifications")}>
-          <Icon color={"white"} name={"bell-o"} size={32} />
+          <Icon color={"white"} name={"bell"} size={28} />
           {/* <Text style={styles.iconText}>Notifications</Text> */}
         </Pressable>
       </View>

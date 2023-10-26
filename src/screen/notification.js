@@ -1,9 +1,13 @@
 import { Text, View, StyleSheet, Button } from "react-native";
+import ButtomNavbar from "../components/BottomNavbar/bottomNavbar";
 
 const Notifications = () => {
   return (
     <View style={styles.mainContainer}>
-      <Text style={styles.text}>welcom to notification page</Text>
+      <Text style={styles.text}>Notification section</Text>
+      <View>
+        <ButtomNavbar />
+      </View>
     </View>
   );
 };
