@@ -11,8 +11,11 @@ import { useFormik } from "formik";
 import InputField from "../common/InputField";
 import { validationSchema } from "./validationSchema";
 import RadioButtons from "../common/coustomRadioButton";
+import { useTranslation } from 'react-i18next';
 
 export default function Register({ navigation }) {
+  const { t } = useTranslation();
+
   const formik = useFormik({
     initialValues: {
       name: "",
@@ -35,8 +38,8 @@ export default function Register({ navigation }) {
             source={require("../../../assets/logo.png")}
           />
         </View>
-        
-        <Text style={Styles.text}>Register yourself</Text>
+
+        <Text style={Styles.text}>{t('register.heading')}</Text>
         <InputField
           placeholder="Enter your name"
           label={"Name"}
@@ -91,8 +94,8 @@ const Styles = StyleSheet.create({
   pageContainer: {
     flex: 1,
     justifyContent: "center",
-    paddingLeft:12,
-    paddingRight:12
+    paddingLeft: 12,
+    paddingRight: 12
   },
   formContainer: {
     flex: 1,

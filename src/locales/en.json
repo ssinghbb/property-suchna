@@ -2,5 +2,16 @@
     "home": {
         "login": "Login",
         "signUp": "Sign Up"
+    },
+    "register": {
+        "heading": "Register yourself",
+        "name": "Name",
+        "phone": "Phone",
+        "password": "Password",
+        "confirmPassword": "Confirm password",
+        "broker": "Are you a Broken ?",
+        "yes": "Yes",
+        "no": "No",
+        "continue": "Continue"
     }
 }

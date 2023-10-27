@@ -17,14 +17,17 @@ const Profile = () => {
   return (
     <Layout>
       <View style={globalStyles.flex1}>
-        <Pressable onPress={() => navigate("post")} style={styles.header}>
+        {/* <Pressable onPress={() => navigate("post")} style={styles.header}>
           <FontAwesome
             name="long-arrow-left"
             color={themeStyles.secondaryColor}
             size={30}
-          />
+          /> */}
+        <View style={styles?.header}>
+
           <Text style={globalStyles.secondaryColor}>Profile</Text>
-        </Pressable>
+        </View>
+        {/* </Pressable> */}
         <View style={styles.user}>
           <View style={styles.profileContainer}>
             <Image
@@ -75,15 +78,15 @@ const Profile = () => {
         </View>
       </View>
       <View style={styles.buttonContainer}>
-         <CustomeButton title={'Update'}/>
+        <CustomeButton title={'Update'} />
       </View>
     </Layout>
   );
 };
 const styles = StyleSheet.create({
-    buttonContainer:{
-      padding:10
-    },
+  buttonContainer: {
+    padding: 10
+  },
   form: {
     marginTop: 40,
   },
@@ -119,7 +122,7 @@ const styles = StyleSheet.create({
   },
   user: {
     marginTop: 50,
-    flexDirection:'column'
+    flexDirection: 'column'
   },
   profileContainer: {
     alignItems: "center",
@@ -131,6 +134,7 @@ const styles = StyleSheet.create({
     padding: 10,
     borderBottomColor: themeStyles.secondaryColor,
     borderBottomWidth: 1,
+    fontWeight:'700'
   },
   avatar: {
     width: 70,
