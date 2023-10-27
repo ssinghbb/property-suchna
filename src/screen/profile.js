@@ -6,16 +6,30 @@ import {
   TextInput,
   Picker,
   View,
+  Button,
 } from "react-native";
 import globalStyles, { themeStyles } from "../../styles";
 import Layout from "./Layout";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 import Icon from "react-native-vector-icons/FontAwesome";
 import CustomeButton from "../components/common/CoustomButton";
-
+import { useSelector, useDispatch } from 'react-redux'
+import { setUser } from "../../redux/slices/userSlice";
 const Profile = () => {
+
+
+  const user = useSelector((state) => state.user.user);
+  // console.log("user:", user?.name)
+  const dispatch = useDispatch();
+
+  const handleLogin = () => {
+    // Dispatch the setUser action to update the user state
+    dispatch(setUser({ name: 'Santosh' }));
+  };
+
   return (
     <Layout>
+
       <View style={globalStyles.flex1}>
         {/* <Pressable onPress={() => navigate("post")} style={styles.header}>
           <FontAwesome
@@ -77,6 +91,10 @@ const Profile = () => {
           </View>
         </View>
       </View>
+      {/* <View>
+        <Text style={{ color: 'white' }}>{user ? `Welcome, ${user.name}` : 'Please log in'}</Text>
+        <Button title="Login" onPress={handleLogin} />
+      </View> */}
       <View style={styles.buttonContainer}>
         <CustomeButton title={'Update'} />
       </View>
@@ -134,7 +152,7 @@ const styles = StyleSheet.create({
     padding: 10,
     borderBottomColor: themeStyles.secondaryColor,
     borderBottomWidth: 1,
-    fontWeight:'700'
+    fontWeight: '700'
   },
   avatar: {
     width: 70,
