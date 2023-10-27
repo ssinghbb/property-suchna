@@ -10,6 +10,7 @@ import {
 import BottomNavbar from "../components/BottomNavbar/bottomNavbar";
 import Icon from "react-native-vector-icons/FontAwesome";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
+import { useNavigation } from "@react-navigation/native";
 
 const commentsData = [
   {
@@ -91,6 +92,8 @@ const commentsData = [
 ];
 
 const Notifications = () => {
+
+  const navigation = useNavigation();
   const renderItem = ({ item }) => (
     <View style={styles.commentLikeSection}>
       <Image
@@ -116,7 +119,7 @@ const Notifications = () => {
     <View style={styles.screenContainer}>
       
       <Pressable
-        onPress={() => navigate("post")}
+        onPress={() => navigation.navigate("post")}
         style={{
           flexDirection: "row",
           gap: 30,
