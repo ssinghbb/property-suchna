@@ -1,11 +1,16 @@
-import { Text, View, StyleSheet, Button, Image } from "react-native";
+import { Text, View, StyleSheet, Button, Image, Pressable } from "react-native";
 import * as ImagePicker from 'expo-image-picker';
+import {launchCamera, launchImageLibrary} from 'expo-image-picker';
 import { useState } from "react";
+import Icon from "react-native-vector-icons/Ionicons";
+import React, { useEffect } from 'react';
 
-const AddPost = () => {
+const AddPost = ({ navigation }) => {
   const [image, setImage] = useState(null);
-
-
+  const [video, setVideo] = useState(null);
+  // useEffect(() => {
+  //   pickImage(); // Automatically open the image gallery when the component is mounted
+  // }, []);
 
   const pickImage = async () => {
     // No permissions request is necessary for launching the image library
@@ -15,52 +20,124 @@ const AddPost = () => {
       aspect: [4, 3],
       quality: 1,
     });
-
     // console.log(result);
     console.log("result:", result)
-
     if (!result.canceled) {
       setImage(result.assets[0].uri);
     }
+    
   };
+
+  const pickVideo = async () => {
+    // Request permission to access the device's media library
+    const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
+  
+    if (status !== 'granted') {
+      console.log('Permission to access media library was denied');
+      return;
+    }
+  
+    // Launch the video picker
+    let result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.Videos,
+      allowsEditing: true,
+      quality: 1,
+    });
+  
+    console.log("result:", result);
+  
+    if (!result.canceled) {
+      setVideo(result.uri);
+    }
+  };
+  
+  
+  
+  
+  
 
 
   return (
+
     <View style={styles.mainContainer}>
-      <Text style={styles.text}>welcom to AddPost page</Text>
-      <View style={styles.pickImgCon}>
-        <View style={styles.uploadBtn}>
-          <Button title="Upload" style={{ height: 'auto', backgroundColor: 'orange' }} onPress={pickImage} />
-        </View>
-        <View style={styles.imgCon}>
-          {image && <Image source={{ uri: image }} style={{ width: 90, height: 90 }} />}
-        </View>
+      <View style={styles.nav}>
+      <Pressable
+        onPress={() => { navigation.navigate("post") }} style={({ pressed }) => [{}, styles.Custom,]}>
+        {({ pressed }) => ( <Icon name="arrow-back" size={30} color="white"></Icon>)}
+      </Pressable>
+      <Pressable
+        onPress={() => { }} style={({ pressed }) => [{}, styles.Custom,]}>
+        {({ pressed }) => (<Text style={{ textAlign: 'center', color: 'white', fontSize: 20 }}>{pressed ? 'next!' : 'next'}</Text>)}
+      </Pressable>
+      
+
       </View>
+
+      <View style={styles.image}>
+      {image && (
+      <Image
+        source={{ uri: image }}
+        style={{ width:'90%', height: '70%' }} 
+      />
+    )}
+      </View>
+
+       <View style={styles.uploadBtn}>
+       <View style={styles.reel}>
+       <Icon name="videocam-outline" size={20} color="white"></Icon>
+       <Pressable
+        onPress={() => {  pickVideo() }} style={({ pressed }) => [{}, styles.Custom,]}>
+        {({ pressed }) => (<Text style={{ textAlign: 'center', color: 'white', fontSize: 15 }}>{pressed ? 'Upload!' : 'Upload Reel'}</Text>)}
+      </Pressable>
+       </View>
+
+
+      <View style={styles.reel}>
+      <Icon name="image-outline" size={20} color="white"></Icon>
+      <Pressable
+        onPress={() => { pickImage()  }} style={({ pressed }) => [{}, styles.already,]}>
+        {({ pressed }) => (<Text style={{ textAlign: 'center', color: 'white', fontSize: 15}}>{pressed ? 'Logged In!' : 'Upload Image'}</Text>)}
+      </Pressable>
+      </View>
+
+       </View>
     </View>
   );
 };
 const styles = StyleSheet.create({
   mainContainer: {
     flex: 1,
-    alignItems: "center",
+    // alignItems: "center",
+    display: 'flex',
+    // justifyContent:'flex-end',
+    alignItems: 'center',
+    // backgroundColor:'red'
+    
   },
-  text: {
-    color: "white",
-    alignItems: "center",
-    fontSize: 30,
-
+  nav:{
+    width:'100%',
+    height:'10%',
+    padding:'4%',
+    // backgroundColor:'blue',
+    flexDirection:'row',
+    justifyContent:'space-between'
   },
-  pickImgCon: {
-    flexDirection: 'row',
-    width: '90%'
-
-  }, imgCon: {
-    alignItems: 'flex-end',
-    padding: 10,
-    flex: 1
+  image:{
+    width:'100%',
+    height:'85%',
+    // backgroundColor:'pink',
+    justifyContent:'center',
+    alignItems:'center'
   },
   uploadBtn: {
-    justifyContent: 'center'
+    width:'100%',
+    height:'5%',
+    flexDirection:'row',
+    justifyContent:'space-evenly',
+    // backgroundColor: 'red'
+  },
+  reel:{
+  flexDirection:'row'
   }
 });
 
