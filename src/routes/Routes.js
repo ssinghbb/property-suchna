@@ -33,8 +33,8 @@ export default function Routes() {
       {/* <Stack.Screen name="bottomnavbar" component={BottomNavbar} /> */}
       <Stack.Screen name="post" component={Post} />
       <Stack.Screen name="reels" component={ReelsScreen} />
-
-
+      
+      
       <Stack.Screen name="addPost" component={AddPost} />
       <Stack.Screen name="profile" component={ProfileScreen} />
       <Stack.Screen name="notifications" component={NotificationsScreen} />
