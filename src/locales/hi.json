@@ -4,14 +4,22 @@
         "signUp": "साइन अप"
     },
     "register": {
-        "heading": "Register yourself",
-        "name": "name",
-        "phone": "phone",
-        "password": "password",
-        "confirmPassword": "Confirm password",
-        "broker": "Are you a Broken ?",
-        "yes": "yes",
-        "no": "no",
-        "continue": "continue"
+        "heading": "रजिस्टर करें",
+        "name": "नाम",
+        "phone": "फ़ोन",
+        "password": "पासवर्ड",
+        "confirmPassword": "कन्फर्म पासवर्ड",
+        "broker": "क्या आप ब्रोकर हैं?",
+        "yes": "हां",
+        "no": "नहीं",
+        "continue": "जारी रखें",
+        "enterYourName": "अपना नाम दर्ज कराएं",
+        "enterYourPhoneNo": "अपना फोन नं दर्ज कराएं",
+        "enterYourPassword": "पासवर्ड दर्ज करें",
+        "reEnterYourPassword": "फिर से अपना पासवर्ड दर्ज करें"
+    },
+    "verification": {
+        "heading": "कृपया हमारे द्वारा भेजे गए सत्यापन कोड दर्ज करें",
+        "verify": "सत्यापित करें"
     }
 }

@@ -9,7 +9,12 @@ import {
   SplitBoxText,
   SplitBoxesFocused,
 } from "./styles";
+import { useTranslation } from 'react-i18next';
+
+
 export default function PhoneVerification({ navigation }) {
+  const { t } = useTranslation();
+
   const maximumLength = 6;
   const [code, setCode] = useState("");
   const [isPinReady, setIsPinReady] = useState(false);
@@ -65,7 +70,7 @@ export default function PhoneVerification({ navigation }) {
               source={require("../../../assets/logo.png")}
             />
             <Text style={Styles.text}>
-              Please enter the verification code we’ve send you on
+            {t('verification.heading')} {" "}
               +91-9876543210
             </Text>
           </View>
@@ -83,13 +88,13 @@ export default function PhoneVerification({ navigation }) {
             />
           </OTPInputContainer>
 
-          <View style={Styles.secondText}>
+          {/* <View style={Styles.secondText}>
             <Text>Trying to Auto Capture </Text>
-          </View>
+          </View> */}
         </ScrollView>
         <View style={Styles.btnContainer}>
           <CoustomButton
-            title={"Verify"}
+            title= {t('verification.verify')}
             onPress={() => navigation.navigate("post")}
           />
         </View>
@@ -121,6 +126,7 @@ const Styles = StyleSheet.create({
   logo: {
     height: 45,
     width: 90,
+    marginBottom:15
   },
   input: {
     borderRadius: 5,

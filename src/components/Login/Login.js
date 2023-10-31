@@ -88,7 +88,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     paddingLeft: 20,
-    paddingRight: 20
+    paddingRight: 20,
   },
   formContainer: {
     flex: 1,

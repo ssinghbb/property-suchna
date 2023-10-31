@@ -16,25 +16,25 @@ export default function Routes() {
   const Stack = createNativeStackNavigator();
   return (
     <Stack.Navigator
-    
+
       screenOptions={{
         headerShown: false,
-        statusBarColor:'black',
+        statusBarColor: 'black',
         contentStyle: { backgroundColor: "#000" },
-        
+
       }}
-      // initialRouteName="post"
+    // initialRouteName="post"
     >
-      
+
       <Stack.Screen name="home" component={Home} />
       <Stack.Screen name="register" component={Register} />
       <Stack.Screen name="verification" component={PhoneVerification} />
       <Stack.Screen name="login" component={Login} />
       {/* <Stack.Screen name="bottomnavbar" component={BottomNavbar} /> */}
       <Stack.Screen name="post" component={Post} />
-      {/* <Stack.Screen name="reels" component={ReelsScreen} /> */}
-      
-      
+      <Stack.Screen name="reels" component={ReelsScreen} />
+
+
       <Stack.Screen name="addPost" component={AddPost} />
       <Stack.Screen name="profile" component={ProfileScreen} />
       <Stack.Screen name="notifications" component={NotificationsScreen} />

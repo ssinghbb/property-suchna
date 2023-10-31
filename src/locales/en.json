@@ -9,9 +9,17 @@
         "phone": "Phone",
         "password": "Password",
         "confirmPassword": "Confirm password",
-        "broker": "Are you a Broken ?",
+        "broker": "Are you a Broker ?",
         "yes": "Yes",
         "no": "No",
-        "continue": "Continue"
+        "continue": "Continue",
+        "enterYourName": "Enter your name",
+        "enterYourPhoneNo": "Enter your phone no",
+        "enterYourPassword": "Enter password",
+        "reEnterYourPassword": "Re enter your password"
+    },
+    "verification": {
+        "heading": "Please enter the verification code we've send you on",
+        "verify": "verify"
     }
 }

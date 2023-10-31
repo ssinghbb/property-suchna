@@ -12,23 +12,47 @@ import InputField from "../common/InputField";
 import { validationSchema } from "./validationSchema";
 import RadioButtons from "../common/coustomRadioButton";
 import { useTranslation } from 'react-i18next';
+import axios from "axios";
 
 export default function Register({ navigation }) {
   const { t } = useTranslation();
 
   const formik = useFormik({
     initialValues: {
-      name: "",
-      phone: "",
-      password: "",
-      confirmPassword: "",
+      fullName: "testing",
+      phoneNumber: "+919993024884",
+      password: "password",
+      confirmPassword: "password",
     },
     validationSchema: validationSchema,
     onSubmit: (values) => {
       console.log("Form data:", values);
-      navigation.navigate("verification");
+      handleApi()
+      // navigation.navigate("verification");
     },
   });
+  const handleApi = async () => {
+    // console.log("call", JSON.stringify(formik.values))
+
+    axios.post('https://property-suchna.onrender.com/auth/register', JSON.parse(JSON.stringify(formik.values))).then(response => {
+      console.log(response.data)
+    }).catch(err => {
+      console.log("api Erorr: ", err.response.data)
+    })
+    // console.log("Form data:", values);
+    // const apiUrl = process.env.EXPO_PUBLIC_API_URL || 'https://property-suchna.onrender.com/auth/register';
+    // console.log("apiUrl:", apiUrl)
+
+    // console.log("procc", process.env.API_URL)
+
+    // try {
+    //   const response = await axios.post(apiUrl, formik.values);
+    //   console.log("res", response);
+    //   navigation.navigate("verification");
+    // } catch (error) {
+    //   console.error("errore", error);
+    // }
+  }
   return (
     <View style={Styles.pageContainer}>
       <ScrollView style={Styles.formContainer}>
@@ -41,24 +65,24 @@ export default function Register({ navigation }) {
 
         <Text style={Styles.text}>{t('register.heading')}</Text>
         <InputField
-          placeholder="Enter your name"
-          label={"Name"}
-          value={formik.values.name}
+          placeholder={t('register.enterYourName')}
+          label={t('register.name')}
+          value={formik.values.fullName}
           onChangeText={formik.handleChange("name")}
           onBlur={formik.handleBlur("name")}
-          error={formik.touched.name && formik.errors.name}
+          error={formik.touched.fullName && formik.errors.fullName}
         />
         <InputField
-          placeholder="Enter your phone"
-          label={"Phone"}
-          value={formik.values.phone}
+          placeholder={t('register.enterYourPhoneNo')}
+          label={t('register.phone')}
+          value={formik.values.phoneNumber}
           onChangeText={formik.handleChange("phone")}
           onBlur={formik.handleBlur("phone")}
-          error={formik.touched.phone && formik.errors.phone}
+          error={formik.touched.phoneNumber && formik.errors.phoneNumber}
         />
         <InputField
-          placeholder="Enter password"
-          label={"Password"}
+          placeholder={t('register.enterYourPassword')}
+          label={t('register.password')}
           secureTextEntry
           value={formik.values.password}
           onChangeText={formik.handleChange("password")}
@@ -66,8 +90,8 @@ export default function Register({ navigation }) {
           error={formik.touched.password && formik.errors.password}
         />
         <InputField
-          placeholder="Re-enter your password"
-          label={"Confirm password"}
+          placeholder={t('register.reEnterYourPassword')}
+          label={t('register.confirmPassword')}
           secureTextEntry
           value={formik.values.confirmPassword}
           onChangeText={formik.handleChange("confirmPassword")}
@@ -77,14 +101,15 @@ export default function Register({ navigation }) {
           }
         />
         <View>
-          <Text style={Styles.brokerLabel}>Are you a Broker ?</Text>
+          <Text style={Styles.brokerLabel}>{t('register.broker')}</Text>
         </View>
         <View>
           <RadioButtons />
         </View>
       </ScrollView>
       <View style={Styles.btnContainer}>
-        <Button title="Continue" onPress={formik.handleSubmit} />
+        {/* <Button title={t('register.continue')} onPress={formik.handleSubmit} /> */}
+        <Button title={t('register.continue')} onPress={handleApi} />
       </View>
     </View>
   );
