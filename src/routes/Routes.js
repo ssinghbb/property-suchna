@@ -17,26 +17,15 @@ export default function Routes() {
   const Stack = createNativeStackNavigator();
   return (
     <Stack.Navigator
-<<<<<<< Updated upstream
 
       screenOptions={{
         headerShown: false,
         statusBarColor: 'black',
         contentStyle: { backgroundColor: "#000" },
 
-=======
-      screenOptions={{
-        headerShown: false,
-        statusBarColor: "black",
-        contentStyle: { backgroundColor: "#000" },
->>>>>>> Stashed changes
       }}
     // initialRouteName="post"
     >
-<<<<<<< Updated upstream
-
-=======
->>>>>>> Stashed changes
       <Stack.Screen name="home" component={Home} />
       <Stack.Screen name="register" component={Register} />
       <Stack.Screen name="verification" component={PhoneVerification} />

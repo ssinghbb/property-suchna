@@ -13,12 +13,8 @@ import InputField from "../common/InputField";
 import { validationSchema } from "./validationSchema";
 import RadioButtons from "../common/coustomRadioButton";
 import { useTranslation } from 'react-i18next';
-<<<<<<< Updated upstream
-import axios from "axios";
-=======
 import axios from 'axios';
 
->>>>>>> Stashed changes
 
 export default function Register({ navigation }) {
   const { t } = useTranslation();
@@ -45,18 +41,6 @@ export default function Register({ navigation }) {
 
   const formik = useFormik({
     initialValues: {
-<<<<<<< Updated upstream
-      fullName: "testing",
-      phoneNumber: "+919993024884",
-      password: "password",
-      confirmPassword: "password",
-    },
-    validationSchema: validationSchema,
-    onSubmit: (values) => {
-      console.log("Form data:", values);
-      handleApi()
-      // navigation.navigate("verification");
-=======
       fullName: "",
       phoneNumber: "",
       password: "",
@@ -66,7 +50,6 @@ export default function Register({ navigation }) {
     onSubmit:(values) => {
        console.log("Form data:", values);
        handleSubmit(values)
->>>>>>> Stashed changes
     },
   });
   const handleApi = async () => {
@@ -103,21 +86,6 @@ export default function Register({ navigation }) {
 
         <Text style={Styles.text}>{t('register.heading')}</Text>
         <InputField
-<<<<<<< Updated upstream
-          placeholder={t('register.enterYourName')}
-          label={t('register.name')}
-          value={formik.values.fullName}
-          onChangeText={formik.handleChange("name")}
-          onBlur={formik.handleBlur("name")}
-          error={formik.touched.fullName && formik.errors.fullName}
-        />
-        <InputField
-          placeholder={t('register.enterYourPhoneNo')}
-          label={t('register.phone')}
-          value={formik.values.phoneNumber}
-          onChangeText={formik.handleChange("phone")}
-          onBlur={formik.handleBlur("phone")}
-=======
           placeholder="Enter your name"
           label={"Name"}
           value={formik.values.fullName}
@@ -131,7 +99,6 @@ export default function Register({ navigation }) {
           value={formik.values.phoneNumber}
           onChangeText={formik.handleChange("phoneNumber")}
           onBlur={formik.handleBlur("phoneNumber")}
->>>>>>> Stashed changes
           error={formik.touched.phoneNumber && formik.errors.phoneNumber}
         />
         <InputField
@@ -162,12 +129,7 @@ export default function Register({ navigation }) {
         </View>
       </ScrollView>
       <View style={Styles.btnContainer}>
-<<<<<<< Updated upstream
-        {/* <Button title={t('register.continue')} onPress={formik.handleSubmit} /> */}
-        <Button title={t('register.continue')} onPress={handleApi} />
-=======
         <Button title="Continue" onPress={formik.handleSubmit} />  
->>>>>>> Stashed changes
       </View>
     </View>
   );
