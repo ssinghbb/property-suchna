@@ -4,13 +4,14 @@ import {launchCamera, launchImageLibrary} from 'expo-image-picker';
 import { useState } from "react";
 import Icon from "react-native-vector-icons/Ionicons";
 import React, { useEffect } from 'react';
+import { useNavigation } from '@react-navigation/native';
 
-const AddPost = ({ navigation }) => {
+const AddPost = () => {
   const [image, setImage] = useState(null);
   const [video, setVideo] = useState(null);
-  // useEffect(() => {
-  //   pickImage(); // Automatically open the image gallery when the component is mounted
-  // }, []);
+
+   const navigation = useNavigation();
+  
 
   const pickImage = async () => {
     // No permissions request is necessary for launching the image library
@@ -24,6 +25,7 @@ const AddPost = ({ navigation }) => {
     console.log("result:", result)
     if (!result.canceled) {
       setImage(result.assets[0].uri);
+     
     }
     
   };
@@ -52,7 +54,9 @@ const AddPost = ({ navigation }) => {
   };
   
   
-  
+  const navigateToScreen = (screenName) => {
+    navigation.navigate(screenName);
+  };
   
   
 
@@ -66,13 +70,12 @@ const AddPost = ({ navigation }) => {
         {({ pressed }) => ( <Icon name="arrow-back" size={30} color="white"></Icon>)}
       </Pressable>
       <Pressable
-        onPress={() => { }} style={({ pressed }) => [{}, styles.Custom,]}>
+       onPress={() => navigateToScreen("postdetais")}
+         style={({ pressed }) => [{}, styles.Custom,]}>
         {({ pressed }) => (<Text style={{ textAlign: 'center', color: 'white', fontSize: 20 }}>{pressed ? 'next!' : 'next'}</Text>)}
       </Pressable>
-      
-
       </View>
-
+      
       <View style={styles.image}>
       {image && (
       <Image

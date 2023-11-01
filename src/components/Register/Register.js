@@ -6,19 +6,46 @@ import {
   Image,
   ScrollView,
   Button,
+  Alert,
 } from "react-native";
 import { useFormik } from "formik";
 import InputField from "../common/InputField";
 import { validationSchema } from "./validationSchema";
 import RadioButtons from "../common/coustomRadioButton";
 import { useTranslation } from 'react-i18next';
+<<<<<<< Updated upstream
 import axios from "axios";
+=======
+import axios from 'axios';
+
+>>>>>>> Stashed changes
 
 export default function Register({ navigation }) {
   const { t } = useTranslation();
 
+  const handleSubmit=async (value)=>{
+    // const data={
+    //    fullName:'keerti',
+    //    password:'12345',
+    //    confirmPassword:'12345'
+    // }
+    try {
+       axios.post('http://192.168.43.177:3000/auth/register',value).then(res=>{
+        console.log(res,'response');
+      }).catch((error)=>{
+        console.log('erhhgdfjlg',error?.message);
+      })
+      navigation.navigate("verification");
+    } catch (error) {
+      console.error('API Error:', error?.data);
+      Alert.alert('Error', 'An error occurred while processing your request. Please try again.');
+    }
+  }
+
+
   const formik = useFormik({
     initialValues: {
+<<<<<<< Updated upstream
       fullName: "testing",
       phoneNumber: "+919993024884",
       password: "password",
@@ -29,6 +56,17 @@ export default function Register({ navigation }) {
       console.log("Form data:", values);
       handleApi()
       // navigation.navigate("verification");
+=======
+      fullName: "",
+      phoneNumber: "",
+      password: "",
+      confirmPassword: "",
+    },
+    validationSchema: validationSchema,
+    onSubmit:(values) => {
+       console.log("Form data:", values);
+       handleSubmit(values)
+>>>>>>> Stashed changes
     },
   });
   const handleApi = async () => {
@@ -65,6 +103,7 @@ export default function Register({ navigation }) {
 
         <Text style={Styles.text}>{t('register.heading')}</Text>
         <InputField
+<<<<<<< Updated upstream
           placeholder={t('register.enterYourName')}
           label={t('register.name')}
           value={formik.values.fullName}
@@ -78,6 +117,21 @@ export default function Register({ navigation }) {
           value={formik.values.phoneNumber}
           onChangeText={formik.handleChange("phone")}
           onBlur={formik.handleBlur("phone")}
+=======
+          placeholder="Enter your name"
+          label={"Name"}
+          value={formik.values.fullName}
+          onChangeText={formik.handleChange("fullName")}
+          onBlur={formik.handleBlur("fullName")}
+          error={formik.touched.fullName && formik.errors.fullName}
+        />
+        <InputField
+          placeholder="Enter your phone"
+          label={"Phone"}
+          value={formik.values.phoneNumber}
+          onChangeText={formik.handleChange("phoneNumber")}
+          onBlur={formik.handleBlur("phoneNumber")}
+>>>>>>> Stashed changes
           error={formik.touched.phoneNumber && formik.errors.phoneNumber}
         />
         <InputField
@@ -108,8 +162,12 @@ export default function Register({ navigation }) {
         </View>
       </ScrollView>
       <View style={Styles.btnContainer}>
+<<<<<<< Updated upstream
         {/* <Button title={t('register.continue')} onPress={formik.handleSubmit} /> */}
         <Button title={t('register.continue')} onPress={handleApi} />
+=======
+        <Button title="Continue" onPress={formik.handleSubmit} />  
+>>>>>>> Stashed changes
       </View>
     </View>
   );

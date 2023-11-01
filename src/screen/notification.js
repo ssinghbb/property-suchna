@@ -110,6 +110,7 @@ const Notifications = () => {
           onPress={() => handleLike(item.id)}
           name={"thumbs-o-up"}
           size={20}
+          
         />
       </Pressable>
     </View>
