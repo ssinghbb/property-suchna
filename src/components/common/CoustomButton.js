@@ -1,8 +1,8 @@
 import { Pressable, Text, StyleSheet } from "react-native";
 
-const CoustomButton = ({ title, onPress }) => {
+const CoustomButton = ({ title, onPress, disable }) => {
   return (
-    <Pressable style={style.btn} onPress={onPress}>
+    <Pressable disabled={disable} style={style.btn} onPress={onPress}>
       <Text style={style.textInput}>{title}</Text>
     </Pressable>
   );

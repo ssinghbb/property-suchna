@@ -14,66 +14,53 @@ import { validationSchema } from "./validationSchema";
 import RadioButtons from "../common/coustomRadioButton";
 import { useTranslation } from 'react-i18next';
 import axios from 'axios';
+import { EXPO_PUBLIC_API_URL } from '@env'
+
 
 
 export default function Register({ navigation }) {
   const { t } = useTranslation();
 
-  const handleSubmit=async (value)=>{
-    // const data={
-    //    fullName:'keerti',
-    //    password:'12345',
-    //    confirmPassword:'12345'
-    // }
+  //from validation
+  const formik = useFormik({
+    initialValues: {
+      fullName: "test",
+      phoneNumber: "+919993024884",
+      password: "password",
+      confirmPassword: "password",
+    },
+    validationSchema: validationSchema,
+    onSubmit: (values) => {
+      console.log("Form data:", values);
+      handleSubmit(values)
+    },
+  });
+  //handle send otp
+  const handleApi = async () => {
+    // navigation.navigate("verification", formik.values);
+    
     try {
-       axios.post('http://192.168.43.177:3000/auth/register',value).then(res=>{
-        console.log(res,'response');
-      }).catch((error)=>{
-        console.log('erhhgdfjlg',error?.message);
+      let url = `${EXPO_PUBLIC_API_URL}sendotp`
+      axios.post(url, JSON.parse(JSON.stringify({ phoneNumber: formik.values.phoneNumber }))).then(response => {
+        console.log(response.data)
+
+        navigation.navigate("verification", formik.values);
+
+      }).catch(err => {
+        console.log("api Erorr: ", err.response.data)
+        Alert.alert('Error', 'An error occurred while processing your request. Please try again.');
+
       })
-      navigation.navigate("verification");
+
     } catch (error) {
-      console.error('API Error:', error?.data);
+      console.log("error:", error)
       Alert.alert('Error', 'An error occurred while processing your request. Please try again.');
+
+
     }
   }
 
 
-  const formik = useFormik({
-    initialValues: {
-      fullName: "",
-      phoneNumber: "",
-      password: "",
-      confirmPassword: "",
-    },
-    validationSchema: validationSchema,
-    onSubmit:(values) => {
-       console.log("Form data:", values);
-       handleSubmit(values)
-    },
-  });
-  const handleApi = async () => {
-    // console.log("call", JSON.stringify(formik.values))
-
-    axios.post('https://property-suchna.onrender.com/auth/register', JSON.parse(JSON.stringify(formik.values))).then(response => {
-      console.log(response.data)
-    }).catch(err => {
-      console.log("api Erorr: ", err.response.data)
-    })
-    // console.log("Form data:", values);
-    // const apiUrl = process.env.EXPO_PUBLIC_API_URL || 'https://property-suchna.onrender.com/auth/register';
-    // console.log("apiUrl:", apiUrl)
-
-    // console.log("procc", process.env.API_URL)
-
-    // try {
-    //   const response = await axios.post(apiUrl, formik.values);
-    //   console.log("res", response);
-    //   navigation.navigate("verification");
-    // } catch (error) {
-    //   console.error("errore", error);
-    // }
-  }
   return (
     <View style={Styles.pageContainer}>
       <ScrollView style={Styles.formContainer}>
@@ -129,7 +116,8 @@ export default function Register({ navigation }) {
         </View>
       </ScrollView>
       <View style={Styles.btnContainer}>
-        <Button title="Continue" onPress={formik.handleSubmit} />  
+        {/* <Button title="Continue" onPress={formik.handleSubmit} /> */}
+        <Button title="Continue" onPress={handleApi} />
       </View>
     </View>
   );

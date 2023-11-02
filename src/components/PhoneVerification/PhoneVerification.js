@@ -1,4 +1,4 @@
-import { View, StyleSheet, Image, ScrollView, Text } from "react-native";
+import { View, StyleSheet, Image, ScrollView, Text, Alert } from "react-native";
 import React, { useRef, useState, useEffect } from "react";
 import CoustomButton from "../common/CoustomButton";
 import {
@@ -10,19 +10,22 @@ import {
   SplitBoxesFocused,
 } from "./styles";
 import { useTranslation } from 'react-i18next';
+import { EXPO_PUBLIC_API_URL } from '@env'
+import axios from "axios";
 
-
-export default function PhoneVerification({ navigation }) {
+export default function PhoneVerification({ route, navigation }) {
+  console.log(route.params, "params-------1")
+  // console.log("process", EXPO_PUBLIC_API_URL)
   const { t } = useTranslation();
+  const inputRef = useRef();
+
 
   const maximumLength = 6;
   const [code, setCode] = useState("");
   const [isPinReady, setIsPinReady] = useState(false);
-
   const boxArray = new Array(maximumLength).fill(0);
-  const inputRef = useRef();
-
   const [isInputBoxFocused, setIsInputBoxFocused] = useState(false);
+
 
   const handleOnPress = () => {
     setIsInputBoxFocused(true);
@@ -60,6 +63,44 @@ export default function PhoneVerification({ navigation }) {
       </StyledSplitBoxes>
     );
   };
+  const handleVerifyCode = () => {
+    console.log("code.length", code.length)
+
+    try {
+      const userObject = {
+        "fullName": route.params.fullName,
+        "phoneNumber": route.params.phoneNumber,
+        "password": route.params.password,
+        "confirmPassword": route.params.confirmPassword,
+        "code": code
+      }
+
+      let url = `${EXPO_PUBLIC_API_URL}verify`
+      axios.post(url, JSON.parse(JSON.stringify(userObject))).then(response => {
+        console.log(response.data)
+        setTimeout(() => {
+          Alert.alert("Verification done")
+          navigation.navigate("post")
+        }, 2000);
+
+      }).catch(err => {
+        console.log("api Erorr: ", err.response.data)
+        Alert.alert('Error', err.response.data?.message);
+
+
+      })
+
+    } catch (error) {
+      console.log("error:", error)
+      Alert.alert('Error', error);
+
+
+    }
+
+
+
+    // console.log("userObject:", userObject)
+  }
   return (
     <>
       <View style={Styles.pageContainer}>
@@ -70,7 +111,7 @@ export default function PhoneVerification({ navigation }) {
               source={require("../../../assets/logo.png")}
             />
             <Text style={Styles.text}>
-            {t('verification.heading')} {" "}
+              {t('verification.heading')} {" "}
               +91-9876543210
             </Text>
           </View>
@@ -94,8 +135,11 @@ export default function PhoneVerification({ navigation }) {
         </ScrollView>
         <View style={Styles.btnContainer}>
           <CoustomButton
-            title= {t('verification.verify')}
-            onPress={() => navigation.navigate("post")}
+            title={t('verification.verify')}
+            disable={code.length !== 6 ? true : false}
+            // onPress={() => navigation.navigate("post")}
+            onPress={handleVerifyCode}
+
           />
         </View>
       </View>
@@ -126,7 +170,7 @@ const Styles = StyleSheet.create({
   logo: {
     height: 45,
     width: 90,
-    marginBottom:15
+    marginBottom: 15
   },
   input: {
     borderRadius: 5,
