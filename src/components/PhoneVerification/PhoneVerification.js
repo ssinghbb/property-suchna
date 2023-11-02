@@ -1,4 +1,4 @@
-import { View, StyleSheet, Image, ScrollView, Text, Alert } from "react-native";
+import { View, StyleSheet, Image, ScrollView, Text, Alert, ActivityIndicator } from "react-native";
 import React, { useRef, useState, useEffect } from "react";
 import CoustomButton from "../common/CoustomButton";
 import {
@@ -10,14 +10,15 @@ import {
   SplitBoxesFocused,
 } from "./styles";
 import { useTranslation } from 'react-i18next';
-import { EXPO_PUBLIC_API_URL } from '@env'
 import axios from "axios";
+import { EXPO_PUBLIC_API_URL } from "../../constants/constant";
 
 export default function PhoneVerification({ route, navigation }) {
   console.log(route.params, "params-------1")
   // console.log("process", EXPO_PUBLIC_API_URL)
   const { t } = useTranslation();
   const inputRef = useRef();
+  const [loader, setLoader] = useState(false)
 
 
   const maximumLength = 6;
@@ -67,9 +68,10 @@ export default function PhoneVerification({ route, navigation }) {
     console.log("code.length", code.length)
 
     try {
+      setLoader(true)
       const userObject = {
         "fullName": route.params.fullName,
-        "phoneNumber": route.params.phoneNumber,
+        "phoneNumber": `+91${route.params.phoneNumber}`,
         "password": route.params.password,
         "confirmPassword": route.params.confirmPassword,
         "code": code
@@ -84,6 +86,8 @@ export default function PhoneVerification({ route, navigation }) {
         }, 2000);
 
       }).catch(err => {
+      setLoader(false)
+
         console.log("api Erorr: ", err.response.data)
         Alert.alert('Error', err.response.data?.message);
 
@@ -91,6 +95,8 @@ export default function PhoneVerification({ route, navigation }) {
       })
 
     } catch (error) {
+      setLoader(false)
+
       console.log("error:", error)
       Alert.alert('Error', error);
 
@@ -112,7 +118,7 @@ export default function PhoneVerification({ route, navigation }) {
             />
             <Text style={Styles.text}>
               {t('verification.heading')} {" "}
-              +91-9876543210
+              {route?.params?.phoneNumber}
             </Text>
           </View>
 
@@ -134,13 +140,17 @@ export default function PhoneVerification({ route, navigation }) {
           </View> */}
         </ScrollView>
         <View style={Styles.btnContainer}>
-          <CoustomButton
-            title={t('verification.verify')}
-            disable={code.length !== 6 ? true : false}
-            // onPress={() => navigation.navigate("post")}
-            onPress={handleVerifyCode}
+          {loader ?
+            <ActivityIndicator size={'large'} color='white' />
+            :
 
-          />
+            <CoustomButton
+              title={t('verification.verify')}
+              disable={code.length !== 6 ? true : false}
+              // onPress={() => navigation.navigate("post")}
+              onPress={handleVerifyCode}
+
+            />}
         </View>
       </View>
     </>

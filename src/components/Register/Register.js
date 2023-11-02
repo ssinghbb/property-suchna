@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   View,
   Text,
@@ -7,6 +7,7 @@ import {
   ScrollView,
   Button,
   Alert,
+  ActivityIndicator,
 } from "react-native";
 import { useFormik } from "formik";
 import InputField from "../common/InputField";
@@ -14,45 +15,60 @@ import { validationSchema } from "./validationSchema";
 import RadioButtons from "../common/coustomRadioButton";
 import { useTranslation } from 'react-i18next';
 import axios from 'axios';
-import { EXPO_PUBLIC_API_URL } from '@env'
+import { EXPO_PUBLIC_API_URL } from "../../constants/constant";
 
 
 
 export default function Register({ navigation }) {
+  console.log("EXPO_PUBLIC_API_URL:", EXPO_PUBLIC_API_URL)
   const { t } = useTranslation();
+  const [loader, setLoader] = useState(false)
 
   //from validation
   const formik = useFormik({
     initialValues: {
       fullName: "test",
-      phoneNumber: "+919993024884",
+      phoneNumber: "9993024884",
       password: "password",
       confirmPassword: "password",
     },
     validationSchema: validationSchema,
     onSubmit: (values) => {
-      console.log("Form data:", values);
-      handleSubmit(values)
+      console.log("values:", values)
+      // console.log("Form data:", values);
+      console.log("check submit")
+      handleApi()
     },
   });
   //handle send otp
   const handleApi = async () => {
     // navigation.navigate("verification", formik.values);
-    
+
+    console.log("handle api")
     try {
+      setLoader(true)
+      console.log("handle api 2")
+
       let url = `${EXPO_PUBLIC_API_URL}sendotp`
-      axios.post(url, JSON.parse(JSON.stringify({ phoneNumber: formik.values.phoneNumber }))).then(response => {
+      console.log("`+91${formik.values.phoneNumber}`:", `+91${formik.values.phoneNumber}`)
+      console.log("url:", url)
+
+      axios.post(url, JSON.parse(JSON.stringify({ phoneNumber: `+91${formik.values.phoneNumber}` }))).then(response => {
         console.log(response.data)
 
         navigation.navigate("verification", formik.values);
 
       }).catch(err => {
-        console.log("api Erorr: ", err.response.data)
+        setLoader(false)
+
+        console.log("api Erorr: ", err?.response?.data)
         Alert.alert('Error', 'An error occurred while processing your request. Please try again.');
 
       })
 
     } catch (error) {
+      setLoader(false)
+
       console.log("error:", error)
       Alert.alert('Error', 'An error occurred while processing your request. Please try again.');
 
@@ -116,8 +132,13 @@ export default function Register({ navigation }) {
         </View>
       </ScrollView>
       <View style={Styles.btnContainer}>
-        {/* <Button title="Continue" onPress={formik.handleSubmit} /> */}
-        <Button title="Continue" onPress={handleApi} />
+
+        {loader ?
+          <ActivityIndicator size={'large'} color='white' />
+
+          :
+          <Button title={'Continue'} onPress={formik.handleSubmit} />}
+        {/* <Button title="Continue" onPress={handleApi} /> */}
       </View>
     </View>
   );

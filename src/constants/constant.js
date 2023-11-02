@@ -1,0 +1,1 @@
+export const EXPO_PUBLIC_API_URL = 'https://property-suchna.onrender.com/'
