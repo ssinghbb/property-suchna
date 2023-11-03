@@ -86,7 +86,7 @@ const Post = () => {
   const getAllPost = async () => {
     console.log("get all post")
     let _post = await axios.get(`${EXPO_PUBLIC_API_URL}post/allpost`)
-    // console.log("_post:", _post?.data)
+    console.log("_post:", _post?.data)
     setPosts(_post.data)
   }
 

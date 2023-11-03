@@ -21,7 +21,7 @@ const PostDetails = ({ file }) => {
   const navigation = useNavigation();
   const formik = useFormik({
     initialValues: {
-      userId: "653a504fb064b9c494fd7d5b",
+      userId: "65437e2ed3b869c3002a9072",
       caption: "",
       location: "",
       description: "",
@@ -44,6 +44,7 @@ const PostDetails = ({ file }) => {
       console.log("api url", apiUrl)
       // const apiUrl = "http://192.168.1.41:3000/post/upload";
 
+    console.log("values.userId:", values.userId)
       const formData = new FormData();
       formData.append("userId", values.userId);
       formData.append("caption", values.caption);
