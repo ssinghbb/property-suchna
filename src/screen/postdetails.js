@@ -15,7 +15,7 @@ import { useNavigation } from "@react-navigation/native";
 import { useFormik } from "formik";
 import axios from "axios";
 
-const PostDetails = () => {
+const PostDetails = ({file}) => {
   const navigation = useNavigation();
   const formik = useFormik({
     initialValues: {
@@ -36,8 +36,9 @@ const PostDetails = () => {
   const handleSubmit = async (values) => {
     console.log("handelvalu", values);
     try {
-    // const apiUrl = "https://property-suchna.onrender.com";
-       const apiUrl = "http://192.168.1.41:3000/post/upload";
+     const apiUrl = "https://property-suchna.onrender.com/post/upload";
+     console.log("api url",apiUrl)
+      // const apiUrl = "http://192.168.1.41:3000/post/upload";
 
       const formData = new FormData();
       formData.append("userId", values.userId);
@@ -48,7 +49,7 @@ const PostDetails = () => {
       formData.append("file", {
         uri: file,
         type: 'image/png',
-        name: 'profile2.png',
+        name: 'profile3.png',
       });
       console.log("fromData....", formData);
 

@@ -11,6 +11,7 @@ const AddPost = () => {
   const [image, setImage] = useState(null);
   const [video, setVideo] = useState(null);
 
+
    const navigation = useNavigation();
 
   
@@ -58,9 +59,9 @@ const AddPost = () => {
   };
   
   
-  // const navigateToScreen = (screenName) => {
-  //   navigation.navigate(screenName);
-  // };
+  const navigateToScreen = (screenName) => {
+    navigation.navigate(screenName);
+  };
   
   
 
@@ -109,7 +110,7 @@ const AddPost = () => {
       </View>
 
        </View>
-    </View>:<PostDetails />}
+    </View>:<PostDetails file={image}/>}
    </>
   );
 };
