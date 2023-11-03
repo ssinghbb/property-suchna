@@ -6,6 +6,7 @@ import {
   Image,
   TouchableOpacity,
   ScrollView,
+  RefreshControl,
 } from "react-native";
 import BottomNavBar from "../components/BottomNavbar/bottomNavbar";
 import Icon from "react-native-vector-icons/FontAwesome";
@@ -70,6 +71,8 @@ const Post = () => {
   };
   const handleLike = (id) => {
     console.log("id", id);
+
+
   };
 
   useEffect(() => {
@@ -81,20 +84,39 @@ const Post = () => {
   }, [])
 
   const getAllPost = async () => {
+    console.log("get all post")
     let _post = await axios.get(`${EXPO_PUBLIC_API_URL}post/allpost`)
-    console.log("_post:", _post?.data)
+    // console.log("_post:", _post?.data)
     setPosts(_post.data)
   }
 
+  const [refreshing, setRefreshing] = React.useState(false);
+
+  const onRefresh = React.useCallback(() => {
+    setRefreshing(true);
+    setTimeout(() => {
+      setRefreshing(false)
+        ;
+      getAllPost()
+
+    }, 2000);
+  }, []);
   return (
     <View style={styles.mainContainer}>
-      {console.log("posts", posts)}
-      <ScrollView style={styles.postPage}>
-        {posts?.data?.length > 0 ? posts?.data?.map((post,id) => {
+      {/* {console.log("posts", posts)} */}
+      <ScrollView style={styles.postPage}
+        refreshControl={
+          <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+
+        }
+      >
+        {posts?.data?.length > 0 ? posts?.data?.map((post, id) => {
           const user = users.find((u) => u.id === post.userId);
-          { console.log("user", user) }
+          // { console.log("user", user) }
           return (
             <View key={id} style={styles.postCard}>
+              <Text style={styles.myText} >{id + 1}</Text>
+
               <View style={styles.profile}>
                 {/* <Image source={user.profileImage} /> */}
                 {/* <Text style={styles.userName}>{user.name}</Text> */}
@@ -193,6 +215,11 @@ const styles = StyleSheet.create({
 
   postPage: {
     width: "100%",
+  },
+  myText: {
+    color: "red",
+    fontSize: 16,
+    textAlign: 'center'
   },
   postCard: {
     flex: 1,

@@ -27,10 +27,10 @@ export default function Register({ navigation }) {
   //from validation
   const formik = useFormik({
     initialValues: {
-      fullName: "test",
-      phoneNumber: "9993024884",
-      password: "password",
-      confirmPassword: "password",
+      fullName: "",
+      phoneNumber: "",
+      password: "",
+      confirmPassword: "",
     },
     validationSchema: validationSchema,
     onSubmit: (values) => {

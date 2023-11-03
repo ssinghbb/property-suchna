@@ -16,9 +16,9 @@ import { useNavigation } from "@react-navigation/native";
 import { useFormik } from "formik";
 import axios from "axios";
 
-const PostDetails = ({file,navigation}) => {
-  const [loader,setLoader]=useState(false)
-  // const navigation = useNavigation();
+const PostDetails = ({ file }) => {
+  const [loader, setLoader] = useState(false)
+  const navigation = useNavigation();
   const formik = useFormik({
     initialValues: {
       userId: "653a504fb064b9c494fd7d5b",
@@ -40,8 +40,8 @@ const PostDetails = ({file,navigation}) => {
     console.log("handelvalu", values);
     try {
       setLoader(true)
-     const apiUrl = "https://property-suchna.onrender.com/post/upload";
-     console.log("api url",apiUrl)
+      const apiUrl = "https://property-suchna.onrender.com/post/upload";
+      console.log("api url", apiUrl)
       // const apiUrl = "http://192.168.1.41:3000/post/upload";
 
       const formData = new FormData();
@@ -85,7 +85,9 @@ const PostDetails = ({file,navigation}) => {
 
       console.log("API response:", response?.data);
       // navigation.navigate("NextScreen");
+      console.log("navigation:", navigation)
       // navigation.navigate("post");
+      navigation.push('post')
 
       setLoader(false)
 
@@ -119,8 +121,8 @@ const PostDetails = ({file,navigation}) => {
             <View>
               <Image
                 style={styles.secImg}
-                source={{uri:file}}
-                
+                source={{ uri: file }}
+
               />
             </View>
           </View>
@@ -163,9 +165,9 @@ const PostDetails = ({file,navigation}) => {
       </View>
       <View style={styles.buttonContainer}>
         {loader ?
-      <ActivityIndicator size={'large'} color='white' />
-:
-        <CustomeButton title={"post"} onPress={formik.handleSubmit} />}
+          <ActivityIndicator size={'large'} color='white' />
+          :
+          <CustomeButton title={"post"} onPress={formik.handleSubmit} />}
       </View>
     </View>
   );

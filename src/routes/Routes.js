@@ -24,7 +24,7 @@ export default function Routes() {
         contentStyle: { backgroundColor: "#000" },
 
       }}
-    // initialRouteName="post"
+    initialRouteName="post"
     >
       <Stack.Screen name="home" component={Home} />
       <Stack.Screen name="register" component={Register} />
