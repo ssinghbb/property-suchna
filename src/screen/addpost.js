@@ -78,7 +78,7 @@ const AddPost = () => {
       <Pressable
        onPress={() => navigateToScreen("postdetais")}
          style={({ pressed }) => [{}, styles.Custom,]}>
-        {({ pressed }) => (<Text style={{ textAlign: 'center', color: 'white', fontSize: 20 }}>{pressed ? 'next!' : 'next'}</Text>)}
+        {({ pressed }) => (<Text style={{ textAlign: 'center', color: 'white', fontSize: 20,letterSpacing:2 }}>{pressed ? 'next!' : 'NEXT'}</Text>)}
       </Pressable>
       </View>
       
@@ -93,7 +93,7 @@ const AddPost = () => {
 
        <View style={styles.uploadBtn}>
        <View style={styles.reel}>
-       <Icon name="videocam-outline" size={20} color="white"></Icon>
+       <Icon name="videocam-outline" size={20} color="white" style={{paddingRight:3}}></Icon>
        <Pressable
         onPress={() => {  pickVideo() }} style={({ pressed }) => [{}, styles.Custom,]}>
         {({ pressed }) => (<Text style={{ textAlign: 'center', color: 'white', fontSize: 15 }}>{pressed ? 'Upload!' : 'Upload Reel'}</Text>)}
@@ -102,7 +102,7 @@ const AddPost = () => {
 
 
       <View style={styles.reel}>
-      <Icon name="image-outline" size={20} color="white"></Icon>
+      <Icon name="image-outline" size={20} color="white" style={{paddingRight:3}}></Icon>
       <Pressable
         onPress={() => { pickImage()  }} style={({ pressed }) => [{}, styles.already,]}>
         {({ pressed }) => (<Text style={{ textAlign: 'center', color: 'white', fontSize: 15}}>{pressed ? 'Logged In!' : 'Upload Image'}</Text>)}
@@ -134,7 +134,7 @@ const styles = StyleSheet.create({
   },
   image:{
     width:'100%',
-    height:'85%',
+    height:'45%',
     // backgroundColor:'pink',
     justifyContent:'center',
     alignItems:'center'
@@ -147,7 +147,8 @@ const styles = StyleSheet.create({
     // backgroundColor: 'red'
   },
   reel:{
-  flexDirection:'row'
+  flexDirection:'row',
+  
   }
 
   

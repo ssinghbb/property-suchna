@@ -12,13 +12,15 @@ import {
 import { useTranslation } from 'react-i18next';
 import axios from "axios";
 import { EXPO_PUBLIC_API_URL } from "../../constants/constant";
-
+import { useSelector, useDispatch } from 'react-redux'
+import { setUser } from "../../redux/slices/userSlice";
 export default function PhoneVerification({ route, navigation }) {
   console.log(route.params, "params-------1")
   // console.log("process", EXPO_PUBLIC_API_URL)
   const { t } = useTranslation();
   const inputRef = useRef();
   const [loader, setLoader] = useState(false)
+  const dispatch = useDispatch();
 
 
   const maximumLength = 6;
@@ -79,7 +81,7 @@ export default function PhoneVerification({ route, navigation }) {
 
       let url = `${EXPO_PUBLIC_API_URL}verify`
       axios.post(url, JSON.parse(JSON.stringify(userObject))).then(response => {
-        console.log(response.data)
+        console.log('response.data',response.data)
         setTimeout(() => {
           Alert.alert("Verification done")
           navigation.navigate("post")
@@ -107,6 +109,12 @@ export default function PhoneVerification({ route, navigation }) {
 
     // console.log("userObject:", userObject)
   }
+
+
+  // const user = useSelector((state) => state.user.user);
+  // console.log("user:", user?.name)
+
+ 
   return (
     <>
       <View style={Styles.pageContainer}>
