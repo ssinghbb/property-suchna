@@ -5,12 +5,14 @@ import { useState } from "react";
 import Icon from "react-native-vector-icons/Ionicons";
 import React, { useEffect } from 'react';
 import { useNavigation } from '@react-navigation/native';
+import PostDetails from "./postdetails"
 
 const AddPost = () => {
   const [image, setImage] = useState(null);
   const [video, setVideo] = useState(null);
 
    const navigation = useNavigation();
+
   
 
   const pickImage = async () => {
@@ -18,7 +20,7 @@ const AddPost = () => {
     let result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.All,
       allowsEditing: true,
-      aspect: [4, 3],
+      aspect: [1, 1],
       quality: 1,
     });
     // console.log(result);
@@ -26,6 +28,8 @@ const AddPost = () => {
     if (!result.canceled) {
       setImage(result.assets[0].uri);
      
+    }else{
+      setImage(null);
     }
     
   };
@@ -54,16 +58,17 @@ const AddPost = () => {
   };
   
   
-  const navigateToScreen = (screenName) => {
-    navigation.navigate(screenName);
-  };
+  // const navigateToScreen = (screenName) => {
+  //   navigation.navigate(screenName);
+  // };
   
   
 
 
   return (
 
-    <View style={styles.mainContainer}>
+   <>
+    {!image? <View style={styles.mainContainer}>
       <View style={styles.nav}>
       <Pressable
         onPress={() => { navigation.navigate("post") }} style={({ pressed }) => [{}, styles.Custom,]}>
@@ -104,7 +109,8 @@ const AddPost = () => {
       </View>
 
        </View>
-    </View>
+    </View>:<PostDetails />}
+   </>
   );
 };
 const styles = StyleSheet.create({
@@ -142,6 +148,8 @@ const styles = StyleSheet.create({
   reel:{
   flexDirection:'row'
   }
+
+  
 });
 
 export default AddPost;
