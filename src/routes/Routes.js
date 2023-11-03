@@ -24,7 +24,7 @@ export default function Routes() {
         contentStyle: { backgroundColor: "#000" },
 
       }}
-    // initialRouteName="post"
+    initialRouteName="post"
     >
       <Stack.Screen name="home" component={Home} />
       <Stack.Screen name="register" component={Register} />
@@ -35,7 +35,7 @@ export default function Routes() {
       <Stack.Screen name="reels" component={ReelsScreen} />
 
       <Stack.Screen name="addPost" component={AddPost} />
-      <Stack.Screen name="postdetais" component={PostDetail} />
+      {/* <Stack.Screen name="postdetais" component={PostDetail} /> */}
       <Stack.Screen name="profile" component={ProfileScreen} />
       <Stack.Screen name="notifications" component={NotificationsScreen} />
 
@@ -45,3 +45,8 @@ export default function Routes() {
     </Stack.Navigator>
   );
 }
+
+
+
+// export ANDROID_HOME=$HOME/Android/Sdk
+// export PATH=$PATH:$ANDROID_HOME/tools

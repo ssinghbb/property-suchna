@@ -64,9 +64,9 @@ const Post = () => {
       setSavedPosts([...savedPosts, postId]);
     }
   };
-  const handleLike=(id)=>{
-    console.log("id",id)
-  }
+  const handleLike = (id) => {
+    console.log("id", id);
+  };
 
   return (
     <View style={styles.mainContainer}>
@@ -84,21 +84,26 @@ const Post = () => {
               </View>
 
               <View style={styles.likeComment}>
-                <Icon color={"white"} onPress={()=>handleLike(post.id)} name={"thumbs-o-up"} size={20} />
+                <Icon
+                  color={"white"}
+                  onPress={() => handleLike(post.id)}
+                  name={"thumbs-o-up"}
+                  size={20}
+                />
                 <Icon color={"white"} name={"comment-o"} size={20} />
                 <Icon color={"white"} name={"share"} size={20} />
-              
-              <View style={styles.saveIconContainer}>
-                <TouchableOpacity onPress={() => handleSavePost(post.id)}>
-                  <Icon
-                    color={"white"}
-                    name={
-                      savedPosts.includes(post.id) ? "bookmark" : "bookmark-o"
-                    }
-                    size={20}
-                  />
-                </TouchableOpacity>
-              </View>
+
+                <View style={styles.saveIconContainer}>
+                  <TouchableOpacity onPress={() => handleSavePost(post.id)}>
+                    <Icon
+                      color={"white"}
+                      name={
+                        savedPosts.includes(post.id) ? "bookmark" : "bookmark-o"
+                      }
+                      size={20}
+                    />
+                  </TouchableOpacity>
+                </View>
               </View>
 
               <View style={styles.descriptionSection}>
@@ -119,22 +124,21 @@ const styles = StyleSheet.create({
   mainContainer: {
     flex: 1,
     alignItems: "center",
-    paddingTop:0,
-    
+    paddingTop: 0,
   },
   profile: {
     flexDirection: "row",
     alignItems: "center",
     gap: 15,
     width: "100%",
-    height:60,
-     padding: 2,
-     paddingTop: 20,
-     paddingBottom:20,
-     paddingLeft: 20,
-    margin:0,
+    height: 60,
+    padding: 2,
+    paddingTop: 20,
+    paddingBottom: 20,
+    paddingLeft: 20,
+    margin: 0,
   },
-  
+
   userName: {
     color: "white",
     fontSize: 12,
@@ -143,22 +147,21 @@ const styles = StyleSheet.create({
   postImg: {
     width: "100%",
     // paddingVertical: 10,
-    height:400,
+    height: 400,
   },
   post: {
     width: "100%",
-    height:400,
-    
+    height: 400,
   },
   likeComment: {
     flexDirection: "row",
     gap: 20,
     paddingLeft: 20,
-    paddingTop:20,
+    paddingTop: 20,
   },
-  saveIconContainer:{
-    paddingLeft:220,
-  }, 
+  saveIconContainer: {
+    paddingLeft: 220,
+  },
   descriptionSection: {
     paddingVertical: 8,
     paddingLeft: 20,
@@ -167,17 +170,14 @@ const styles = StyleSheet.create({
     color: "white",
     fontSize: 13,
   },
- 
+
   postPage: {
-    
     width: "100%",
-   
   },
   postCard: {
     flex: 1,
     height: "100%", // Set the height to the full screen height
   },
-  
 });
 
 export default Post;
