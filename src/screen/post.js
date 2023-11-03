@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   View,
   Text,
@@ -9,6 +9,8 @@ import {
 } from "react-native";
 import BottomNavBar from "../components/BottomNavbar/bottomNavbar";
 import Icon from "react-native-vector-icons/FontAwesome";
+import axios from "axios";
+import { EXPO_PUBLIC_API_URL } from "../constants/constant";
 
 const users = [
   { id: 1, name: "Rohit", profileImage: require("../../assets/lily.png") },
@@ -18,7 +20,7 @@ const users = [
   { id: 5, name: "keerti", profileImage: require("../../assets/lily.png") },
 ];
 
-const posts = [
+const postsTest = [
   {
     id: 1,
     userId: 1,
@@ -58,6 +60,8 @@ const posts = [
 
 const Post = () => {
   const [savedPosts, setSavedPosts] = useState([]);
+  const [posts, setPosts] = useState([])
+
 
   const handleSavePost = (postId) => {
     if (!savedPosts.includes(postId)) {
@@ -68,19 +72,35 @@ const Post = () => {
     console.log("id", id);
   };
 
+  useEffect(() => {
+
+    getAllPost()
+    return () => {
+
+    }
+  }, [])
+
+  const getAllPost = async () => {
+    let _post = await axios.get(`${EXPO_PUBLIC_API_URL}post/allpost`)
+    console.log("_post:", _post?.data)
+    setPosts(_post.data)
+  }
+
   return (
     <View style={styles.mainContainer}>
+      {console.log("posts", posts)}
       <ScrollView style={styles.postPage}>
-        {posts.map((post) => {
+        {posts?.data?.length > 0 ? posts?.data?.map((post,id) => {
           const user = users.find((u) => u.id === post.userId);
+          { console.log("user", user) }
           return (
-            <View key={post.id} style={styles.postCard}>
+            <View key={id} style={styles.postCard}>
               <View style={styles.profile}>
-                <Image source={user.profileImage} />
-                <Text style={styles.userName}>{user.name}</Text>
+                {/* <Image source={user.profileImage} /> */}
+                {/* <Text style={styles.userName}>{user.name}</Text> */}
               </View>
               <View style={styles.postImg}>
-                <Image style={styles.post} source={post.imageUrl} />
+                <Image style={styles.post} source={{ uri: post.url }} />
               </View>
 
               <View style={styles.likeComment}>
@@ -111,7 +131,7 @@ const Post = () => {
               </View>
             </View>
           );
-        })}
+        }) : ''}
       </ScrollView>
       <View>
         <BottomNavBar />

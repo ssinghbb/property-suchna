@@ -1,6 +1,6 @@
 
 
-import React from "react";
+import React, { useState } from "react";
 import {
   View,
   Text,
@@ -8,6 +8,7 @@ import {
   Pressable,
   Image,
   TextInput,
+  ActivityIndicator,
 } from "react-native";
 import CustomeButton from "../components/common/CoustomButton";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
@@ -15,8 +16,9 @@ import { useNavigation } from "@react-navigation/native";
 import { useFormik } from "formik";
 import axios from "axios";
 
-const PostDetails = ({file}) => {
-  const navigation = useNavigation();
+const PostDetails = ({file,navigation}) => {
+  const [loader,setLoader]=useState(false)
+  // const navigation = useNavigation();
   const formik = useFormik({
     initialValues: {
       userId: "653a504fb064b9c494fd7d5b",
@@ -27,6 +29,7 @@ const PostDetails = ({file}) => {
     },
     onSubmit: (values) => {
       console.log("Form data:", values);
+
       handleSubmit(values);
     },
   });
@@ -36,6 +39,7 @@ const PostDetails = ({file}) => {
   const handleSubmit = async (values) => {
     console.log("handelvalu", values);
     try {
+      setLoader(true)
      const apiUrl = "https://property-suchna.onrender.com/post/upload";
      console.log("api url",apiUrl)
       // const apiUrl = "http://192.168.1.41:3000/post/upload";
@@ -81,8 +85,15 @@ const PostDetails = ({file}) => {
 
       console.log("API response:", response?.data);
       // navigation.navigate("NextScreen");
+      // navigation.navigate("post");
+
+      setLoader(false)
+
     } catch (error) {
       console.error("API error:", error?.response?.data);
+      setLoader(false)
+
+
     }
   };
 
@@ -151,7 +162,10 @@ const PostDetails = ({file}) => {
         </View>
       </View>
       <View style={styles.buttonContainer}>
-        <CustomeButton title={"post"} onPress={formik.handleSubmit} />
+        {loader ?
+      <ActivityIndicator size={'large'} color='white' />
+:
+        <CustomeButton title={"post"} onPress={formik.handleSubmit} />}
       </View>
     </View>
   );
