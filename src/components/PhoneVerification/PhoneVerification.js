@@ -81,14 +81,16 @@ export default function PhoneVerification({ route, navigation }) {
 
       let url = `${EXPO_PUBLIC_API_URL}verify`
       axios.post(url, JSON.parse(JSON.stringify(userObject))).then(response => {
-        console.log('response.data',response.data)
+        console.log('response.data', response.data)
+        dispatch(setUser(userObject));
+
         setTimeout(() => {
           Alert.alert("Verification done")
           navigation.navigate("post")
         }, 2000);
 
       }).catch(err => {
-      setLoader(false)
+        setLoader(false)
 
         console.log("api Erorr: ", err.response.data)
         Alert.alert('Error', err.response.data?.message);
@@ -114,7 +116,7 @@ export default function PhoneVerification({ route, navigation }) {
   // const user = useSelector((state) => state.user.user);
   // console.log("user:", user?.name)
 
- 
+
   return (
     <>
       <View style={Styles.pageContainer}>
