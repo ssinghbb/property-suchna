@@ -20,6 +20,42 @@ const users = [
   { id: 4, name: "vaishali", profileImage: require("../../assets/lily.png") },
   { id: 5, name: "keerti", profileImage: require("../../assets/lily.png") },
 ];
+  
+
+
+const handleApi = async () => {
+ 
+  console.log("handle api")
+  try {
+    setLoader(true)
+    console.log("handle api 2")
+
+    let url = `${EXPO_PUBLIC_API_URL}sendotp`
+    console.log("`+91${formik.values.phoneNumber}`:", `+91${formik.values.phoneNumber}`)
+    console.log("url:", url)
+
+    axios.post(url, JSON.parse(JSON.stringify({ phoneNumber: `+91${formik.values.phoneNumber}` }))).then(response => {
+      console.log(response.data)
+
+      navigation.navigate("verification", formik.values);
+
+    }).catch(err => {
+      setLoader(false)
+
+      console.log("api Erorr: ", err?.response?.data)
+      Alert.alert('Error', 'An error occurred while processing your request. Please try again.');
+
+    })
+
+  } catch (error) {
+    setLoader(false)
+
+    console.log("error:", error)
+    Alert.alert('Error', 'An error occurred while processing your request. Please try again.');
+
+
+  }
+}
 
 const postsTest = [
   {
