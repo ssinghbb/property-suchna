@@ -1,5 +1,3 @@
-
-
 import React, { useState } from "react";
 import {
   View,
@@ -16,8 +14,8 @@ import { useNavigation } from "@react-navigation/native";
 import { useFormik } from "formik";
 import axios from "axios";
 
-const PostDetails = ({ file }) => {
-  const [loader, setLoader] = useState(false)
+const PostDetails = ({ file, isVideo }) => {
+  const [loader, setLoader] = useState(false);
   const navigation = useNavigation();
   const formik = useFormik({
     initialValues: {
@@ -25,59 +23,43 @@ const PostDetails = ({ file }) => {
       caption: "",
       location: "",
       description: "",
-      userName: "keerti",
     },
     onSubmit: (values) => {
       console.log("Form data:", values);
-
       handleSubmit(values);
     },
   });
 
-
-
   const handleSubmit = async (values) => {
     console.log("handelvalu", values);
     try {
-      setLoader(true)
+      setLoader(true);
       const apiUrl = "https://property-suchna.onrender.com/post/upload";
-      console.log("api url", apiUrl)
-      // const apiUrl = "http://192.168.1.41:3000/post/upload";
 
-    console.log("values.userId:", values.userId)
+      //const apiUrl = "http://192.168.1.41:3000/post/upload";
+      console.log("values.userId:", values.userId);
       const formData = new FormData();
       formData.append("userId", values.userId);
       formData.append("caption", values.caption);
       formData.append("location", values.location);
       formData.append("description", values.description);
-      formData.append("userName", values.userName);
-      formData.append("file", {
-        uri: file,
-        type: 'image/png',
-        name: 'profile3.png',
-      });
+
+      if (isVideo) {
+        formData.append("file", {
+          uri: file,
+          type: "video/mp4", // Adjust the MIME type if necessary
+          name: "video.mp4",
+        });
+      } else {
+        formData.append("file", {
+          uri: file,
+          type: "image/png", // Adjust the MIME type if necessary
+          name: "image.png",
+        });
+      }
+
+      
       console.log("fromData....", formData);
-
-      // const response = await axios.post(
-      //   apiUrl,
-      //   JSON.parse(JSON.stringify(formData)),
-      //   {
-      //     headers: {
-      //       "Content-Type": "multipart/form-data",
-      //     },
-      //   }
-      // );
-
-      // const response = await axios.post(apiUrl,JSON.parse (JSON.stringify(formData))
-      // //    ,{
-      // //   headers: {
-      // //     "Content-Type": "multipart/form-data",
-      // //   },
-
-      // //   body: formData,
-      // // }
-      // );
-
       const response = await axios.post(apiUrl, formData, {
         headers: {
           "Content-Type": "multipart/form-data",
@@ -86,17 +68,20 @@ const PostDetails = ({ file }) => {
 
       console.log("API response:", response?.data);
       // navigation.navigate("NextScreen");
-      console.log("navigation:", navigation)
-      // navigation.navigate("post");
-      navigation.push('post')
+      // console.log("navigation:", navigation)
+      // // navigation.navigate("post");
+      // navigation.push('post')
 
-      setLoader(false)
+      if (isVideo) {
+        navigation.push("reels");
+      } else {
+        navigation.push("post");
+      }
 
+      setLoader(false);
     } catch (error) {
       console.error("API error:", error?.response?.data);
-      setLoader(false)
-
-
+      setLoader(false);
     }
   };
 
@@ -120,11 +105,7 @@ const PostDetails = ({ file }) => {
               onBlur={formik.handleBlur("caption")}
             />
             <View>
-              <Image
-                style={styles.secImg}
-                source={{ uri: file }}
-
-              />
+              <Image style={styles.secImg} source={{ uri: file }} />
             </View>
           </View>
           <View style={styles.form}>
@@ -165,10 +146,11 @@ const PostDetails = ({ file }) => {
         </View>
       </View>
       <View style={styles.buttonContainer}>
-        {loader ?
-          <ActivityIndicator size={'large'} color='white' />
-          :
-          <CustomeButton title={"post"} onPress={formik.handleSubmit} />}
+        {loader ? (
+          <ActivityIndicator size={"large"} color="white" />
+        ) : (
+          <CustomeButton title={"post"} onPress={formik.handleSubmit} />
+        )}
       </View>
     </View>
   );

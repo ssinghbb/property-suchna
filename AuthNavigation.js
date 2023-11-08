@@ -9,10 +9,7 @@ import { useSelector, useDispatch } from 'react-redux'
 const AuthNavigation = () => {
 	const user = useSelector((state) => state.user.user);
 	console.log("user:", user)
-
 	const [currentUser, setCurrentUser] = useState(null)
-
-
 	const userHandler = user =>
 		user ? setCurrentUser(user) : setCurrentUser(null)
 
@@ -25,7 +22,7 @@ const AuthNavigation = () => {
 	}, [user])
 
 
-	return <>{currentUser ? <SignedInStack /> : <SignedOutStack />}</>
+	return <>{currentUser ? <SignedInStack/> : <SignedOutStack/>}</>
 }
 
 export default AuthNavigation

@@ -1,67 +1,54 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { View, StyleSheet, FlatList, Dimensions, Text } from "react-native";
 import BottomNavBar from "../components/BottomNavbar/bottomNavbar";
 import { Video } from "expo-av";
 import Icon from "react-native-vector-icons/FontAwesome";
 import { TouchableOpacity } from "react-native";
+import axios from "axios";
 
 const { height, width } = Dimensions.get("window");
 
-const reelsData = [
-  {
-    id: 1,
-    videoUri: "http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4",
-    likes: 0,
-    comments: 0,
-    shares: 0,
-  },
-  {
-    id: 2,
-    videoUri: "http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4",
-    likes: 0,
-    comments: 0,
-    shares: 0,
-  },
-  {
-    id: 3,
-    videoUri: "http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4",
-    likes: 0,
-    comments: 0,
-    shares: 0,
-  },
-  {
-    id: 4,
-    videoUri: "http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4",
-    likes: 0,
-    comments: 0,
-    shares: 0,
-  },
-  {
-    id: 5,
-    videoUri: "http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4",
-    likes: 0,
-    comments: 0,
-    shares: 0,
-  },
-];
-
-const ReelaPage = () => {
+const ReelsPage = () => {
   const flatListRef = useRef(null);
   const [currentIndex, setCurrentIndex] = useState(0);
-  
+  const [reels, setReels] = useState([]);
+
   const handleScreenPress = () => {
     // Ensure currentIndex is within the valid range
-    const validIndex = Math.min(Math.max(currentIndex, 0), reelsData.length - 1);
+    const validIndex = Math.min(
+      Math.max(currentIndex, 0),
+      reels?.length - 1
+    );
     flatListRef.current.scrollToIndex({ index: validIndex, animated: true });
   };
+   
 
-  const handleLikePress = (index) => {
-    const updatedReelsData = [...reelsData];
-    updatedReelsData[index].likes += 1;
-    setCurrentIndex(index);
-    console.log(index);
-    // Add your logic for updating likes in the backend or wherever you store your data
+  
+  // const handleLikePress = (index) => {
+  //   const updatedReelsData = [...reelsData];
+  //   updatedReelsData[index].likes += 1;
+  //   setCurrentIndex(index);
+  //   console.log(index);
+  //   // Add your logic for updating likes in the backend or wherever you store your data
+  // };
+
+  useEffect(() => {
+    getAllReels();
+  }, []);
+
+  const getAllReels = async function (req, res) {
+    try {
+      const response = await axios.get(
+        `${process.env.EXPO_PUBLIC_API_URL}/post/allreel`
+      );
+      console.log("response:", response?.data?.data);
+      setReels(response?.data?.data || []);
+    } catch (error) {
+      console.log("api error", error);
+    }
   };
+
+
 
   const handleCommentPress = (index) => {
     console.log("Comment pressed");
@@ -77,7 +64,7 @@ const ReelaPage = () => {
     // Check if the current video playback has completed
     if (playbackStatus.didJustFinish) {
       // Move to the next video
-      setCurrentIndex((prevIndex) => (prevIndex + 1) % reelsData.length);
+      setCurrentIndex((prevIndex) => (prevIndex + 1) % reels?.length);
     }
   };
 
@@ -91,7 +78,7 @@ const ReelaPage = () => {
         style={styles.video}
         shouldPlay={true}
         isLooping
-        source={{ uri: item.videoUri }}
+        source={{ uri: item?.url }}
         useNativeControls={false}
         resizeMode="cover"
         onPlaybackStatusUpdate={handlePlaybackStatusUpdate}
@@ -117,9 +104,9 @@ const ReelaPage = () => {
     <View style={styles.mainContainer}>
       <FlatList
         ref={flatListRef}
-        data={reelsData}
+        data={reels}
         renderItem={renderItem}
-        keyExtractor={(item) => item.id.toString()}
+        keyExtractor={(item) => item?._id}
         vertical
         pagingEnabled
         showsVerticalScrollIndicator={false}
@@ -150,10 +137,9 @@ const styles = StyleSheet.create({
     paddingTop: 450,
     gap: 40,
   },
-  likeColor:{
-    color:"white",
-  }
+  likeColor: {
+    color: "white",
+  },
 });
 
-export default ReelaPage;
-
+export default ReelsPage;
