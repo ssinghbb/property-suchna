@@ -79,8 +79,8 @@ export default function PhoneVerification({ route, navigation }) {
         "code": code
       }
 
-      //let url = `${EXPO_PUBLIC_API_URL}verify`
-      let url = "http://192.168.1.41:3000/verify"
+      let url = `${EXPO_PUBLIC_API_URL}verify`
+     // let url = "http://192.168.1.41:3000/verify"
 
       axios.post(url, JSON.parse(JSON.stringify(userObject))).then(response => {
         console.log('response.data', response.data)

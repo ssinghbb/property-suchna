@@ -22,7 +22,7 @@ const Post = () => {
 
   const getAllPost = async () => {
     try {
-      console.log("get all post");
+      console.log("get all posts");
       let response = await axios.get(
         `${process.env.EXPO_PUBLIC_API_URL}/post/allpost`
       );
