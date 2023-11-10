@@ -6,14 +6,15 @@ import {
   Image,
   TouchableOpacity,
   ScrollView,
+  Pressable,
 } from "react-native";
 import BottomNavBar from "../components/BottomNavbar/bottomNavbar";
 import Icon from "react-native-vector-icons/FontAwesome";
 import axios from "axios";
+import PostItem from "../components/postItem/postItem";
 
 const Post = () => {
   const [posts, setPosts] = useState([]);
-
   useEffect(() => {
     getAllPost();
     return () => {};
@@ -36,26 +37,8 @@ const Post = () => {
   return (
     <View style={styles.mainContainer}>
       <ScrollView style={styles.postPage}>
-        {posts?.map((post, id) => {
-          return (
-            <View key={post?._id} style={styles.postCard}>
-              <View style={styles.profile}>
-                <Image source={require("../../assets/lily.png")} />
-                <Text style={styles.userName}>{post?.user?.fullName}</Text>
-              </View>
-              <View style={styles.postImg}>
-                <Image style={styles.post} source={{ uri: post?.url }} />
-              </View>
-              <View style={styles.likeComment}>
-                <Icon color={"white"} name={"thumbs-o-up"} size={20} />
-                <Icon color={"white"} name={"comment-o"} size={20} />
-                <Icon color={"white"} name={"share"} size={20} />
-              </View>
-              <View style={styles.descriptionSection}>
-                <Text style={styles.description}>{post?.description}</Text>
-              </View>
-            </View>
-          );
+        {posts?.map((post, id, userId) => {
+          return <PostItem key={id} post={post} user={userId} />;
         })}
       </ScrollView>
       <View>
@@ -64,6 +47,7 @@ const Post = () => {
     </View>
   );
 };
+
 
 const styles = StyleSheet.create({
   mainContainer: {

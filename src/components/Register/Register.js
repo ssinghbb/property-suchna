@@ -49,9 +49,11 @@ export default function Register({ navigation }) {
       setLoader(true)
       console.log("handle api 2")
 
-      let url = `${EXPO_PUBLIC_API_URL}sendotp`
-      console.log("`+91${formik.values.phoneNumber}`:", `+91${formik.values.phoneNumber}`)
+     // let url = `${EXPO_PUBLIC_API_URL}sendotp`
+      let url = "http://192.168.1.41:3000/sendotp"
       console.log("url:", url)
+
+      console.log("`+91${formik.values.phoneNumber}`:", `+91${formik.values.phoneNumber}`)
 
       axios.post(url, JSON.parse(JSON.stringify({ phoneNumber: `+91${formik.values.phoneNumber}` }))).then(response => {
         console.log(response.data)
