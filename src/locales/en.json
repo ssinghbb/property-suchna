@@ -1,7 +1,8 @@
 {
     "home": {
         "login": "Login",
-        "signUp": "Sign Up"
+        "signUp": "Sign Up",
+        "selectLanguage":"Language"
     },
     "register": {
         "heading": "Register yourself",
@@ -16,7 +17,10 @@
         "enterYourName": "Enter your name",
         "enterYourPhoneNo": "Enter your phone no",
         "enterYourPassword": "Enter password",
-        "reEnterYourPassword": "Re enter your password"
+        "reEnterYourPassword": "Re enter your password",
+       "iogInForTheBestProperty " :"Log in for the best property" ,
+       "enterYourPhoneNumberToContinue":"Enter your phone number to continue",
+       "byContinuingYouAgreeToPropertySuchnaTermsOfUseAndPrivacyPolicy":"By continuing, you agree to Property Suchna Terms of Use and Privacy Policy"
     },
     "verification": {
         "heading": "Please enter the verification code we've send you on",

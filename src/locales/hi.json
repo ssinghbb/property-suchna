@@ -1,7 +1,8 @@
 {
     "home": {
         "login": "लॉग इन",
-        "signUp": "साइन अप"
+        "signUp": "साइन अप",
+        "selectLanguage":"भाषा चुने"
     },
     "register": {
         "heading": "रजिस्टर करें",
@@ -16,7 +17,10 @@
         "enterYourName": "अपना नाम दर्ज कराएं",
         "enterYourPhoneNo": "अपना फोन नं दर्ज कराएं",
         "enterYourPassword": "पासवर्ड दर्ज करें",
-        "reEnterYourPassword": "फिर से अपना पासवर्ड दर्ज करें"
+        "reEnterYourPassword": "फिर से अपना पासवर्ड दर्ज करें",
+        "iogInForTheBestProperty":"सर्वोत्तम संपत्ति के लिए लॉग इन करें",
+        "enterYourPhoneNumberToContinue":"जारी रखने के लिए अपना फ़ोन नंबर दर्ज करें",
+        "byContinuingYouAgreeToPropertySuchnaTermsOfUseAndPrivacyPolicy":"जारी रखकर, आप संपत्ति सुचना के उपयोग की शर्तों और गोपनीयता नीति से सहमत हैं"
     },
     "verification": {
         "heading": "कृपया हमारे द्वारा भेजे गए सत्यापन कोड दर्ज करें",

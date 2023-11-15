@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   View,
   Text,
@@ -6,11 +6,14 @@ import {
   Image,
   ScrollView,
   Button,
+  Alert,
 } from "react-native";
 import { useFormik } from "formik";
 import * as yup from "yup";
 import InputField from "../common/InputField";
 import CoustomButton from "../common/CoustomButton";
+import { useTranslation } from "react-i18next";
+import axios from "axios";
 
 const validationSchema = yup.object().shape({
   phoneNumber: yup.string().required("Phone number is required"),
@@ -18,29 +21,41 @@ const validationSchema = yup.object().shape({
 });
 
 const Login = ({ navigation }) => {
+  const { t } = useTranslation();
+  const [loader, setLoader] = useState(false);
+  const [loginError, setLoginError] = useState(null);
   const formik = useFormik({
     initialValues: {
       phoneNumber: "",
       password: "",
     },
     validationSchema,
-    onSubmit: (values) => {
-      // Handle form submission
-      console.log("Form data:", values);
-      navigation.navigate("post");
-      if (
-        values.phoneNumber === "yourPhoneNumber" &&
-        values.password === "yourPassword"
-      ) {
-        // Navigate to the next screen or perform authentication logic
-        console.log("Login successful!");
-      } else {
-        // Handle login failure
-        console.log("Login failed!");
+    onSubmit: async (values) => {
+      setLoader(true);
+      try {
+        //let url = `${EXPO_PUBLIC_API_URL}sendotp`
+        let url = "http://192.168.43.177:3000/auth/sign_in";
+        const response = await axios.post(url, {
+          phoneNumber: `+91${formik.values.phoneNumber}`,
+          password: formik.values.password,
+        });
+        console.log("API Response:", response?.data);
+        if (response?.data?.success) {
+          setTimeout(() => {
+            Alert.alert("Login successful!");
+            navigation.navigate("post");
+          }, 2000);
+        } else {
+          setLoginError("incorrect password, please try again.");
+          console.log(response?.data);
+        }
+      } catch (error) {
+        setLoader(false);
+        console.error("API Error:", error?.response?.data);
+        Alert.alert("Error", error?.response?.data?.message);
       }
     },
   });
-
   return (
     <View style={styles.pageContainer}>
       <ScrollView style={styles.formContainer}>
@@ -50,21 +65,21 @@ const Login = ({ navigation }) => {
             source={require("../../../assets/logo.png")}
           />
         </View>
-        <Text style={styles.text}>Log in for the best property </Text>
+        <Text style={styles.text}>{t("register.iogInForTheBestProperty")}</Text>
         <Text style={[styles.text, { fontSize: 12, color: "gray" }]}>
-          Enter your phone number to continue
+          {t("register.enterYourPhoneNumberToContinue")}
         </Text>
         <InputField
-          placeholder="Enter your phone"
-          label="Phone"
+          placeholder={t("register.enterYourPhoneNo")}
+          label={t("register.phone")}
           onChangeText={formik.handleChange("phoneNumber")}
           onBlur={formik.handleBlur("phoneNumber")}
           value={formik.values.phoneNumber}
           error={formik.touched.phoneNumber && formik.errors.phoneNumber}
         />
         <InputField
-          placeholder="Enter password"
-          label="Password"
+          placeholder={t("register.enterYourPassword")}
+          label={t("register.password")}
           secureTextEntry
           onChangeText={formik.handleChange("password")}
           onBlur={formik.handleBlur("password")}
@@ -72,17 +87,20 @@ const Login = ({ navigation }) => {
           error={formik.touched.password && formik.errors.password}
         />
         <Text style={[styles.text, { fontSize: 12, color: "gray" }]}>
-          By continuing, you agree to Property Suchna Terms of Use and Privacy
-          Policy
+          {t(
+            "register.byContinuingYouAgreeToPropertySuchnaTermsOfUseAndPrivacyPolicy"
+          )}
         </Text>
       </ScrollView>
       <View style={styles.btnContainer}>
-        <CoustomButton title="Continue" onPress={formik.handleSubmit} />
+        <CoustomButton
+          title={t("register.continue")}
+          onPress={formik.handleSubmit}
+        />
       </View>
     </View>
   );
 };
-
 const styles = StyleSheet.create({
   pageContainer: {
     flex: 1,
@@ -133,5 +151,4 @@ const styles = StyleSheet.create({
     borderTopWidth: 1,
   },
 });
-
 export default Login;

@@ -13,40 +13,19 @@ import AddPost from "../screen/addpost";
 
 const Stack = createNativeStackNavigator();
 
-// export default SignedInStack = () => (
-//   <Stack.Navigator
-//     screenOptions={{
-//       headerShown: false,
-//       statusBarColor: "black",
-//       contentStyle: { backgroundColor: "#000" },
-//     }}
-//     //initialRouteName="post"
-//   >
-//     <Stack.Screen name="home" component={Home}/>
-//     <Stack.Screen name="register" component={Register}/>
-//     <Stack.Screen name="verification" component={PhoneVerification}/>
-//     <Stack.Screen name="login" component={Login} />
-//     <Stack.Screen name="post" component={Post} />
-//     <Stack.Screen name="reels" component={ReelsScreen} />
-//     <Stack.Screen name="addPost" component={AddPost} />
-//     {/* <Stack.Screen name="postdetais" component={PostDetail} /> */}
-//     <Stack.Screen name="profile" component={ProfileScreen} />
-//     <Stack.Screen name="notifications" component={NotificationsScreen} />
-//   </Stack.Navigator>
-// );
-
-
-
-
-export const SignedInStack = () => (
+export default SignedInStack = () => (
   <Stack.Navigator
     screenOptions={{
       headerShown: false,
       statusBarColor: "black",
       contentStyle: { backgroundColor: "#000" },
     }}
-    initialRouteName="post"
+    //initialRouteName="post"
   >
+    <Stack.Screen name="home" component={Home}/>
+    <Stack.Screen name="register" component={Register}/>
+    <Stack.Screen name="verification" component={PhoneVerification}/>
+    <Stack.Screen name="login" component={Login} />
     <Stack.Screen name="post" component={Post} />
     <Stack.Screen name="reels" component={ReelsScreen} />
     <Stack.Screen name="addPost" component={AddPost} />
@@ -56,21 +35,42 @@ export const SignedInStack = () => (
   </Stack.Navigator>
 );
 
-export const SignedOutStack = () => (
-  <Stack.Navigator
-    screenOptions={{
-      headerShown: false,
-      statusBarColor: "black",
-      contentStyle: { backgroundColor: "#000" },
-    }}
-    initialRouteName="home"
-  >
-    <Stack.Screen name="home" component={Home} />
-    <Stack.Screen name="register" component={Register} />
-    <Stack.Screen name="verification" component={PhoneVerification} />
-    <Stack.Screen name="login" component={Login} />
-  </Stack.Navigator>
-);
+
+
+
+// export const SignedInStack = () => (
+//   <Stack.Navigator
+//     screenOptions={{
+//       headerShown: false,
+//       statusBarColor: "black",
+//       contentStyle: { backgroundColor: "#000" },
+//     }}
+//     initialRouteName="post"
+//   >
+//     <Stack.Screen name="post" component={Post} />
+//     <Stack.Screen name="reels" component={ReelsScreen} />
+//     <Stack.Screen name="addPost" component={AddPost} />
+//     {/* <Stack.Screen name="postdetais" component={PostDetail} /> */}
+//     <Stack.Screen name="profile" component={ProfileScreen} />
+//     <Stack.Screen name="notifications" component={NotificationsScreen} />
+//   </Stack.Navigator>
+// );
+
+// export const SignedOutStack = () => (
+//   <Stack.Navigator
+//     screenOptions={{
+//       headerShown: false,
+//       statusBarColor: "black",
+//       contentStyle: { backgroundColor: "#000" },
+//     }}
+//     initialRouteName="home"
+//   >
+//     <Stack.Screen name="home" component={Home} />
+//     <Stack.Screen name="register" component={Register} />
+//     <Stack.Screen name="verification" component={PhoneVerification} />
+//     <Stack.Screen name="login" component={Login} />
+//   </Stack.Navigator>
+// );
 
 // export ANDROID_HOME=$HOME/Android/Sdk
 // export PATH=$PATH:$ANDROID_HOME/tools

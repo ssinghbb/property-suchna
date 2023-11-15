@@ -20,7 +20,6 @@ import { EXPO_PUBLIC_API_URL } from "../../constants/constant";
 
 
 export default function Register({ navigation }) {
-  console.log("EXPO_PUBLIC_API_URL:", EXPO_PUBLIC_API_URL)
   const { t } = useTranslation();
   const [loader, setLoader] = useState(false)
 
@@ -42,40 +41,21 @@ export default function Register({ navigation }) {
   });
   //handle send otp
   const handleApi = async () => {
-    // navigation.navigate("verification", formik.values);
-
-    console.log("handle api")
+    setLoader(true)
     try {
-      setLoader(true)
-      console.log("handle api 2")
+      //let url = `${EXPO_PUBLIC_API_URL}sendotp`
+      let url = "http://192.168.43.177:3000/auth/register"
+      const result= await axios.post(url,{ phoneNumber: `+91${formik.values.phoneNumber}` })
 
-      let url = `${EXPO_PUBLIC_API_URL}sendotp`
-      //let url = "http://192.168.1.41:3000/sendotp"
-      console.log("url:", url)
-
-      console.log("`+91${formik.values.phoneNumber}`:", `+91${formik.values.phoneNumber}`)
-
-      axios.post(url, JSON.parse(JSON.stringify({ phoneNumber: `+91${formik.values.phoneNumber}` }))).then(response => {
-        console.log(response.data)
-
-        navigation.navigate("verification", formik.values);
-
-      }).catch(err => {
-        setLoader(false)
-
-        console.log("api Erorr: ", err?.response?.data)
-        Alert.alert('Error', 'An error occurred while processing your request. Please try again.');
-
-      })
+     console.log(result);
+      if(result.data)
+      navigation.navigate("verification", formik.values);
 
     } catch (error) {
-      setLoader(false)
-
       console.log("error:", error)
       Alert.alert('Error', 'An error occurred while processing your request. Please try again.');
-
-
     }
+    setLoader(false)
   }
 
 
@@ -91,16 +71,16 @@ export default function Register({ navigation }) {
 
         <Text style={Styles.text}>{t('register.heading')}</Text>
         <InputField
-          placeholder="Enter your name"
-          label={"Name"}
+          placeholder={t("register.enterYourName")}
+          label={t("register.name")}
           value={formik.values.fullName}
           onChangeText={formik.handleChange("fullName")}
           onBlur={formik.handleBlur("fullName")}
           error={formik.touched.fullName && formik.errors.fullName}
         />
         <InputField
-          placeholder="Enter your phone"
-          label={"Phone"}
+          placeholder={t('register.enterYourPhoneNo')}
+          label={t("register.phone")}
           value={formik.values.phoneNumber}
           onChangeText={formik.handleChange("phoneNumber")}
           onBlur={formik.handleBlur("phoneNumber")}
@@ -139,7 +119,7 @@ export default function Register({ navigation }) {
           <ActivityIndicator size={'large'} color='white' />
 
           :
-          <Button title={'Continue'} onPress={formik.handleSubmit} />}
+          <Button title={t('register.continue')} onPress={formik.handleSubmit} />}
         {/* <Button title="Continue" onPress={handleApi} /> */}
       </View>
     </View>

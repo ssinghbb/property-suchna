@@ -37,8 +37,8 @@ const Post = () => {
   return (
     <View style={styles.mainContainer}>
       <ScrollView style={styles.postPage}>
-        {posts?.map((post, id, userId) => {
-          return <PostItem key={id} post={post} user={userId} />;
+        {posts?.map((post, index) => {
+          return <PostItem key={index} post={post} />;
         })}
       </ScrollView>
       <View>

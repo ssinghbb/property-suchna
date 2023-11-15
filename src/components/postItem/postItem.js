@@ -11,12 +11,22 @@ import {
 import Icon from "react-native-vector-icons/FontAwesome";
 import axios from "axios";
 
-export default function PostItem({ post = { post } }) {
+export default function PostItem({ post ={} }) {
   //const [totalLikes, setTotalLikes] = useState(post?.likes || 0);
-  const [totalLikes, setTotalLikes] = useState(post?.like || 0);
+  const [totalLikes, setTotalLikes] = useState(post?.likes || 0);
+  const [isLiked,setIsLiked]=useState(false);
+
+  useEffect(()=>{
+     setIsLiked(post?.likes?.includes(userId))
+  },[post])
   const  userId="65437e2ed3b869c3002a9072";
+
+  console.log(post,'postItem');
+
+  
   
   const likePost = async (postId) => {
+    setIsLiked(!isLiked)
     try {
       const response = await axios.put(
         `${process.env.EXPO_PUBLIC_API_URL}/post/like`,
@@ -39,7 +49,7 @@ export default function PostItem({ post = { post } }) {
       </View>
       <View style={styles.likeComment}>
         <TouchableOpacity onPress={() => likePost(post?._id)}>
-          <Icon color={"white"} name={"thumbs-o-up"} size={20} />
+          <Icon color={"white"} style={isLiked? styles.liked :{}} name={"thumbs-o-up"} size={20} />
         </TouchableOpacity>
         <TouchableOpacity>
           <Icon color={"white"} name={"comment-o"} size={20} />
@@ -118,4 +128,7 @@ const styles = StyleSheet.create({
     flex: 1,
     height: "100%", // Set the height to the full screen height
   },
+  liked:{
+    color:'#29D4FF'
+  }
 });
