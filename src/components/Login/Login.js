@@ -33,8 +33,8 @@ const Login = ({ navigation }) => {
     onSubmit: async (values) => {
       setLoader(true);
       try {
-        //let url = `${EXPO_PUBLIC_API_URL}sendotp`
-        let url = "http://192.168.43.177:3000/auth/sign_in";
+        let url = `${EXPO_PUBLIC_API_URL}auth/sign_in`
+        //let url = "http://192.168.43.177:3000/auth/sign_in";
         const response = await axios.post(url, {
           phoneNumber: `+91${formik.values.phoneNumber}`,
           password: formik.values.password,
