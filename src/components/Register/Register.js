@@ -43,8 +43,8 @@ export default function Register({ navigation }) {
   const handleApi = async () => {
     setLoader(true)
     try {
-      let url = `${EXPO_PUBLIC_API_URL}auth/register`
-      //let url = "http://192.168.43.177:3000/auth/register"
+     // let url = `${EXPO_PUBLIC_API_URL}auth/register`
+      let url = "http://192.168.1.41:3000/auth/register"
       const result= await axios.post(url,{ phoneNumber: `+91${formik.values.phoneNumber}` })
 
      console.log(result);
@@ -53,7 +53,9 @@ export default function Register({ navigation }) {
 
     } catch (error) {
       console.log("error:", error)
-      Alert.alert('Error', 'An error occurred while processing your request. Please try again.');
+      // Alert.alert('Error', 'An error occurred while processing your request. Please try again.');
+      Alert.alert("Error", error?.response?.data?.message);
+
     }
     setLoader(false)
   }

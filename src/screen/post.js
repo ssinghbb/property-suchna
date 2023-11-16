@@ -7,6 +7,7 @@ import {
   TouchableOpacity,
   ScrollView,
   Pressable,
+  RefreshControl,
 } from "react-native";
 import BottomNavBar from "../components/BottomNavbar/bottomNavbar";
 import Icon from "react-native-vector-icons/FontAwesome";
@@ -15,6 +16,15 @@ import PostItem from "../components/postItem/postItem";
 
 const Post = () => {
   const [posts, setPosts] = useState([]);
+  const [refreshing, setRefreshing] = React.useState(false);
+
+  const onRefresh = React.useCallback(() => {
+    setRefreshing(true);
+    setTimeout(() => {
+      setRefreshing(false);
+      getAllPost();
+    }, 2000);
+  }, []);
   useEffect(() => {
     getAllPost();
     return () => {};
@@ -22,12 +32,13 @@ const Post = () => {
 
   const getAllPost = async () => {
     try {
-      console.log("get all posts");
+      console.log("get all post");
+      //let url = "http://192.168.43.177:3000/post/allpost";
       let response = await axios.get(
         `${process.env.EXPO_PUBLIC_API_URL}/post/allpost`
       );
+
       //let response = await axios.get("http://192.168.1.41:3000/post/allpost");
-      console.log("response:", response?.data?.data);
       setPosts(response?.data?.data || []);
     } catch (error) {
       console.log("api error", error);
@@ -36,7 +47,12 @@ const Post = () => {
 
   return (
     <View style={styles.mainContainer}>
-      <ScrollView style={styles.postPage}>
+      <ScrollView
+        style={styles.postPage}
+        refreshControl={
+          <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+        }
+      >
         {posts?.map((post, index) => {
           return <PostItem key={index} post={post} />;
         })}
@@ -47,7 +63,6 @@ const Post = () => {
     </View>
   );
 };
-
 
 const styles = StyleSheet.create({
   mainContainer: {

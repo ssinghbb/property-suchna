@@ -38,8 +38,10 @@ const ReelsPage = () => {
 
   const getAllReels = async function (req, res) {
     try {
-      const response = await axios.get(
-        `${process.env.EXPO_PUBLIC_API_URL}/post/allreel`
+      // const response = await axios.get(
+      //   `${process.env.EXPO_PUBLIC_API_URL}/post/allreel`
+        const response = await axios.get(
+          `${process.env.EXPO_PUBLIC_API_URL}/post/allreel`
       );
       console.log("response:", response?.data?.data);
       setReels(response?.data?.data || []);

@@ -7,32 +7,34 @@ import {
   TouchableOpacity,
   ScrollView,
   Pressable,
+  Alert,
 } from "react-native";
 import Icon from "react-native-vector-icons/FontAwesome";
 import axios from "axios";
+import SharePost from "./sharePost"  
 
-export default function PostItem({ post ={} }) {
+export default function PostItem({ post = {} }) {
   //const [totalLikes, setTotalLikes] = useState(post?.likes || 0);
   const [totalLikes, setTotalLikes] = useState(post?.likes || 0);
-  const [isLiked,setIsLiked]=useState(false);
+  const [isLiked, setIsLiked] = useState(false);
 
-  useEffect(()=>{
-     setIsLiked(post?.likes?.includes(userId))
-  },[post])
-  const  userId="65437e2ed3b869c3002a9072";
+  useEffect(() => {
+    setIsLiked(post?.likes?.includes(userId));
+  }, [post]);
+  const userId = "65437e2ed3b869c3002a9072";
 
-  console.log(post,'postItem');
-
-  
-  
   const likePost = async (postId) => {
-    setIsLiked(!isLiked)
+    console.log("postid",postId);
+   
     try {
       const response = await axios.put(
-        `${process.env.EXPO_PUBLIC_API_URL}/post/like`,
+        "http://192.168.1.41:3000/post/like",
         { postId, userId }
       );
-      setTotalLikes(response.data.likes);
+      console.log(response?.data?.post?.likes?.length);
+       setTotalLikes(response?.data?.post?.likes?.length);
+       setIsLiked(response?.data?.post?.likes?.includes(userId));
+
     } catch (error) {
       console.error("Error liking post:", error);
     }
@@ -49,14 +51,18 @@ export default function PostItem({ post ={} }) {
       </View>
       <View style={styles.likeComment}>
         <TouchableOpacity onPress={() => likePost(post?._id)}>
-          <Icon color={"white"} style={isLiked? styles.liked :{}} name={"thumbs-o-up"} size={20} />
+          <Icon
+            color={"white"}
+            style={isLiked ? styles.liked : {}}
+            name={"thumbs-o-up"}
+            size={20}
+          />
+          {/* <Text style={styles.text}>{totalLikes}</Text> */}
         </TouchableOpacity>
         <TouchableOpacity>
           <Icon color={"white"} name={"comment-o"} size={20} />
         </TouchableOpacity>
-        <TouchableOpacity>
-          <Icon color={"white"} name={"share"} size={20} />
-        </TouchableOpacity>
+        <SharePost/>
       </View>
       <View style={styles.descriptionSection}>
         <Text style={styles.description}>{post?.description}</Text>
@@ -115,6 +121,10 @@ const styles = StyleSheet.create({
     color: "white",
     fontSize: 13,
   },
+  text:{
+color:"white",
+fontSize:13
+  },
 
   postPage: {
     width: "100%",
@@ -128,7 +138,7 @@ const styles = StyleSheet.create({
     flex: 1,
     height: "100%", // Set the height to the full screen height
   },
-  liked:{
-    color:'#29D4FF'
-  }
+  liked: {
+    color: "#29D4FF",
+  },
 });

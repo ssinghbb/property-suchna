@@ -33,8 +33,8 @@ const Login = ({ navigation }) => {
     onSubmit: async (values) => {
       setLoader(true);
       try {
-        let url = `${EXPO_PUBLIC_API_URL}auth/sign_in`
-        //let url = "http://192.168.43.177:3000/auth/sign_in";
+       // let url = `${EXPO_PUBLIC_API_URL}auth/sign_in`
+        let url = "http://192.168.1.41:3000/auth/sign_in";
         const response = await axios.post(url, {
           phoneNumber: `+91${formik.values.phoneNumber}`,
           password: formik.values.password,
@@ -65,7 +65,7 @@ const Login = ({ navigation }) => {
             source={require("../../../assets/logo.png")}
           />
         </View>
-        <Text style={styles.text}>{t("register.iogInForTheBestProperty")}</Text>
+        <Text style={styles.text}>{t("register.logInForTheBestProperty")}</Text>
         <Text style={[styles.text, { fontSize: 12, color: "gray" }]}>
           {t("register.enterYourPhoneNumberToContinue")}
         </Text>
