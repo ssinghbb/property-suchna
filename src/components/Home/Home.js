@@ -94,8 +94,8 @@ export default function Home({ navigation }) {
               onPress={() => navigation.navigate("register")}
             />
           </View>
-          <View style={styles?.btnDiv}>
-            <Text style={{ color: 'white' }}>{t('home.selectLanguage')}</Text>
+          {/* <View style={styles?.btnDiv}>
+            <Text >{t('home.selectLanguage')}</Text>
             <Picker
               selectedValue={selectedLanguage}
               style={{ height: 50, width: 150 }}
@@ -105,7 +105,7 @@ export default function Home({ navigation }) {
               <Picker.Item label="English" value="en" />
               <Picker.Item label="Hindi" value="hi" />
             </Picker>
-          </View>
+          </View> */}
         </View>
       </View>
     </SafeAreaView>

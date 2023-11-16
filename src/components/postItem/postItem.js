@@ -54,7 +54,7 @@ export default function PostItem({ post = {} }) {
           <Icon
             color={"white"}
             style={isLiked ? styles.liked : {}}
-            name={"thumbs-o-up"}
+            name={"heart"}
             size={20}
           />
           {/* <Text style={styles.text}>{totalLikes}</Text> */}

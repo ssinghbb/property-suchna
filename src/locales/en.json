@@ -14,6 +14,7 @@
         "yes": "Yes",
         "no": "No",
         "continue": "Continue",
+        "nameIsRequired":"Name is required",
         "enterYourName": "Enter your name",
         "enterYourPhoneNo": "Enter your phone no",
         "enterYourPassword": "Enter password",
