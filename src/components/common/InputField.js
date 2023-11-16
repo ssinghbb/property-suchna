@@ -1,4 +1,5 @@
 import { StyleSheet, Text, TextInput, View } from "react-native";
+import { themeStyles } from "../../../styles";
 
 const InputField = ({ label, error, ...rest }) => {
   return (
@@ -13,7 +14,7 @@ const InputField = ({ label, error, ...rest }) => {
 const styles = StyleSheet.create({
   input: {
     borderRadius: 5,
-    borderColor: "#29D4FF",
+    borderColor: themeStyles.primaryColor,
     borderWidth: 1,
     color: "white",
     height: 40,

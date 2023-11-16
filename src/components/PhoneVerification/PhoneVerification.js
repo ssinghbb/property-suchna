@@ -14,6 +14,7 @@ import axios from "axios";
 import { EXPO_PUBLIC_API_URL } from "../../constants/constant";
 import { useSelector, useDispatch } from 'react-redux'
 import { setUser } from "../../redux/slices/userSlice";
+import { themeStyles } from "../../../styles";
 export default function PhoneVerification({ route, navigation }) {
   console.log(route.params, "params-------1")
   // console.log("process", EXPO_PUBLIC_API_URL)
@@ -196,7 +197,7 @@ const Styles = StyleSheet.create({
   },
   input: {
     borderRadius: 5,
-    borderColor: "#29D4FF",
+    borderColor: themeStyles.primaryColor,
     borderWidth: 1,
     color: "white",
     height: 40,

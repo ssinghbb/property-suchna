@@ -11,6 +11,7 @@ import BottomNavbar from "../components/BottomNavbar/bottomNavbar";
 import Icon from "react-native-vector-icons/FontAwesome";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 import { useNavigation } from "@react-navigation/native";
+import { themeStyles } from "../../styles";
 
 const commentsData = [
   {
@@ -20,8 +21,8 @@ const commentsData = [
       "Welcome to this beautiful 3-bedroom, 2-bathroom home located in the heart of [Name of the Neighborhood], known for its [mention a unique feature of the neighborhood, such as parks, schools, or nearby amenities]. This property offers a warm and inviting atmosphere with a host of attractive features.",
   },
 
-{
-  id: 2,
+  {
+    id: 2,
     name: "Keerti",
     comment:
       "Welcome to this beautiful 3-bedroom, 2-bathroom home located in the heart of [Name of the Neighborhood], known for its [mention a unique feature of the neighborhood, such as parks, schools, or nearby amenities]. This property offers a warm and inviting atmosphere with a host of attractive features.",
@@ -29,66 +30,66 @@ const commentsData = [
 
   {
     id: 3,
-      name: "Keerti",
-      comment:
-        "Welcome to this beautiful 3-bedroom, 2-bathroom home located in the heart of [Name of the Neighborhood], known for its [mention a unique feature of the neighborhood, such as parks, schools, or nearby amenities]. This property offers a warm and inviting atmosphere with a host of attractive features.",
-    },
-    {
-      id: 4,
-        name: "Keerti",
-        comment:
-          "Welcome to this beautiful 3-bedroom, 2-bathroom home located in the heart of [Name of the Neighborhood], known for its [mention a unique feature of the neighborhood, such as parks, schools, or nearby amenities]. This property offers a warm and inviting atmosphere with a host of attractive features.",
-      },
+    name: "Keerti",
+    comment:
+      "Welcome to this beautiful 3-bedroom, 2-bathroom home located in the heart of [Name of the Neighborhood], known for its [mention a unique feature of the neighborhood, such as parks, schools, or nearby amenities]. This property offers a warm and inviting atmosphere with a host of attractive features.",
+  },
+  {
+    id: 4,
+    name: "Keerti",
+    comment:
+      "Welcome to this beautiful 3-bedroom, 2-bathroom home located in the heart of [Name of the Neighborhood], known for its [mention a unique feature of the neighborhood, such as parks, schools, or nearby amenities]. This property offers a warm and inviting atmosphere with a host of attractive features.",
+  },
 
-      {
-        id: 5,
-          name: "Keerti",
-          comment:
-            "Welcome to this beautiful 3-bedroom, 2-bathroom home located in the heart of [Name of the Neighborhood], known for its [mention a unique feature of the neighborhood, such as parks, schools, or nearby amenities]. This property offers a warm and inviting atmosphere with a host of attractive features.",
-        },
-        {
-          id: 6,
-            name: "Keerti",
-            comment:
-              "Welcome to this beautiful 3-bedroom, 2-bathroom home located in the heart of [Name of the Neighborhood], known for its [mention a unique feature of the neighborhood, such as parks, schools, or nearby amenities]. This property offers a warm and inviting atmosphere with a host of attractive features.",
-          },
-          {
-            id: 7,
-              name: "Keerti",
-              comment:
-                "Welcome to this beautiful 3-bedroom, 2-bathroom home located in the heart of [Name of the Neighborhood], known for its [mention a unique feature of the neighborhood, such as parks, schools, or nearby amenities]. This property offers a warm and inviting atmosphere with a host of attractive features.",
-            },
-            {
-              id: 8,
-                name: "Keerti",
-                comment:
-                  "Welcome to this beautiful 3-bedroom, 2-bathroom home located in the heart of [Name of the Neighborhood], known for its [mention a unique feature of the neighborhood, such as parks, schools, or nearby amenities]. This property offers a warm and inviting atmosphere with a host of attractive features.",
-              },
-              {
-                id: 9,
-                  name: "Keerti",
-                  comment:
-                    "Welcome to this beautiful 3-bedroom, 2-bathroom home located in the heart of [Name of the Neighborhood], known for its [mention a unique feature of the neighborhood, such as parks, schools, or nearby amenities]. This property offers a warm and inviting atmosphere with a host of attractive features.",
-                },
-                {
-                  id: 10,
-                    name: "Keerti",
-                    comment:
-                      "Welcome to this beautiful 3-bedroom, 2-bathroom home located in the heart of [Name of the Neighborhood], known for its [mention a unique feature of the neighborhood, such as parks, schools, or nearby amenities]. This property offers a warm and inviting atmosphere with a host of attractive features.",
-                  },
-                  {
-                    id: 11,
-                      name: "Keerti",
-                      comment:
-                        "Welcome to this beautiful 3-bedroom, 2-bathroom home located in the heart of [Name of the Neighborhood], known for its [mention a unique feature of the neighborhood, such as parks, schools, or nearby amenities]. This property offers a warm and inviting atmosphere with a host of attractive features.",
-                    },
-                    {
-                      id: 12,
-                        name: "Keerti",
-                        comment:
-                          "Welcome to this beautiful 3-bedroom, 2-bathroom home located in the heart of [Name of the Neighborhood], known for its [mention a unique feature of the neighborhood, such as parks, schools, or nearby amenities]. This property offers a warm and inviting atmosphere with a host of attractive features.",
-                      },
-  
+  {
+    id: 5,
+    name: "Keerti",
+    comment:
+      "Welcome to this beautiful 3-bedroom, 2-bathroom home located in the heart of [Name of the Neighborhood], known for its [mention a unique feature of the neighborhood, such as parks, schools, or nearby amenities]. This property offers a warm and inviting atmosphere with a host of attractive features.",
+  },
+  {
+    id: 6,
+    name: "Keerti",
+    comment:
+      "Welcome to this beautiful 3-bedroom, 2-bathroom home located in the heart of [Name of the Neighborhood], known for its [mention a unique feature of the neighborhood, such as parks, schools, or nearby amenities]. This property offers a warm and inviting atmosphere with a host of attractive features.",
+  },
+  {
+    id: 7,
+    name: "Keerti",
+    comment:
+      "Welcome to this beautiful 3-bedroom, 2-bathroom home located in the heart of [Name of the Neighborhood], known for its [mention a unique feature of the neighborhood, such as parks, schools, or nearby amenities]. This property offers a warm and inviting atmosphere with a host of attractive features.",
+  },
+  {
+    id: 8,
+    name: "Keerti",
+    comment:
+      "Welcome to this beautiful 3-bedroom, 2-bathroom home located in the heart of [Name of the Neighborhood], known for its [mention a unique feature of the neighborhood, such as parks, schools, or nearby amenities]. This property offers a warm and inviting atmosphere with a host of attractive features.",
+  },
+  {
+    id: 9,
+    name: "Keerti",
+    comment:
+      "Welcome to this beautiful 3-bedroom, 2-bathroom home located in the heart of [Name of the Neighborhood], known for its [mention a unique feature of the neighborhood, such as parks, schools, or nearby amenities]. This property offers a warm and inviting atmosphere with a host of attractive features.",
+  },
+  {
+    id: 10,
+    name: "Keerti",
+    comment:
+      "Welcome to this beautiful 3-bedroom, 2-bathroom home located in the heart of [Name of the Neighborhood], known for its [mention a unique feature of the neighborhood, such as parks, schools, or nearby amenities]. This property offers a warm and inviting atmosphere with a host of attractive features.",
+  },
+  {
+    id: 11,
+    name: "Keerti",
+    comment:
+      "Welcome to this beautiful 3-bedroom, 2-bathroom home located in the heart of [Name of the Neighborhood], known for its [mention a unique feature of the neighborhood, such as parks, schools, or nearby amenities]. This property offers a warm and inviting atmosphere with a host of attractive features.",
+  },
+  {
+    id: 12,
+    name: "Keerti",
+    comment:
+      "Welcome to this beautiful 3-bedroom, 2-bathroom home located in the heart of [Name of the Neighborhood], known for its [mention a unique feature of the neighborhood, such as parks, schools, or nearby amenities]. This property offers a warm and inviting atmosphere with a host of attractive features.",
+  },
+
 ];
 
 const Notifications = () => {
@@ -110,7 +111,7 @@ const Notifications = () => {
           onPress={() => handleLike(item.id)}
           name={"thumbs-o-up"}
           size={20}
-          
+
         />
       </Pressable>
     </View>
@@ -118,7 +119,7 @@ const Notifications = () => {
 
   return (
     <View style={styles.screenContainer}>
-      
+
       <Pressable
         onPress={() => navigation.navigate("post")}
         style={{
@@ -164,7 +165,7 @@ const styles = StyleSheet.create({
     display: "flex",
     alignItems: "center",
     borderWidth: 1,
-    borderColor: "#29D4FF",
+    borderColor: themeStyles.primaryColor,
     borderWidth: 1,
   },
   commentText: {

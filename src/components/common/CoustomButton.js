@@ -1,4 +1,5 @@
 import { Pressable, Text, StyleSheet } from "react-native";
+import { themeStyles } from "../../../styles";
 
 const CoustomButton = ({ title, onPress, disable }) => {
   return (
@@ -10,7 +11,7 @@ const CoustomButton = ({ title, onPress, disable }) => {
 
 const style = StyleSheet.create({
   btn: {
-    backgroundColor: "#29D4FF",
+    backgroundColor: themeStyles.primaryColor,
     alignItems: "center",
     padding: 12,
     borderRadius: 4,

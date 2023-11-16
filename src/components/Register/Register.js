@@ -16,6 +16,7 @@ import RadioButtons from "../common/coustomRadioButton";
 import { useTranslation } from 'react-i18next';
 import axios from 'axios';
 import { EXPO_PUBLIC_API_URL } from "../../constants/constant";
+import { themeStyles } from "../../../styles";
 
 
 
@@ -153,7 +154,7 @@ const Styles = StyleSheet.create({
   },
   input: {
     borderRadius: 5,
-    borderColor: "#29D4FF",
+    borderColor: themeStyles.primaryColor,
     borderWidth: 1,
     color: "white",
     height: 40,

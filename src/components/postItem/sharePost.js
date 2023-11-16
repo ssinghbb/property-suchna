@@ -1,6 +1,7 @@
 import { View, Text,StyleSheet, TouchableOpacity } from 'react-native'
 import React from 'react'
 import Icon from "react-native-vector-icons/FontAwesome";
+import { themeStyles } from '../../../styles';
 //import Share from 'react-native-share';
 
 export default function SharePost() {
@@ -90,7 +91,7 @@ const styles = StyleSheet.create({
       height: "100%", // Set the height to the full screen height
     },
     liked:{
-      color:'#29D4FF'
+      color:themeStyles.primaryColor
     }
   });
 

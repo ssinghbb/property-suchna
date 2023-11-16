@@ -45,5 +45,6 @@ export default globalStyles
 export const themeStyles={
     primaryColor:'#29D4FF',
     secondaryColor:'white',
-    themeColor:'black'
+    themeColor:'black',
+    primarySecColor:'#60929c'
 }

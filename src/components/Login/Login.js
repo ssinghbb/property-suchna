@@ -15,6 +15,7 @@ import CoustomButton from "../common/CoustomButton";
 import { useTranslation } from "react-i18next";
 import axios from "axios";
 import { EXPO_PUBLIC_API_URL } from "../../constants/constant";
+import { themeStyles } from "../../../styles";
 
 const validationSchema = yup.object().shape({
   phoneNumber: yup.string().required("Phone number is required"),
@@ -25,6 +26,7 @@ const Login = ({ navigation }) => {
   const { t } = useTranslation();
   const [loader, setLoader] = useState(false);
   const [loginError, setLoginError] = useState(null);
+  const [isLoading, setIsLoading] = useState(false)
   const formik = useFormik({
     initialValues: {
       phoneNumber: "",
@@ -32,11 +34,12 @@ const Login = ({ navigation }) => {
     },
     validationSchema,
     onSubmit: async (values) => {
+      console.log("values:", values)
       setLoader(true);
       try {
-       let url = `${EXPO_PUBLIC_API_URL}auth/sign_in`
-       console.log("url",url);
-       // let url = "http://192.168.1.41:3000/auth/sign_in";
+        let url = `${EXPO_PUBLIC_API_URL}auth/sign_in`
+        console.log("url", url);
+        // let url = "http://192.168.1.41:3000/auth/sign_in";
         const response = await axios.post(url, {
           phoneNumber: `+91${formik.values.phoneNumber}`,
           password: formik.values.password,
@@ -96,6 +99,7 @@ const Login = ({ navigation }) => {
       </ScrollView>
       <View style={styles.btnContainer}>
         <CoustomButton
+          disable={false}
           title={t("register.continue")}
           onPress={formik.handleSubmit}
         />
@@ -128,7 +132,7 @@ const styles = StyleSheet.create({
   },
   input: {
     borderRadius: 5,
-    borderColor: "#29D4FF",
+    borderColor: themeStyles.primaryColor,
     borderWidth: 1,
     color: "white",
     height: 40,

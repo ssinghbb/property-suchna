@@ -13,6 +13,7 @@ import Icon from "react-native-vector-icons/FontAwesome";
 import axios from "axios";
 import SharePost from "./sharePost";
 import { EXPO_PUBLIC_API_URL } from "../../constants/constant";
+import { themeStyles } from "../../../styles";
 
 export default function PostItem({ post = {} }) {
   //const [totalLikes, setTotalLikes] = useState(post?.likes || 0);
@@ -139,6 +140,6 @@ const styles = StyleSheet.create({
     height: "100%", // Set the height to the full screen height
   },
   liked: {
-    color: "#29D4FF",
+    color: themeStyles.primaryColor,
   },
 });
