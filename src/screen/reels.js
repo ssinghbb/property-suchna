@@ -5,6 +5,7 @@ import { Video } from "expo-av";
 import Icon from "react-native-vector-icons/FontAwesome";
 import { TouchableOpacity } from "react-native";
 import axios from "axios";
+import { EXPO_PUBLIC_API_URL } from "../constants/constant";
 
 const { height, width } = Dimensions.get("window");
 
@@ -38,10 +39,13 @@ const ReelsPage = () => {
 
   const getAllReels = async function (req, res) {
     try {
+
+      const apiUrl =  `${EXPO_PUBLIC_API_URL}post/allreel`
+
       // const response = await axios.get(
       //   `${process.env.EXPO_PUBLIC_API_URL}/post/allreel`
         const response = await axios.get(
-          `${process.env.EXPO_PUBLIC_API_URL}/post/allreel`
+         apiUrl
       );
       console.log("response:", response?.data?.data);
       setReels(response?.data?.data || []);

@@ -13,6 +13,7 @@ import FontAwesome from "react-native-vector-icons/FontAwesome";
 import { useNavigation } from "@react-navigation/native";
 import { useFormik } from "formik";
 import axios from "axios";
+import { EXPO_PUBLIC_API_URL } from "../constants/constant";
 
 const PostDetails = ({ file, isVideo }) => {
   const [loader, setLoader] = useState(false);
@@ -34,7 +35,8 @@ const PostDetails = ({ file, isVideo }) => {
     console.log("handelvalu", values);
     try {
       setLoader(true);
-      const apiUrl = "https://property-suchna.onrender.com/post/upload";
+      // const apiUrl = "https://property-suchna.onrender.com/post/upload";
+      const apiUrl = `${EXPO_PUBLIC_API_URL}post/upload`
 
       //const apiUrl = "http://192.168.1.41:3000/post/upload";
       console.log("values.userId:", values.userId);

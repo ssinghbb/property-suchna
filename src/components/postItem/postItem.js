@@ -11,7 +11,8 @@ import {
 } from "react-native";
 import Icon from "react-native-vector-icons/FontAwesome";
 import axios from "axios";
-import SharePost from "./sharePost"  
+import SharePost from "./sharePost";
+import { EXPO_PUBLIC_API_URL } from "../../constants/constant";
 
 export default function PostItem({ post = {} }) {
   //const [totalLikes, setTotalLikes] = useState(post?.likes || 0);
@@ -24,17 +25,16 @@ export default function PostItem({ post = {} }) {
   const userId = "65437e2ed3b869c3002a9072";
 
   const likePost = async (postId) => {
-    console.log("postid",postId);
-   
-    try {
-      const response = await axios.put(
-        "http://192.168.1.41:3000/post/like",
-        { postId, userId }
-      );
-      console.log(response?.data?.post?.likes?.length);
-       setTotalLikes(response?.data?.post?.likes?.length);
-       setIsLiked(response?.data?.post?.likes?.includes(userId));
+    console.log("postid", postId);
 
+    try {
+      // let url= "http://192.168.1.41:3000/post/like"
+      let url = `${EXPO_PUBLIC_API_URL}post/like`;
+
+      const response = await axios.put(url, { postId, userId });
+      console.log(response?.data?.post?.likes?.length);
+      setTotalLikes(response?.data?.post?.likes?.length);
+      setIsLiked(response?.data?.post?.likes?.includes(userId));
     } catch (error) {
       console.error("Error liking post:", error);
     }
@@ -62,7 +62,7 @@ export default function PostItem({ post = {} }) {
         <TouchableOpacity>
           <Icon color={"white"} name={"comment-o"} size={20} />
         </TouchableOpacity>
-        <SharePost/>
+        <SharePost />
       </View>
       <View style={styles.descriptionSection}>
         <Text style={styles.description}>{post?.description}</Text>
@@ -121,9 +121,9 @@ const styles = StyleSheet.create({
     color: "white",
     fontSize: 13,
   },
-  text:{
-color:"white",
-fontSize:13
+  text: {
+    color: "white",
+    fontSize: 13,
   },
 
   postPage: {

@@ -13,6 +13,7 @@ import BottomNavBar from "../components/BottomNavbar/bottomNavbar";
 import Icon from "react-native-vector-icons/FontAwesome";
 import axios from "axios";
 import PostItem from "../components/postItem/postItem";
+import { EXPO_PUBLIC_API_URL } from "../constants/constant";
 
 const Post = () => {
   const [posts, setPosts] = useState([]);
@@ -33,10 +34,12 @@ const Post = () => {
   const getAllPost = async () => {
     try {
       console.log("get all post");
+      let url=`${EXPO_PUBLIC_API_URL}post/allpost`
       //let url = "http://192.168.43.177:3000/post/allpost";
       let response = await axios.get(
-        `${process.env.EXPO_PUBLIC_API_URL}/post/allpost`
+        url
       );
+    
 
       //let response = await axios.get("http://192.168.1.41:3000/post/allpost");
       setPosts(response?.data?.data || []);

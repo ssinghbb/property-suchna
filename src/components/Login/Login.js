@@ -14,6 +14,7 @@ import InputField from "../common/InputField";
 import CoustomButton from "../common/CoustomButton";
 import { useTranslation } from "react-i18next";
 import axios from "axios";
+import { EXPO_PUBLIC_API_URL } from "../../constants/constant";
 
 const validationSchema = yup.object().shape({
   phoneNumber: yup.string().required("Phone number is required"),
@@ -33,13 +34,14 @@ const Login = ({ navigation }) => {
     onSubmit: async (values) => {
       setLoader(true);
       try {
-       // let url = `${EXPO_PUBLIC_API_URL}auth/sign_in`
-        let url = "http://192.168.1.41:3000/auth/sign_in";
+       let url = `${EXPO_PUBLIC_API_URL}auth/sign_in`
+       console.log("url",url);
+       // let url = "http://192.168.1.41:3000/auth/sign_in";
         const response = await axios.post(url, {
           phoneNumber: `+91${formik.values.phoneNumber}`,
           password: formik.values.password,
         });
-        console.log("API Response:", response?.data);
+        console.log("API Response:", response);
         if (response?.data?.success) {
           setTimeout(() => {
             Alert.alert("Login successful!");
@@ -51,7 +53,7 @@ const Login = ({ navigation }) => {
         }
       } catch (error) {
         setLoader(false);
-        console.error("API Error:", error?.response?.data);
+        console.error("API Error:", error);
         Alert.alert("Error", error?.response?.data?.message);
       }
     },
