@@ -14,6 +14,7 @@ import Icon from "react-native-vector-icons/FontAwesome";
 import axios from "axios";
 import PostItem from "../components/postItem/postItem";
 import { EXPO_PUBLIC_API_URL } from "../constants/constant";
+import Header from "../components/Header/header";
 
 const Post = () => {
   const [posts, setPosts] = useState([]);
@@ -50,12 +51,14 @@ const Post = () => {
 
   return (
     <View style={styles.mainContainer}>
+      
       <ScrollView
         style={styles.postPage}
         refreshControl={
           <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
         }
       >
+        <Header/>
         {posts?.map((post, index) => {
           return <PostItem key={index} post={post} />;
         })}

@@ -15,10 +15,14 @@ const style = StyleSheet.create({
     alignItems: "center",
     padding: 12,
     borderRadius: 4,
+    //  textAlign:"center",
+
   },
   textInput: {
     fontStyle: "normal",
     fontWeight: "800",
+    textAlign:"center",
+    // alignItems:"center",
   },
 });
 export default CoustomButton;

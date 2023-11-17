@@ -10,6 +10,8 @@ import ProfileScreen from "../screen/profile";
 import NotificationsScreen from "../screen/notification";
 import Post from "../screen/post";
 import AddPost from "../screen/addpost";
+import ShareDetailsScreen from "../screen/sharedetails";
+
 
 const Stack = createNativeStackNavigator();
 
@@ -20,7 +22,7 @@ export default SignedInStack = () => (
       statusBarColor: "black",
       contentStyle: { backgroundColor: "#000" },
     }}
-    //initialRouteName="post"
+    initialRouteName="post"
   >
     <Stack.Screen name="home" component={Home}/>
     <Stack.Screen name="register" component={Register}/>
@@ -31,6 +33,7 @@ export default SignedInStack = () => (
     <Stack.Screen name="addPost" component={AddPost} />
     {/* <Stack.Screen name="postdetais" component={PostDetail} /> */}
     <Stack.Screen name="profile" component={ProfileScreen} />
+    <Stack.Screen name="sharedetails" component={ShareDetailsScreen} />
     <Stack.Screen name="notifications" component={NotificationsScreen} />
   </Stack.Navigator>
 );

@@ -1,7 +1,7 @@
 import { View, Text } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import { SignedInStack, SignedOutStack } from './src/routes/Routes'
-// import { SignedInStack, SignedOutStack } from './navigation'
+ //import { SignedInStack, SignedOutStack } from './navigation'
 import { useSelector, useDispatch } from 'react-redux'
 
 
@@ -20,7 +20,7 @@ const AuthNavigation = () => {
 
 		}
 	}, [user])
-
+console.log("cuu",currentUser)
 
 	return <>{currentUser ? <SignedInStack/> : <SignedOutStack/>}</>
 }
