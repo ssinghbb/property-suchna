@@ -28,8 +28,6 @@ const Login = ({ navigation }) => {
   const dispatch = useDispatch();
 
   const { t } = useTranslation();
-  const [loader, setLoader] = useState(false);
-  const [loginError, setLoginError] = useState(null);
   const [isLoading, setIsLoading] = useState(false)
   const formik = useFormik({
     initialValues: {
@@ -39,8 +37,8 @@ const Login = ({ navigation }) => {
     validationSchema,
     onSubmit: async (values) => {
       console.log("values:", values)
-      setLoader(true);
       try {
+        setIsLoading(true)
         let url = `${EXPO_PUBLIC_API_URL}auth/sign_in`
         console.log("url", url);
         // let url = "http://192.168.1.41:3000/auth/sign_in";
@@ -50,18 +48,21 @@ const Login = ({ navigation }) => {
         });
         console.log("API Response:", response);
         if (response?.data?.success) {
-          dispatch(setUser({ name: 'Santosh' }));
+          dispatch(setUser(response?.data?.data));
+          setIsLoading(false)
+
 
           setTimeout(() => {
-            Alert.alert("Login successful!");
+            // Alert.alert("Login successful!");
             navigation.navigate("post");
           }, 2000);
         } else {
-          setLoginError("incorrect password, please try again.");
+          setIsLoading(false)
           console.log(response?.data);
         }
       } catch (error) {
-        setLoader(false);
+        setIsLoading(false)
+
         console.error("API Error:", error);
         Alert.alert("Error", error?.response?.data?.message);
       }
@@ -105,7 +106,7 @@ const Login = ({ navigation }) => {
       </ScrollView>
       <View style={styles.btnContainer}>
         <CoustomButton
-          disable={false}
+          disable={isLoading}
           title={t("register.continue")}
           onPress={formik.handleSubmit}
         />

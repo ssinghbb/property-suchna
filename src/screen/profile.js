@@ -19,13 +19,14 @@ const Profile = () => {
 
 
   const user = useSelector((state) => state.user.user);
-  // console.log("user:", user?.name)
+  console.log("user in profile:", user?.user)
+  let currentUser = user?.user
   const dispatch = useDispatch();
 
-  const handleLogin = () => {
-    // Dispatch the setUser action to update the user state
-    dispatch(setUser({ name: 'Santosh' }));
-  };
+  // const handleLogin = () => {
+  //   // Dispatch the setUser action to update the user state
+  //   dispatch(setUser({ name: 'Santosh' }));
+  // };
   const handleLogout = () => {
     console.log("logout")
     dispatch(setUser());
@@ -44,7 +45,7 @@ const Profile = () => {
           /> */}
         <View style={styles?.header}>
 
-          <Text style={globalStyles.secondaryColor}>Profile</Text>
+          <Text style={[globalStyles.secondaryColor, { fontWeight: '800', fontSize: 22 }]}>Profile</Text>
           <Button title="logout" onPress={handleLogout} />
 
         </View>
@@ -69,14 +70,16 @@ const Profile = () => {
                 style={styles.input}
                 placeholder="Name"
                 placeholderTextColor={"gray"}
+                value={currentUser?.fullName}
               />
             </View>
             <View style={styles.fieldContainer}>
-              <Text style={styles.label}>User Name :</Text>
+              <Text style={styles.label}>Phone Number</Text>
               <TextInput
                 style={styles.input}
                 placeholder="User Name"
                 placeholderTextColor={"gray"}
+                value={currentUser?.phoneNumber}
               />
             </View>
             <View style={styles.fieldContainer}>
@@ -87,14 +90,14 @@ const Profile = () => {
                 placeholderTextColor={"gray"}
               />
             </View>
-            <View style={styles.fieldContainer}>
+            {/* <View style={styles.fieldContainer}>
               <Text style={styles.label}>Language :</Text>
               <TextInput
                 style={styles.input}
                 placeholder="Language"
                 placeholderTextColor={"gray"}
               />
-            </View>
+            </View> */}
 
           </View>
         </View>
