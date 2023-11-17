@@ -26,6 +26,11 @@ const Profile = () => {
     // Dispatch the setUser action to update the user state
     dispatch(setUser({ name: 'Santosh' }));
   };
+  const handleLogout = () => {
+    console.log("logout")
+    dispatch(setUser());
+
+  }
 
   return (
     <Layout>
@@ -40,6 +45,8 @@ const Profile = () => {
         <View style={styles?.header}>
 
           <Text style={globalStyles.secondaryColor}>Profile</Text>
+          <Button title="logout" onPress={handleLogout} />
+
         </View>
         {/* </Pressable> */}
         <View style={styles.user}>
@@ -88,6 +95,7 @@ const Profile = () => {
                 placeholderTextColor={"gray"}
               />
             </View>
+
           </View>
         </View>
       </View>
@@ -147,12 +155,13 @@ const styles = StyleSheet.create({
   },
   header: {
     flexDirection: "row",
+    justifyContent: 'space-between',
     gap: 30,
     alignItems: "center",
     padding: 10,
     borderBottomColor: themeStyles.secondaryColor,
     borderBottomWidth: 1,
-    fontWeight: '700'
+    fontWeight: '700',
   },
   avatar: {
     width: 70,

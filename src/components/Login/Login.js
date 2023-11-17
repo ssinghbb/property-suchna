@@ -16,6 +16,8 @@ import { useTranslation } from "react-i18next";
 import axios from "axios";
 import { EXPO_PUBLIC_API_URL } from "../../constants/constant";
 import { themeStyles } from "../../../styles";
+import { useDispatch } from "react-redux";
+import { setUser } from "../../redux/slices/userSlice";
 
 const validationSchema = yup.object().shape({
   phoneNumber: yup.string().required("Phone number is required"),
@@ -23,6 +25,8 @@ const validationSchema = yup.object().shape({
 });
 
 const Login = ({ navigation }) => {
+  const dispatch = useDispatch();
+
   const { t } = useTranslation();
   const [loader, setLoader] = useState(false);
   const [loginError, setLoginError] = useState(null);
@@ -46,6 +50,8 @@ const Login = ({ navigation }) => {
         });
         console.log("API Response:", response);
         if (response?.data?.success) {
+          dispatch(setUser({ name: 'Santosh' }));
+
           setTimeout(() => {
             Alert.alert("Login successful!");
             navigation.navigate("post");
