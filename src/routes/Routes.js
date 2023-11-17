@@ -11,6 +11,7 @@ import NotificationsScreen from "../screen/notification";
 import Post from "../screen/post";
 import AddPost from "../screen/addpost";
 import ShareDetailsScreen from "../screen/sharedetails";
+import UserAccount from "../screen/useraccount";
 
 
 const Stack = createNativeStackNavigator();

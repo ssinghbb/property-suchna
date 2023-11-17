@@ -20,7 +20,7 @@ const PostDetails = ({ file, isVideo }) => {
   const navigation = useNavigation();
   const formik = useFormik({
     initialValues: {
-      userId: "65437e2ed3b869c3002a9072",
+      userId: "6556139fc7135ea1d385c747",
       caption: "",
       location: "",
       description: "",
@@ -96,6 +96,7 @@ const PostDetails = ({ file, isVideo }) => {
               <Image
                 style={styles.img}
                 source={require("../../assets/comment1.png")}
+                
               />
             </View>
             <TextInput

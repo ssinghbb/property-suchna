@@ -14,11 +14,21 @@ import axios from "axios";
 import SharePost from "./sharePost";
 import { EXPO_PUBLIC_API_URL } from "../../constants/constant";
 import { themeStyles } from "../../../styles";
+import { useNavigation } from "@react-navigation/native";
+
 
 export default function PostItem({ post = {} }) {
   //const [totalLikes, setTotalLikes] = useState(post?.likes || 0);
   const [totalLikes, setTotalLikes] = useState(post?.likes || 0);
   const [isLiked, setIsLiked] = useState(false);
+  const navigation = useNavigation();
+
+
+
+
+  const navigateToScreen = (screenName) => {
+    navigation.navigate(screenName);
+  };
 
   useEffect(() => {
     setIsLiked(post?.likes?.includes(userId));
@@ -43,10 +53,15 @@ export default function PostItem({ post = {} }) {
 
   return (
     <View key={post?._id} style={styles.postCard}>
-      <View style={styles.profile}>
+      <TouchableOpacity
+        style={styles.profile}
+        onPress={() => {
+          navigateToScreen("useraccount")
+        }}
+      >
         <Image source={require("../../../assets/lily.png")} />
         <Text style={styles.userName}>{post?.user?.fullName}</Text>
-      </View>
+      </TouchableOpacity>
       <View style={styles.postImg}>
         <Image style={styles.post} source={{ uri: post?.url }} />
       </View>
