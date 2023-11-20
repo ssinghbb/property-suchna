@@ -1,9 +1,8 @@
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import React from "react";
 import CoustomButton from "../common/CoustomButton";
 import { useNavigation } from "@react-navigation/native";
-
-
+import Icon from "react-native-vector-icons/FontAwesome";
 
 export default function Header() {
  const navigation = useNavigation();
@@ -11,21 +10,27 @@ export default function Header() {
     navigation.navigate(screenName);
   };
 
+
   return (
     <View style={styles.mainContainer}>
       <View style={styles.logoSection}>
         <Text style={styles.textSection}>property suchana</Text>
       </View>
       <View style={styles.btnContainer}>
-        <CoustomButton
-          title={"clickme"}
-          onPress={() => navigateToScreen("shareDetails")}
-          style={styles.btn}
-        />
+        
+        <TouchableOpacity >
+          {/* <Icon color={"white"} name={"user"} size={30}  height={40} width={40} /> */}
+          <Icon color={"white"} name={"id-badge"} size={30}  height={40} width={40} />
+          {/* <Icon color={"white"} name={"id-card"} size={30}  height={40} width={40} /> */}
+          {/* <Icon color={"white"} name={"face-smile-beam"} size={30}  height={40} width={40} /> */}
+
+        </TouchableOpacity>
+        
       </View>
     </View>
   );
 }
+
 
 const styles = StyleSheet.create({
   mainContainer: {
@@ -53,6 +58,7 @@ const styles = StyleSheet.create({
     // marginVertical:10,
        maxHeight:"90%",
     alignItems:"center",
+    paddingTop:10,
 
     
   }
