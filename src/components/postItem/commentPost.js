@@ -11,50 +11,6 @@ import {
 import React, { useState } from "react";
 import Icon from "react-native-vector-icons/FontAwesome";
 
-// export default function commentPost() {
-//   const [openModal, setOpenModal] = useState(false);
-//   const transparent = "rgba(0,0,0,0.5)";
-//   const renderModal = () => {
-//     return (
-//       <Modal visible={openModal } animationType="slide" transparent={true}>
-//         <View
-//           style={{
-//             flex: 1,
-//             justifyContent: "center",
-//             alignItems: "center",
-//             backgroundColor: transparent,
-//           }}
-//         >
-//           <View
-//             style={{
-//               backgroundColor: "white",
-//               padding: 15,
-//               width: "100%",
-//               height: "100%",
-//               borderRadius: 10,
-//             }}
-//           >
-//             <TouchableOpacity onPress={() => setOpenModal(false)}>
-//               <Text>close</Text>
-//             </TouchableOpacity>
-//             <Text style={{ color: "black", fontSize: 18 }}>
-//               comment here....
-//             </Text>
-//           </View>
-//         </View>
-//       </Modal>
-//     );
-//   };
-
-//   return (
-//     <View>
-//       <TouchableOpacity onPress={() => setOpenModal(true)}>
-//         <Icon color={"white"} name={"comment-o"} size={20} />
-//       </TouchableOpacity>
-//       {renderModal()}
-//     </View>
-//   );
-// }
 
 export default function commentPost() {
   const [openModal, setOpenModal] = useState(false);
