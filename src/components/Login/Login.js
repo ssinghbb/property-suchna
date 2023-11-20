@@ -18,6 +18,7 @@ import { EXPO_PUBLIC_API_URL } from "../../constants/constant";
 import { themeStyles } from "../../../styles";
 import { useDispatch } from "react-redux";
 import { setUser } from "../../redux/slices/userSlice";
+import { storeData } from "../../utils/asyncStorageHandler";
 
 const validationSchema = yup.object().shape({
   phoneNumber: yup.string().required("Phone number is required"),
@@ -49,6 +50,8 @@ const Login = ({ navigation }) => {
         console.log("API Response:", response);
         if (response?.data?.success) {
           dispatch(setUser(response?.data?.data));
+          storeData('user', response?.data?.data)
+
           setIsLoading(false)
 
 

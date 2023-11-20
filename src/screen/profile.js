@@ -15,6 +15,7 @@ import Icon from "react-native-vector-icons/FontAwesome";
 import CustomeButton from "../components/common/CoustomButton";
 import { useSelector, useDispatch } from 'react-redux'
 import { setUser } from "../../redux/slices/userSlice";
+import { removeLocalStorage } from "../utils/asyncStorageHandler";
 const Profile = () => {
 
 
@@ -30,6 +31,7 @@ const Profile = () => {
   const handleLogout = () => {
     console.log("logout")
     dispatch(setUser());
+    removeLocalStorage('user')
 
   }
 

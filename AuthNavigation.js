@@ -1,30 +1,35 @@
 import { View, Text } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import { SignedInStack, SignedOutStack } from './src/routes/Routes'
- //import { SignedInStack, SignedOutStack } from './navigation'
 import { useSelector, useDispatch } from 'react-redux'
-
+import { getData, storeData } from './src/utils/asyncStorageHandler'
 
 
 const AuthNavigation = () => {
-	console.log("auth navgation page")
+
 	const user = useSelector((state) => state.user.user);
-	console.log("user:", user)
 	const [currentUser, setCurrentUser] = useState(null)
-	const userHandler = user =>
-		user ? setCurrentUser(user) : setCurrentUser(null)
-
+	const [isLogin, setIsLogin] = useState(false)
+	const userHandler = user => user ? setCurrentUser(user) : setCurrentUser(null)
+	
 	useEffect(() => {
-
 		userHandler(user)
-		return () => {
 
+		getLocalStorageLoginInfo()
+		return () => {
 		}
 	}, [user])
-console.log("cuu",currentUser )
-console.log("cuu",currentUser ?'true':'false')
+	const getLocalStorageLoginInfo = async () => {
+		let _data =await getData('user')
+		if (_data) {
+			console.log("_data:",await _data)
+			setIsLogin(true)
+		}
+		console.log("_data:", await _data)
+	}
 
-	return <>{currentUser ? <SignedInStack/> : <SignedOutStack/>}</>
+	console.log("------isLogin", isLogin)
+	return <>{isLogin ? <SignedInStack /> : <SignedOutStack />}</>
 }
 
 export default AuthNavigation

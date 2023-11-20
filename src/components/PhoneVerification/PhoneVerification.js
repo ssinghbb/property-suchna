@@ -81,11 +81,13 @@ export default function PhoneVerification({ route, navigation }) {
       }
 
       let url = `${EXPO_PUBLIC_API_URL}auth/verify`
-    //  let url = "http://192.168.1.41:3000/auth/verify"
+      //  let url = "http://192.168.1.41:3000/auth/verify"
 
-      axios.post(url,userObject).then(response => {
+      axios.post(url, userObject).then(response => {
         console.log('response.data', response.data)
         dispatch(setUser(userObject));
+        storeData('user', userObject)
+
 
         setTimeout(() => {
           Alert.alert("Verification done")
