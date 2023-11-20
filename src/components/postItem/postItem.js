@@ -12,6 +12,7 @@ import {
 import Icon from "react-native-vector-icons/FontAwesome";
 import axios from "axios";
 import SharePost from "./sharePost";
+import CommentPost from "./commentPost";
 import { EXPO_PUBLIC_API_URL } from "../../constants/constant";
 import { themeStyles } from "../../../styles";
 import { useNavigation } from "@react-navigation/native";
@@ -19,7 +20,7 @@ import { useNavigation } from "@react-navigation/native";
 
 export default function PostItem({ post = {} }) {
   //const [totalLikes, setTotalLikes] = useState(post?.likes || 0);
-  const [totalLikes, setTotalLikes] = useState(post?.likes || 0);
+  const [totalLikes, setTotalLikes] = useState(post?.likes?.length || 0 );
   const [isLiked, setIsLiked] = useState(false);
   const navigation = useNavigation();
 
@@ -73,11 +74,10 @@ export default function PostItem({ post = {} }) {
             name={"heart"}
             size={20}
           />
-          {/* <Text style={styles.text}>{totalLikes}</Text> */}
+          <Text style={isLiked?styles.text:null}>{totalLikes}</Text>
+     
         </TouchableOpacity>
-        <TouchableOpacity>
-          <Icon color={"white"} name={"comment-o"} size={20} />
-        </TouchableOpacity>
+        <CommentPost/>
         <SharePost />
       </View>
       <View style={styles.descriptionSection}>
@@ -140,6 +140,8 @@ const styles = StyleSheet.create({
   text: {
     color: "white",
     fontSize: 13,
+    paddingLeft: 7,
+
   },
 
   postPage: {
@@ -156,5 +158,6 @@ const styles = StyleSheet.create({
   },
   liked: {
     color: themeStyles.primaryColor,
+    
   },
 });

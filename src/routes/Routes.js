@@ -54,7 +54,7 @@ export const SignedInStack = () => (
     <Stack.Screen name="post" component={Post} />
     <Stack.Screen name="reels" component={ReelsScreen} />
     <Stack.Screen name="addPost" component={AddPost} />
-    {/* <Stack.Screen name="postdetais" component={PostDetail} /> */}
+    <Stack.Screen name="useraccount" component={UserAccount} />
     <Stack.Screen name="profile" component={ProfileScreen} />
     <Stack.Screen name="notifications" component={NotificationsScreen} />
   </Stack.Navigator>
