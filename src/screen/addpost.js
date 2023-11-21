@@ -5,6 +5,7 @@ import Icon from "react-native-vector-icons/Ionicons";
 import React from "react";
 import { useNavigation } from "@react-navigation/native";
 import PostDetails from "./postdetails";
+import { themeStyles } from "../../styles";
 
 const AddPost = () => {
   const [media, setMedia] = useState(null);
@@ -15,7 +16,7 @@ const AddPost = () => {
     let result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.All,
       allowsEditing: true,
-      aspect: [1, 1],
+      // aspect: [1, 1],
       quality: 1,
     });
 
@@ -100,8 +101,8 @@ const AddPost = () => {
             <View style={styles.reel}>
               <Icon
                 name="videocam-outline"
-                size={20}
-                color="white"
+                size={30}
+                color={themeStyles.primaryColor}
                 style={{ paddingRight: 3 }}
               />
               <Pressable
@@ -116,7 +117,7 @@ const AddPost = () => {
                       fontSize: 15,
                     }}
                   >
-                    {pressed ? "Upload!" : "Upload Reel"}
+                    {pressed ? "Upload!" : "Upload Video"}
                   </Text>
                 )}
               </Pressable>
@@ -124,8 +125,8 @@ const AddPost = () => {
             <View style={styles.reel}>
               <Icon
                 name="image-outline"
-                size={20}
-                color="white"
+                size={30}
+                color={themeStyles.primaryColor}
                 style={{ paddingRight: 3 }}
               />
               <Pressable
@@ -138,9 +139,10 @@ const AddPost = () => {
                       textAlign: "center",
                       color: "white",
                       fontSize: 15,
+                      padding:3
                     }}
                   >
-                    {pressed ? "Logged In!" : "Upload Image"}
+                    {pressed ? "Logged In!" : "Upload Photo"}
                   </Text>
                 )}
               </Pressable>
@@ -159,6 +161,7 @@ const styles = StyleSheet.create({
     flex: 1,
     display: "flex",
     alignItems: "center",
+    // backgroundColor:'green'
   },
   nav: {
     width: "100%",
@@ -178,9 +181,15 @@ const styles = StyleSheet.create({
     height: "5%",
     flexDirection: "row",
     justifyContent: "space-evenly",
+    alignItems:'center',
+    // backgroundColor:'red'
   },
   reel: {
-    flexDirection: "row",
+    flexDirection: "row",flex:1,
+    justifyContent:'center',
+    alignContent:'center',
+    alignItems:'center'
+    // backgroundColor:'orange'
   },
 });
 

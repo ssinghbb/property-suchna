@@ -12,6 +12,7 @@ const AuthNavigation = () => {
 	const [isLogin, setIsLogin] = useState(false)
 	const userHandler = user => user ? setCurrentUser(user) : setCurrentUser(null)
 	
+	console.log("user:", user)
 	useEffect(() => {
 		userHandler(user)
 
@@ -20,12 +21,17 @@ const AuthNavigation = () => {
 		}
 	}, [user])
 	const getLocalStorageLoginInfo = async () => {
+		console.log("----------getLocalStorageLoginInfo:")
 		let _data =await getData('user')
 		if (_data) {
-			console.log("_data:",await _data)
+			console.log("-------------_data:",await _data)
 			setIsLogin(true)
 		}
-		console.log("_data:", await _data)
+		else{
+			setIsLogin(false)
+
+		}
+		// console.log("_data:---------", await _data)
 	}
 
 	console.log("------isLogin", isLogin)

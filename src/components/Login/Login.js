@@ -7,6 +7,7 @@ import {
   ScrollView,
   Button,
   Alert,
+  ActivityIndicator,
 } from "react-native";
 import { useFormik } from "formik";
 import * as yup from "yup";
@@ -91,6 +92,8 @@ const Login = ({ navigation }) => {
           onBlur={formik.handleBlur("phoneNumber")}
           value={formik.values.phoneNumber}
           error={formik.touched.phoneNumber && formik.errors.phoneNumber}
+          type={'numeric'}
+          
         />
         <InputField
           placeholder={t("register.enterYourPassword")}
@@ -108,11 +111,16 @@ const Login = ({ navigation }) => {
         </Text>
       </ScrollView>
       <View style={styles.btnContainer}>
-        <CoustomButton
+      {isLoading ?
+          <ActivityIndicator size={'large'} color='white' />
+
+          :
+          <CoustomButton
           disable={isLoading}
           title={t("register.continue")}
           onPress={formik.handleSubmit}
-        />
+        />}
+        
       </View>
     </View>
   );

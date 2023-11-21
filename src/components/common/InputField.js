@@ -1,11 +1,11 @@
 import { StyleSheet, Text, TextInput, View } from "react-native";
 import { themeStyles } from "../../../styles";
 
-const InputField = ({ label, error, ...rest }) => {
+const InputField = ({ label, error,type, ...rest }) => {
   return (
     <View style={styles.inputContainer}>
       <Text style={styles.label}> {label}</Text>
-      <TextInput style={styles.input} placeholderTextColor={"gray"} {...rest} />
+      <TextInput style={styles.input} keyboardType={type?type:null} placeholderTextColor={"gray"} {...rest} />
       {error && <Text style={styles.error}>{error}</Text>}
     </View>
   );

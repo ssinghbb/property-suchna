@@ -1,8 +1,9 @@
-import React  from "react";
-import {  View, StyleSheet, Pressable, Button,  } from "react-native";
+import React from "react";
+import { View, StyleSheet, Pressable, Button, Text, } from "react-native";
 import Icon from "react-native-vector-icons/FontAwesome";
 import { useNavigation, useRoute } from "@react-navigation/native";
-
+import Mater from 'react-native-vector-icons/MaterialCommunityIcons'
+import Feather from 'react-native-vector-icons/Feather'
 const ButtomNavbar = () => {
   const navigation = useNavigation();
   const route = useRoute();
@@ -19,40 +20,44 @@ const ButtomNavbar = () => {
       navigation.goBack();
     }
   };
- 
+
   return (
     // <View style={styles.mainContainer}>
 
     <View style={styles.navigationBar}>
 
-      <View style={styles.iconContainer}>
-        <Pressable onPress={() => navigateToScreen("post")}>
-          <Icon color={"white"} name={"home"} size={32} />
-          {/* <Text style={styles.iconText}>Post</Text> */}
+      <View  >
+        <Pressable onPress={() => navigateToScreen("post")}  style={styles.iconContainer}>
+          <Mater color={"white"} name={"home-outline"} size={32} style={{ borderWidth: 0.1 }} />
+          {/* <Icon color={"white"} name={"home"} size={32} /> */}
+          <Text style={styles.iconText}>Home</Text>
         </Pressable>
       </View>
-      <View style={styles.iconContainer}>
-        <Pressable onPress={() => navigateToScreen("reels")}>
-          <Icon color={"white"} name={"play-circle-o"} size={32} />
-          {/* <Text style={styles.iconText}>Reels</Text> */}
+      <View >
+        {/* <Pressable onPress={() => navigateToScreen("reels")} style={styles.iconContainer}> */}
+        <Pressable  style={styles.iconContainer}>
+          <Mater color={"gray"} name={"play-circle-outline"} size={32} />
+          <Text style={{color:'gray',fontSize:10}}>Reels</Text>
         </Pressable>
       </View>
 
-      <View style={styles.iconContainer}>
-        <Pressable onPress={() => navigateToScreen("addPost")}>
-          <Icon color={"white"} name={"plus-circle"} size={32} />
+      <View >
+        <Pressable onPress={() => navigateToScreen("addPost")} style={styles.iconContainer}>
+          <Mater color={"white"} name={"plus-circle-outline"} size={32} />
+          <Text style={styles.iconText}>Upload</Text>
+
         </Pressable>
       </View>
-      <View style={styles.iconContainer}>
-        <Pressable onPress={() => navigateToScreen("profile")}>
-          <Icon color={"white"} name={"user-circle-o"} size={32} />
-          {/* <Text style={styles.iconText}>Profile</Text> */}
+      <View >
+        <Pressable onPress={() => navigateToScreen("profile")} style={styles.iconContainer}>
+          <Feather color={"white"} name={"user"} size={32} />
+          <Text style={styles.iconText}>Profile</Text>
         </Pressable>
       </View>
-      <View style={styles.iconContainer}>
-        <Pressable onPress={() => navigateToScreen("notifications")}>
-          <Icon color={"white"} name={"bell"} size={28} />
-          {/* <Text style={styles.iconText}>Notifications</Text> */}
+      <View >
+        <Pressable onPress={() => navigateToScreen("notifications")} style={styles.iconContainer}>
+          <Mater color={"white"} name={"bell-outline"} size={32} />
+          <Text style={styles.iconText}>Notification</Text>
         </Pressable>
       </View>
     </View>
@@ -72,15 +77,20 @@ const styles = StyleSheet.create({
     borderTopColor: "gray",
     borderTopWidth: 1,
     flexDirection: "row",
-    justifyContent: "space-around",
+    justifyContent: "space-evenly",
     alignItems: "center",
-    width: "100%",
+    width: '110%',
+    // backgroundColor:'green'
   },
   iconContainer: {
+    alignItems:'center',
+    width:'auto',
+    // backgroundColor:'red'
+   
   },
   iconText: {
     color: "white",
-    marginTop: 5,
+    marginTop: 0,
     fontSize: 10,
   },
 });
