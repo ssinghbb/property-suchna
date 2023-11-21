@@ -16,7 +16,7 @@ import FeatherIcon from "react-native-vector-icons/Feather";
 
 export default function commentPost() {
   const [openModal, setOpenModal] = useState(false);
-  const[comment, setComment]=useState("");
+  const [comment, setComment] = useState("");
   return (
     <View style={styles.mainContainer}>
       <Modal
@@ -111,8 +111,9 @@ const styles = StyleSheet.create({
   },
   inputSection: {
     flex: 1,
-    placeholder: "enter comment....",
-    placeholderColor: "gray",
+    height: 60
+    // placeholder: "enter comment....",
+    // placeholderColor: "gray",
   },
   profile: {
     height: 35,

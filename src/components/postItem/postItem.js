@@ -16,13 +16,19 @@ import CommentPost from "./commentPost";
 import { EXPO_PUBLIC_API_URL } from "../../constants/constant";
 import { themeStyles } from "../../../styles";
 import { useNavigation } from "@react-navigation/native";
+import { useSelector } from "react-redux";
 
 
 export default function PostItem({ post = {} }) {
   //const [totalLikes, setTotalLikes] = useState(post?.likes || 0);
-  const [totalLikes, setTotalLikes] = useState(post?.likes?.length || 0 );
+  const [totalLikes, setTotalLikes] = useState(post?.likes?.length || 0);
   const [isLiked, setIsLiked] = useState(false);
   const navigation = useNavigation();
+  const user = useSelector((state) => state?.user?.user?.user);
+  console.log("user in postitem:", user)
+  const userId = user?._id;
+  // const userId = "65437e2ed3b869c3002a9072";
+
 
 
 
@@ -34,7 +40,6 @@ export default function PostItem({ post = {} }) {
   useEffect(() => {
     setIsLiked(post?.likes?.includes(userId));
   }, [post]);
-  const userId = "65437e2ed3b869c3002a9072";
 
   const likePost = async (postId) => {
     console.log("postid", postId);
@@ -74,10 +79,10 @@ export default function PostItem({ post = {} }) {
             name={"heart"}
             size={20}
           />
-          <Text style={isLiked?styles.text:null}>{totalLikes}</Text>
-     
+          <Text style={isLiked ? styles.text : null}>{totalLikes}</Text>
+
         </TouchableOpacity>
-        <CommentPost/>
+        <CommentPost />
         <SharePost />
       </View>
       <View style={styles.descriptionSection}>
@@ -158,6 +163,6 @@ const styles = StyleSheet.create({
   },
   liked: {
     color: themeStyles.primaryColor,
-    
+
   },
 });

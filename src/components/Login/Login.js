@@ -38,7 +38,7 @@ const Login = ({ navigation }) => {
     },
     validationSchema,
     onSubmit: async (values) => {
-      console.log("values:", values)
+      // console.log("values:", values)
       try {
         setIsLoading(true)
         let url = `${EXPO_PUBLIC_API_URL}auth/sign_in`
@@ -48,8 +48,9 @@ const Login = ({ navigation }) => {
           phoneNumber: `+91${formik.values.phoneNumber}`,
           password: formik.values.password,
         });
-        console.log("API Response:", response);
+        // console.log("API Response:", response);
         if (response?.data?.success) {
+          console.log("response?.data?.data:", response?.data?.data)
           dispatch(setUser(response?.data?.data));
           storeData('user', response?.data?.data)
 
@@ -58,11 +59,11 @@ const Login = ({ navigation }) => {
 
           setTimeout(() => {
             // Alert.alert("Login successful!");
-            navigation.navigate("post");
+            // navigation.navigate("post");
           }, 2000);
         } else {
           setIsLoading(false)
-          console.log(response?.data);
+          console.log("else",response?.data);
         }
       } catch (error) {
         setIsLoading(false)
