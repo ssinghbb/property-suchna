@@ -42,7 +42,6 @@ export default function PostItem({ post = {} }) {
     try {
       // let url= "http://192.168.1.41:3000/post/like"
       let url = `${EXPO_PUBLIC_API_URL}post/like`;
-
       const response = await axios.put(url, { postId, userId });
       console.log(response?.data?.post?.likes?.length);
       setTotalLikes(response?.data?.post?.likes?.length);
@@ -77,7 +76,7 @@ export default function PostItem({ post = {} }) {
           <Text style={isLiked?styles.text:null}>{totalLikes}</Text>
      
         </TouchableOpacity>
-        <CommentPost/>
+        <CommentPost post={post}/>
         <SharePost />
       </View>
       <View style={styles.descriptionSection}>

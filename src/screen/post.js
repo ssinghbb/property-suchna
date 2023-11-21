@@ -41,7 +41,7 @@ const Post = () => {
         url
       );
     
-
+    // console.log("response",response?.data);
       //let response = await axios.get("http://192.168.1.41:3000/post/allpost");
       setPosts(response?.data?.data || []);
     } catch (error) {

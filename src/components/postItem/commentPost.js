@@ -9,14 +9,77 @@ import {
   Pressable,
   ScrollView,
   Image,
+  FlatList,
 } from "react-native";
 import React, { useState } from "react";
 import Icon from "react-native-vector-icons/FontAwesome";
 import FeatherIcon from "react-native-vector-icons/Feather";
+import axios from "axios";
+import { EXPO_PUBLIC_API_URL } from "../../constants/constant";
+import { useEffect } from "react";
 
-export default function commentPost() {
+export default function commentPost({ post = {} }) {
   const [openModal, setOpenModal] = useState(false);
-  const[comment, setComment]=useState("");
+  const [comment, setComment] = useState("");
+
+  const userId = "65437e2ed3b869c3002a9072";
+
+  const staticComments = [
+    {
+      id: "1",
+      username: "@keerti5473",
+      commentText:
+        "best properties in indore plz vjjnbkj fdndjkd vnmnmns.............####",
+    },
+    {
+      id: "2",
+      username: "@ram5473",
+      commentText:
+        "best properties in indore hlo hey hiiii hey hey bjdk .............@@@@@@",
+    },
+    {
+      id: "3",
+      username: "@vaishali5473",
+      commentText:
+        "best properties in indore  best properties in prime loaction plz....visit...****",
+    },
+  ];
+
+ 
+
+
+  const postComment = async (postId) => {
+    console.log("postId", postId);
+    try {
+      let url = `${EXPO_PUBLIC_API_URL}post/comment`;
+      const response = await axios.post(url, { postId, userId, comment });
+      console.log("response", response?.data);
+
+      Alert.alert("Success", "Comment posted successfully");
+      setComment("");
+    } catch (error) {
+      Alert.alert("Error", "Failed to post comment");
+      console.error("Error posting comment:", error);
+    }
+  };
+
+  
+
+
+
+  const renderCommentItem = ({ item }) => (
+    <View style={styles.commentContainer}>
+      <Image
+        style={styles.commentprofile}
+        source={require("../../../assets/lily.png")}
+      />
+      <View>
+        <Text style={styles.userName}>{item.username}</Text>
+        <Text style={styles.textComment}>{item.commentText}</Text>
+      </View>
+    </View>
+  );
+
   return (
     <View style={styles.mainContainer}>
       <Modal
@@ -31,8 +94,12 @@ export default function commentPost() {
           <View style={styles.commentBorder}>
             <Text style={styles.modalText}>Comments</Text>
           </View>
-
-          <ScrollView style={styles.commentContainer}></ScrollView>
+          <FlatList
+            data={staticComments}
+            keyExtractor={(item) => item.id}
+            renderItem={renderCommentItem}
+            style={styles.scrollSection}
+          />
           <View style={styles.commentInput}>
             <View>
               <Image
@@ -42,12 +109,12 @@ export default function commentPost() {
             </View>
             <TextInput
               style={styles.inputSection}
-              placeholder="write comment here...."
+              placeholder="enter comment...."
               placeholderTextColor={"gray"}
               value={comment}
+              onChangeText={(text) => setComment(text)}
             />
-
-            <Pressable  >
+            <Pressable onPress={() => postComment(post?._id)}>
               <FeatherIcon color={"black"} name={"send"} size={25} />
             </Pressable>
           </View>
@@ -67,15 +134,10 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     paddingTop: 20,
     alignItems: "center",
-    shadowOpacity: 0.25,
-    shadowRadius: 10,
     height: "100%",
     width: "100%",
-    // borderBottomWidth: 1,
-    // borderBottomColor: "gray",
   },
   commentBorder: {
-    // flex:1,
     borderBottomWidth: 1,
     borderBottomColor: "gray",
     width: "100%",
@@ -92,18 +154,33 @@ const styles = StyleSheet.create({
     color: "black",
     fontSize: 20,
     fontWeight: "bold",
-    // borderBottomWidth:2,
-    // borderBottomColor:"gray",
+    width: "100%",
+  },
+  scrollSection: {
+    flex: 1,
     width: "100%",
   },
   commentContainer: {
-    flex: 1,
+    flexDirection: "row",
+    gap: 9,
+    padding: "2%",
+    // alignItems: 'center',
+  },
+  commentprofile: {
+    height: 30,
+    width: 30,
+    alignItems: "center",
+  },
+  userName: {
+    fontWeight: "900",
+  },
+  textComment: {
+    fontWeight: "10%",
   },
   commentInput: {
     borderWidth: 0.5,
     borderColor: "gray",
     width: "100%",
-    // paddingVertical: 10,
     paddingHorizontal: 20,
     flexDirection: "row",
     gap: 12,
@@ -111,8 +188,6 @@ const styles = StyleSheet.create({
   },
   inputSection: {
     flex: 1,
-    placeholder: "enter comment....",
-    placeholderColor: "gray",
   },
   profile: {
     height: 35,
