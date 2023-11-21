@@ -7,15 +7,18 @@ import {
   StyleSheet,
   Alert,
   Pressable,
+  ScrollView,
+  Image,
 } from "react-native";
 import React, { useState } from "react";
 import Icon from "react-native-vector-icons/FontAwesome";
-
+import FeatherIcon from "react-native-vector-icons/Feather";
 
 export default function commentPost() {
   const [openModal, setOpenModal] = useState(false);
+  const[comment, setComment]=useState("");
   return (
-    <View style={StyleSheet.mainContainer}>
+    <View style={styles.mainContainer}>
       <Modal
         visible={openModal}
         animationType="slide"
@@ -24,11 +27,29 @@ export default function commentPost() {
           setOpenModal(!openModal);
         }}
       >
-        <View style={styles.centeredView}>
-          <View style={styles.modalView}>
-            <View style={styles.commentBorder}>
-              <Text style={styles.modalText}>Comments</Text>
+        <View style={styles.modalView}>
+          <View style={styles.commentBorder}>
+            <Text style={styles.modalText}>Comments</Text>
+          </View>
+
+          <ScrollView style={styles.commentContainer}></ScrollView>
+          <View style={styles.commentInput}>
+            <View>
+              <Image
+                style={styles.profile}
+                source={require("../../../assets/lily.png")}
+              />
             </View>
+            <TextInput
+              style={styles.inputSection}
+              placeholder="write comment here...."
+              placeholderTextColor={"gray"}
+              value={comment}
+            />
+
+            <Pressable  >
+              <FeatherIcon color={"black"} name={"send"} size={25} />
+            </Pressable>
           </View>
         </View>
       </Modal>
@@ -41,36 +62,30 @@ export default function commentPost() {
   );
 }
 const styles = StyleSheet.create({
-  mainContainer: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    marginTop: 22,
-  },
   modalView: {
     backgroundColor: "white",
     borderRadius: 20,
-    padding: 35,
+    paddingTop: 20,
     alignItems: "center",
     shadowOpacity: 0.25,
     shadowRadius: 10,
-    elevation: 8,
     height: "100%",
     width: "100%",
-    borderBottomWidth: 2,
-    borderBottomColor: "gray",
+    // borderBottomWidth: 1,
+    // borderBottomColor: "gray",
   },
-  commentBorder:{
-// flex:1,
-borderBottomWidth:2,
- borderBottomColor:"gray",
-
-  },
-  centeredView:{
-    flex:1,
-    borderBottomWidth: 2,
+  commentBorder: {
+    // flex:1,
+    borderBottomWidth: 1,
     borderBottomColor: "gray",
-},
+    width: "100%",
+  },
+  centeredView: {
+    flex: 1,
+    borderBottomWidth: 1,
+    borderBottomColor: "gray",
+    width: "100%",
+  },
   modalText: {
     marginBottom: 15,
     textAlign: "center",
@@ -79,5 +94,29 @@ borderBottomWidth:2,
     fontWeight: "bold",
     // borderBottomWidth:2,
     // borderBottomColor:"gray",
+    width: "100%",
+  },
+  commentContainer: {
+    flex: 1,
+  },
+  commentInput: {
+    borderWidth: 0.5,
+    borderColor: "gray",
+    width: "100%",
+    // paddingVertical: 10,
+    paddingHorizontal: 20,
+    flexDirection: "row",
+    gap: 12,
+    alignItems: "center",
+  },
+  inputSection: {
+    flex: 1,
+    placeholder: "enter comment....",
+    placeholderColor: "gray",
+  },
+  profile: {
+    height: 35,
+    width: 35,
+    borderRadius: 20,
   },
 });
