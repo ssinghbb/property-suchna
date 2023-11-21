@@ -21,65 +21,6 @@ import { useEffect } from "react";
 export default function commentPost({ post = {} }) {
   const [openModal, setOpenModal] = useState(false);
   const [comment, setComment] = useState("");
-
-  const userId = "65437e2ed3b869c3002a9072";
-
-  const staticComments = [
-    {
-      id: "1",
-      username: "@keerti5473",
-      commentText:
-        "best properties in indore plz vjjnbkj fdndjkd vnmnmns.............####",
-    },
-    {
-      id: "2",
-      username: "@ram5473",
-      commentText:
-        "best properties in indore hlo hey hiiii hey hey bjdk .............@@@@@@",
-    },
-    {
-      id: "3",
-      username: "@vaishali5473",
-      commentText:
-        "best properties in indore  best properties in prime loaction plz....visit...****",
-    },
-  ];
-
- 
-
-
-  const postComment = async (postId) => {
-    console.log("postId", postId);
-    try {
-      let url = `${EXPO_PUBLIC_API_URL}post/comment`;
-      const response = await axios.post(url, { postId, userId, comment });
-      console.log("response", response?.data);
-
-      Alert.alert("Success", "Comment posted successfully");
-      setComment("");
-    } catch (error) {
-      Alert.alert("Error", "Failed to post comment");
-      console.error("Error posting comment:", error);
-    }
-  };
-
-  
-
-
-
-  const renderCommentItem = ({ item }) => (
-    <View style={styles.commentContainer}>
-      <Image
-        style={styles.commentprofile}
-        source={require("../../../assets/lily.png")}
-      />
-      <View>
-        <Text style={styles.userName}>{item.username}</Text>
-        <Text style={styles.textComment}>{item.commentText}</Text>
-      </View>
-    </View>
-  );
-
   return (
     <View style={styles.mainContainer}>
       <Modal
@@ -188,6 +129,9 @@ const styles = StyleSheet.create({
   },
   inputSection: {
     flex: 1,
+    height: 60
+    // placeholder: "enter comment....",
+    // placeholderColor: "gray",
   },
   profile: {
     height: 35,

@@ -14,13 +14,18 @@ import { useNavigation } from "@react-navigation/native";
 import { useFormik } from "formik";
 import axios from "axios";
 import { EXPO_PUBLIC_API_URL } from "../constants/constant";
+import { useSelector } from "react-redux";
 
 const PostDetails = ({ file, isVideo }) => {
   const [loader, setLoader] = useState(false);
+  const user = useSelector((state) => state?.user?.user?.user);
+
+  const userId = user?._id;
+
   const navigation = useNavigation();
   const formik = useFormik({
     initialValues: {
-      userId: "6556139fc7135ea1d385c747",
+      userId: userId,
       caption: "",
       location: "",
       description: "",
@@ -60,7 +65,7 @@ const PostDetails = ({ file, isVideo }) => {
         });
       }
 
-      
+
       console.log("fromData....", formData);
       const response = await axios.post(apiUrl, formData, {
         headers: {
@@ -96,7 +101,7 @@ const PostDetails = ({ file, isVideo }) => {
               <Image
                 style={styles.img}
                 source={require("../../assets/comment1.png")}
-                
+
               />
             </View>
             <TextInput

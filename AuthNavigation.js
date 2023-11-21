@@ -7,24 +7,27 @@ import { getData, storeData } from './src/utils/asyncStorageHandler'
 
 const AuthNavigation = () => {
 
-	const user = useSelector((state) => state.user.user);
+	const user = useSelector((state) => state?.user?.user?.user);
+	console.log("user:", user)
+	console.log("user: in auth navigation", user?.phoneNumber)
+	console.log("user: in auth navigation", user?._id)
 	const [currentUser, setCurrentUser] = useState(null)
 	const [isLogin, setIsLogin] = useState(false)
 	const userHandler = user => user ? setCurrentUser(user) : setCurrentUser(null)
 	
-	console.log("user:", user)
+	// console.log("user:", user)
 	useEffect(() => {
 		userHandler(user)
 
 		getLocalStorageLoginInfo()
 		return () => {
 		}
-	}, [user])
+	}, [user?._id])
 	const getLocalStorageLoginInfo = async () => {
 		console.log("----------getLocalStorageLoginInfo:")
 		let _data =await getData('user')
 		if (_data) {
-			console.log("-------------_data:",await _data)
+			// console.log("-------------_data:",await _data)
 			setIsLogin(true)
 		}
 		else{
