@@ -9,12 +9,16 @@ import {
   Pressable,
   ScrollView,
   Image,
+  FlatList,
 } from "react-native";
 import React, { useState } from "react";
 import Icon from "react-native-vector-icons/FontAwesome";
 import FeatherIcon from "react-native-vector-icons/Feather";
+import axios from "axios";
+import { EXPO_PUBLIC_API_URL } from "../../constants/constant";
+import { useEffect } from "react";
 
-export default function commentPost() {
+export default function commentPost({ post = {} }) {
   const [openModal, setOpenModal] = useState(false);
   const [comment, setComment] = useState("");
   return (
@@ -31,8 +35,12 @@ export default function commentPost() {
           <View style={styles.commentBorder}>
             <Text style={styles.modalText}>Comments</Text>
           </View>
-
-          <ScrollView style={styles.commentContainer}></ScrollView>
+          <FlatList
+            data={staticComments}
+            keyExtractor={(item) => item.id}
+            renderItem={renderCommentItem}
+            style={styles.scrollSection}
+          />
           <View style={styles.commentInput}>
             <View>
               <Image
@@ -42,12 +50,12 @@ export default function commentPost() {
             </View>
             <TextInput
               style={styles.inputSection}
-              placeholder="write comment here...."
+              placeholder="enter comment...."
               placeholderTextColor={"gray"}
               value={comment}
+              onChangeText={(text) => setComment(text)}
             />
-
-            <Pressable  >
+            <Pressable onPress={() => postComment(post?._id)}>
               <FeatherIcon color={"black"} name={"send"} size={25} />
             </Pressable>
           </View>
@@ -67,15 +75,10 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     paddingTop: 20,
     alignItems: "center",
-    shadowOpacity: 0.25,
-    shadowRadius: 10,
     height: "100%",
     width: "100%",
-    // borderBottomWidth: 1,
-    // borderBottomColor: "gray",
   },
   commentBorder: {
-    // flex:1,
     borderBottomWidth: 1,
     borderBottomColor: "gray",
     width: "100%",
@@ -92,18 +95,33 @@ const styles = StyleSheet.create({
     color: "black",
     fontSize: 20,
     fontWeight: "bold",
-    // borderBottomWidth:2,
-    // borderBottomColor:"gray",
+    width: "100%",
+  },
+  scrollSection: {
+    flex: 1,
     width: "100%",
   },
   commentContainer: {
-    flex: 1,
+    flexDirection: "row",
+    gap: 9,
+    padding: "2%",
+    // alignItems: 'center',
+  },
+  commentprofile: {
+    height: 30,
+    width: 30,
+    alignItems: "center",
+  },
+  userName: {
+    fontWeight: "900",
+  },
+  textComment: {
+    fontWeight: "10%",
   },
   commentInput: {
     borderWidth: 0.5,
     borderColor: "gray",
     width: "100%",
-    // paddingVertical: 10,
     paddingHorizontal: 20,
     flexDirection: "row",
     gap: 12,
