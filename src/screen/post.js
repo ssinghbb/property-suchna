@@ -8,6 +8,8 @@ import {
   ScrollView,
   Pressable,
   RefreshControl,
+  Share,
+  Dimensions,
 } from "react-native";
 import BottomNavBar from "../components/BottomNavbar/bottomNavbar";
 import Icon from "react-native-vector-icons/FontAwesome";
@@ -18,8 +20,10 @@ import Header from "../components/Header/header";
 
 const Post = () => {
   const [posts, setPosts] = useState([]);
+  // console.log("posts:", posts)
   const [refreshing, setRefreshing] = React.useState(false);
-
+  const [page, setPage] = useState(1);
+  const [loading, setLoading] = useState(false);
   const onRefresh = React.useCallback(() => {
     setRefreshing(true);
     setTimeout(() => {
@@ -29,36 +33,84 @@ const Post = () => {
   }, []);
   useEffect(() => {
     getAllPost();
-    return () => {};
-  }, []);
+    return () => { };
+  }, [page]);
+
+  const handleLoadMore = () => {
+    console.log("handle load more call", page)
+    // Load more data when reaching the end of the list
+    if (!loading) {
+      // You can add additional conditions here if needed
+      setPage(page + 1);
+    }
+  };
+
+  const onShare = async () => {
+    try {
+      const result = await Share.share({
+        message: 'Check out this awesome content!',
+      });
+      if (result.action === Share.sharedAction) {
+        if (result.activityType) {
+          // shared with activity type of result.activityType
+        } else {
+          // shared
+        }
+      } else if (result.action === Share.dismissedAction) {
+        // dismissed
+      }
+    } catch (error) {
+      alert(error.message);
+    }
+  };
 
   const getAllPost = async () => {
+    setLoading(true)
     try {
       console.log("get all post");
-      let url=`${EXPO_PUBLIC_API_URL}post/allpost`
+      console.log("page:", page)
+      let url = `${EXPO_PUBLIC_API_URL}post/allpost?page=${page}&limit=10`
       //let url = "http://192.168.43.177:3000/post/allpost";
       let response = await axios.get(
         url
       );
-    
-    // console.log("response",response?.data);
+
+      // console.log("response",response?.data);
       //let response = await axios.get("http://192.168.1.41:3000/post/allpost");
-      setPosts(response?.data?.data || []);
+      // setPosts(response?.data?.data || []);
+      setPosts((prevData) => [...prevData, ...response?.data?.data]);
+      // setPage(page + 1);
     } catch (error) {
+
       console.log("api error", error);
     }
+    setLoading(false)
   };
 
   return (
     <View style={styles.mainContainer}>
-      
+
       <ScrollView
         style={styles.postPage}
         refreshControl={
           <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
         }
+        onScrollEndDrag={handleLoadMore}
+        // onScroll={(e) => {
+        //   // console.log('eeee',e?.nativeEvent?.contentSize.height)
+        //   // console.log('eeee',e?.nativeEvent?.contentOffset.y)
+        //   var windowHeight = Dimensions.get('window').height,
+        //     height = e.nativeEvent.contentSize.height,
+        //     offset = e.nativeEvent.contentOffset.y;
+        //   if (windowHeight + offset >= height) {
+        //     //ScrollEnd, do sth...
+        //     console.log("end function calll")
+        //     handleLoadMore()
+        //   }
+
+        // }}
       >
-        <Header/>
+        <Header />
         {posts?.map((post, index) => {
           return <PostItem key={index} post={post} />;
         })}
