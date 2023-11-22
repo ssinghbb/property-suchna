@@ -15,6 +15,8 @@ import { EXPO_PUBLIC_API_URL } from "../../constants/constant";
 import { useSelector, useDispatch } from 'react-redux'
 import { setUser } from "../../redux/slices/userSlice";
 import { themeStyles } from "../../../styles";
+
+
 export default function PhoneVerification({ route, navigation }) {
   console.log(route.params, "params-------1")
   // console.log("process", EXPO_PUBLIC_API_URL)
@@ -78,13 +80,14 @@ export default function PhoneVerification({ route, navigation }) {
         "password": route.params.password,
         "confirmPassword": route.params.confirmPassword,
         "code": code
+        
       }
 
       let url = `${EXPO_PUBLIC_API_URL}auth/verify`
       //  let url = "http://192.168.1.41:3000/auth/verify"
 
       axios.post(url, userObject).then(response => {
-        console.log('response.data', response.data)
+        console.log('response.data', response?.data)
         dispatch(setUser(userObject));
         storeData('user', userObject)
 
