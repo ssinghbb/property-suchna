@@ -77,10 +77,12 @@ const styles = StyleSheet.create({
     borderTopColor: "gray",
     borderTopWidth: 1,
     flexDirection: "row",
-    justifyContent: "space-evenly",
+    // justifyContent: "space-around",
+    justifyContent:'space-evenly',
     alignItems: "center",
-    width: '110%',
-    // backgroundColor:'green'
+    width: '100%',
+    // backgroundColor:'green',
+    gap:20
   },
   iconContainer: {
     alignItems:'center',

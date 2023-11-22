@@ -102,18 +102,19 @@ const AddPost = () => {
               <Icon
                 name="videocam-outline"
                 size={30}
-                color={themeStyles.primaryColor}
+                // color={themeStyles.primaryColor}
+                color={'gray'}
                 style={{ paddingRight: 3 }}
               />
               <Pressable
-                onPress={pickVideo}
+                // onPress={pickVideo}
                 style={({ pressed }) => [{}, styles.Custom]}
               >
                 {({ pressed }) => (
                   <Text
                     style={{
                       textAlign: "center",
-                      color: "white",
+                      color: "gray",
                       fontSize: 15,
                     }}
                   >
