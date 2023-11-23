@@ -4,59 +4,143 @@ import {
   StyleSheet,
   Text,
   TextInput,
-  Picker,
   View,
   Button,
+  ScrollView,
+  Alert,
 } from "react-native";
 import globalStyles, { themeStyles } from "../../styles";
 import Layout from "./Layout";
-import FontAwesome from "react-native-vector-icons/FontAwesome";
+import { useFormik } from "formik";
+import * as Yup from "yup";
+import * as ImagePicker from "expo-image-picker";
 import Icon from "react-native-vector-icons/FontAwesome";
 import CustomeButton from "../components/common/CoustomButton";
-import { useSelector, useDispatch } from 'react-redux'
+import { useSelector, useDispatch } from "react-redux";
 import { setUser } from "../../redux/slices/userSlice";
 import { removeLocalStorage } from "../utils/asyncStorageHandler";
+import axios from "axios";
+import { EXPO_PUBLIC_API_URL } from "../constants/constant";
+import { useState } from "react";
+
 const Profile = () => {
-
-
+  const [media, setMedia] = useState(null);
+  const [file, setFile] = useState(null);
   const user = useSelector((state) => state.user.user);
-  console.log("user in profile:", user?.user)
-  let currentUser = user?.user
+  console.log("user in profile:", user?.user);
+  let currentUser = user?.user;
   const dispatch = useDispatch();
 
-  // const handleLogin = () => {
-  //   // Dispatch the setUser action to update the user state
-  //   dispatch(setUser({ name: 'Santosh' }));
-  // };
+  let userId = user?.user?._id;
+  console.log("userId", userId);
   const handleLogout = () => {
-    console.log("logout")
+    console.log("logout");
     dispatch(setUser());
-    removeLocalStorage('user')
+    removeLocalStorage("user");
+  };
 
-  }
+  const validationSchema = Yup.object().shape({
+    fullName: Yup.string().required("fullName is required"),
+    phoneNumber: Yup.string().required("phoneNumber is required"),
+  });
+
+  const formik = useFormik({
+    initialValues: {
+      userId: userId,
+      fullName: currentUser?.fullName || "",
+      phoneNumber: currentUser?.phoneNumber || "",
+
+    },
+    validationSchema,
+    onSubmit: (values) => {
+      console.log("values:", values);
+      console.log("check submit");
+      handleUpdate(values);
+    },
+  });
+
+  const handleUpdate = async (values) => {
+    try {
+    let url = `${EXPO_PUBLIC_API_URL}auth/update`;
+      const formData = new FormData();
+      formData.append("userId", values.userId);
+      formData.append("fullName", values.fullName);
+      formData.append("phoneNumber", values.phoneNumber);
+      formData.append("bio",values.bio);
+      if(file){
+      formData.append("file", {
+        uri: file,
+        type: "image/png",
+        name: "image.png",
+      });
+    }
+      console.log("formData",formData);
+      const response = await axios.put(url, formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
+      console.log("API response:", response?.data);
+      
+    const updatedUser= response?.data
+    dispatch(setUser({ user: updatedUser }));
+
+
+    formik.setValues({
+      ...formik.values,
+      fullName: updatedUser.fullName,
+      phoneNumber: updatedUser.phoneNumber,
+      bio: updatedUser.bio,
+
+    });
+       
+      Alert.alert("User updated successfully");
+    } catch (error) {
+      console.log("error",error);
+      Alert.alert("error updated userDetails")
+    }
+  };
+
+  const pickImage = async () => {
+    try {
+      let result = await ImagePicker.launchImageLibraryAsync({
+        mediaTypes: ImagePicker.MediaTypeOptions.All,
+        allowsEditing: true,
+        quality: 1,
+      });
+  
+      if (!result.canceled) {
+        setMedia(result.assets[0].uri);
+        setFile(result.assets[0].uri); 
+      } else {
+        setMedia(null);
+        setFile(null); 
+      }
+    } catch (error) {
+      console.error("Error picking image:", error);
+    }
+  };
+  
 
   return (
     <Layout>
-
-      <View style={globalStyles.flex1}>
-        {/* <Pressable onPress={() => navigate("post")} style={styles.header}>
-          <FontAwesome
-            name="long-arrow-left"
-            color={themeStyles.secondaryColor}
-            size={30}
-          /> */}
+      <ScrollView style={globalStyles.flex1}>
         <View style={styles?.header}>
-
-          <Text style={[globalStyles.secondaryColor, { fontWeight: '800', fontSize: 22 }]}>Profile</Text>
+          <Text
+            style={[
+              globalStyles.secondaryColor,
+              { fontWeight: "800", fontSize: 22 },
+            ]}
+          >
+            Profile
+          </Text>
           <Button title="logout" onPress={handleLogout} />
-
         </View>
-        {/* </Pressable> */}
         <View style={styles.user}>
-          <View style={styles.profileContainer}>
-            <Image
+           <Pressable onPress={pickImage} style={styles.profileContainer}>
+            <Image 
               source={{
-                uri: "https://www.simplilearn.com/ice9/free_resources_article_thumb/what_is_image_Processing.jpg",
+                uri: media || user?.user?.url,
               }}
               style={styles.avatar}
             />
@@ -64,7 +148,7 @@ const Profile = () => {
               <Text style={styles.editTitle}>Edit Image</Text>
               <Icon name="pencil" color="gray" size={15} />
             </View>
-          </View>
+          </Pressable> 
           <View style={styles.form}>
             <View style={styles.fieldContainer}>
               <Text style={styles.label}>Name :</Text>
@@ -72,7 +156,10 @@ const Profile = () => {
                 style={styles.input}
                 placeholder="Name"
                 placeholderTextColor={"gray"}
-                value={currentUser?.fullName}
+                value={formik.values.fullName}
+                onChangeText={formik.handleChange("fullName")}
+                onBlur={formik.handleBlur("fullName")}
+                error={formik.touched.fullName && formik.errors.fullName}
               />
             </View>
             <View style={styles.fieldContainer}>
@@ -81,42 +168,36 @@ const Profile = () => {
                 style={styles.input}
                 placeholder="User Name"
                 placeholderTextColor={"gray"}
-                value={currentUser?.phoneNumber}
+                value={formik.values.phoneNumber}
+                onChangeText={formik.handleChange("phoneNumber")}
+                onBlur={formik.handleBlur("phoneNumber")}
+                error={formik.touched.phoneNumber && formik.errors.phoneNumber}
               />
             </View>
             <View style={styles.fieldContainer}>
               <Text style={styles.label}>Bio :</Text>
               <TextInput
                 style={styles.input}
-                placeholder="Bio"
+                placeholder="bio"
                 placeholderTextColor={"gray"}
+                value={formik.values.Bio}
+                onChangeText={formik.handleChange("bio")}
+                onBlur={formik.handleBlur("bio")}
+                error={formik.touched.Bio && formik.errors.Bio}
               />
             </View>
-            {/* <View style={styles.fieldContainer}>
-              <Text style={styles.label}>Language :</Text>
-              <TextInput
-                style={styles.input}
-                placeholder="Language"
-                placeholderTextColor={"gray"}
-              />
-            </View> */}
-
           </View>
         </View>
-      </View>
-      {/* <View>
-        <Text style={{ color: 'white' }}>{user ? `Welcome, ${user.name}` : 'Please log in'}</Text>
-        <Button title="Login" onPress={handleLogin} />
-      </View> */}
+      </ScrollView>
       <View style={styles.buttonContainer}>
-        <CustomeButton title={'Update'} />
+        <CustomeButton title={"Update"} onPress={formik.handleSubmit} />
       </View>
     </Layout>
   );
 };
 const styles = StyleSheet.create({
   buttonContainer: {
-    padding: 10
+    padding: 10,
   },
   form: {
     marginTop: 40,
@@ -153,20 +234,20 @@ const styles = StyleSheet.create({
   },
   user: {
     marginTop: 50,
-    flexDirection: 'column'
+    flexDirection: "column",
   },
   profileContainer: {
     alignItems: "center",
   },
   header: {
     flexDirection: "row",
-    justifyContent: 'space-between',
+    justifyContent: "space-between",
     gap: 30,
     alignItems: "center",
     padding: 10,
     borderBottomColor: themeStyles.secondaryColor,
     borderBottomWidth: 1,
-    fontWeight: '700',
+    fontWeight: "700",
   },
   avatar: {
     width: 70,

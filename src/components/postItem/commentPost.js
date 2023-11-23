@@ -26,7 +26,7 @@ export default function commentPost({ post = {} }) {
   const [refreshing, setRefreshing] = React.useState(false);
 
 
-  const userId = "65437e2ed3b869c3002a9072";
+  const userId = "655de22d0b864d6350212fcf";
 
 
 
