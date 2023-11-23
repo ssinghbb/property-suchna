@@ -101,7 +101,6 @@ const PostDetails = ({ file, isVideo }) => {
               <Image
                 style={styles.img}
                 source={require("../../assets/comment1.png")}
-
               />
             </View>
             <TextInput
@@ -117,17 +116,6 @@ const PostDetails = ({ file, isVideo }) => {
             </View>
           </View>
           <View style={styles.form}>
-            {/* <View style={styles.fieldContainer}>
-              <Text style={styles.label}> userId :</Text>
-              <TextInput
-                style={styles.input}
-                placeholder="userId"
-                placeholderTextColor={"gray"}
-                value={formik.values.userId}
-                onChangeText={formik.handleChange("userId")}
-                onBlur={formik.handleBlur("userId")}
-              />
-            </View> */}
             <View style={styles.fieldContainer}>
               <Text style={styles.label}> Add location :</Text>
               <TextInput

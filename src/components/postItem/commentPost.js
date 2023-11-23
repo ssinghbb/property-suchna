@@ -10,6 +10,7 @@ import {
   ScrollView,
   Image,
   FlatList,
+  RefreshControl,
 } from "react-native";
 import React, { useState } from "react";
 import Icon from "react-native-vector-icons/FontAwesome5";
@@ -21,6 +22,74 @@ import { useEffect } from "react";
 export default function commentPost({ post = {} }) {
   const [openModal, setOpenModal] = useState(false);
   const [comment, setComment] = useState("");
+  const [commentData, setCommentData]= useState([]);
+  const [refreshing, setRefreshing] = React.useState(false);
+
+
+  const userId = "65437e2ed3b869c3002a9072";
+
+
+
+  const onRefresh = React.useCallback(() => {
+    setRefreshing(true);
+    setTimeout(() => {
+      setRefreshing(false);
+      getAllComments();
+    }, 2000);
+  }, []);
+
+
+  const getAllComments = async (postId) => {
+    console.log("postId", postId);
+    try {
+      const url=`${EXPO_PUBLIC_API_URL}post/comments/${postId}`;
+       const response= await axios.get(url)
+       console.log("respost to get",response?.data);
+       setCommentData(response?.data?.data||[])
+    } catch (error) {
+      Alert.alert("Error", "Failed to get  All comment");
+      console.error("Error feching  comment:", error);
+    }
+  };
+
+
+  const postComment = async (postId) => {
+    console.log("postId", postId);
+    try {
+      let url = `${EXPO_PUBLIC_API_URL}post/comment`;
+      const response = await axios.post(url, { postId, userId, comment });
+      console.log("response", response?.data);
+      Alert.alert("Success", "Comment posted successfully");
+      setComment("");
+      getAllComments(postId);
+    } catch (error) {
+      Alert.alert("Error", "Failed to post comment");
+      console.error("Error posting comment:", error);
+    }
+  };
+
+
+  useEffect(()=>{
+    if(openModal && post?._id){
+      getAllComments(post?._id);
+    }
+  },[openModal,post?._id])
+
+
+  const renderCommentItem = ({ item }) => (
+    <View style={styles.commentContainer}>
+      <Image
+        style={styles.commentprofile}
+        source={require("../../../assets/lily.png")}
+      />
+      <View>
+        <Text style={styles.userName}>@{item?.userName}</Text>
+        <Text style={styles.textComment}>{item?.comment}</Text>
+      </View>
+    </View>
+  );
+  
+
   return (
     <View style={styles.mainContainer}>
       <Modal
@@ -35,12 +104,18 @@ export default function commentPost({ post = {} }) {
           <View style={styles.commentBorder}>
             <Text style={styles.modalText}>Comments</Text>
           </View>
-          {/* <FlatList
-            data={staticComments}
-            keyExtractor={(item) => item.id}
+
+      
+          <FlatList
+            data={commentData}
+            keyExtractor={(item) => item._id}
             renderItem={renderCommentItem}
             style={styles.scrollSection}
-          /> */}
+            refreshControl={
+              <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+            }
+          />
+
           <View style={styles.commentInput}>
             <View>
               <Image
@@ -129,9 +204,6 @@ const styles = StyleSheet.create({
   },
   inputSection: {
     flex: 1,
-    height: 60
-    // placeholder: "enter comment....",
-    // placeholderColor: "gray",
   },
   profile: {
     height: 35,
