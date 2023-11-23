@@ -12,7 +12,7 @@ import {
   FlatList,
 } from "react-native";
 import React, { useState } from "react";
-import Icon from "react-native-vector-icons/FontAwesome";
+import Icon from "react-native-vector-icons/FontAwesome5";
 import FeatherIcon from "react-native-vector-icons/Feather";
 import axios from "axios";
 import { EXPO_PUBLIC_API_URL } from "../../constants/constant";
@@ -35,12 +35,12 @@ export default function commentPost({ post = {} }) {
           <View style={styles.commentBorder}>
             <Text style={styles.modalText}>Comments</Text>
           </View>
-          <FlatList
+          {/* <FlatList
             data={staticComments}
             keyExtractor={(item) => item.id}
             renderItem={renderCommentItem}
             style={styles.scrollSection}
-          />
+          /> */}
           <View style={styles.commentInput}>
             <View>
               <Image
@@ -63,7 +63,7 @@ export default function commentPost({ post = {} }) {
       </Modal>
       <View>
         <TouchableOpacity onPress={() => setOpenModal(true)}>
-          <Icon color={"white"} name={"comment-o"} size={20} />
+          <Icon color={"white"} name={"comment"} size={25} />
         </TouchableOpacity>
       </View>
     </View>

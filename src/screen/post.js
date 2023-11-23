@@ -10,6 +10,7 @@ import {
   RefreshControl,
   Share,
   Dimensions,
+  ActivityIndicator,
 } from "react-native";
 import BottomNavBar from "../components/BottomNavbar/bottomNavbar";
 import Icon from "react-native-vector-icons/FontAwesome";
@@ -45,24 +46,7 @@ const Post = () => {
     }
   };
 
-  const onShare = async () => {
-    try {
-      const result = await Share.share({
-        message: 'Check out this awesome content!',
-      });
-      if (result.action === Share.sharedAction) {
-        if (result.activityType) {
-          // shared with activity type of result.activityType
-        } else {
-          // shared
-        }
-      } else if (result.action === Share.dismissedAction) {
-        // dismissed
-      }
-    } catch (error) {
-      alert(error.message);
-    }
-  };
+ 
 
   const getAllPost = async () => {
     setLoading(true)
@@ -96,24 +80,27 @@ const Post = () => {
           <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
         }
         onScrollEndDrag={handleLoadMore}
-        // onScroll={(e) => {
-        //   // console.log('eeee',e?.nativeEvent?.contentSize.height)
-        //   // console.log('eeee',e?.nativeEvent?.contentOffset.y)
-        //   var windowHeight = Dimensions.get('window').height,
-        //     height = e.nativeEvent.contentSize.height,
-        //     offset = e.nativeEvent.contentOffset.y;
-        //   if (windowHeight + offset >= height) {
-        //     //ScrollEnd, do sth...
-        //     console.log("end function calll")
-        //     handleLoadMore()
-        //   }
+      // onScroll={(e) => {
+      //   // console.log('eeee',e?.nativeEvent?.contentSize.height)
+      //   // console.log('eeee',e?.nativeEvent?.contentOffset.y)
+      //   var windowHeight = Dimensions.get('window').height,
+      //     height = e.nativeEvent.contentSize.height,
+      //     offset = e.nativeEvent.contentOffset.y;
+      //   if (windowHeight + offset >= height) {
+      //     //ScrollEnd, do sth...
+      //     console.log("end function calll")
+      //     handleLoadMore()
+      //   }
 
-        // }}
+      // }}
       >
         <Header />
-        {posts?.map((post, index) => {
+
+        {posts?.length > 0 ? posts?.map((post, index) => {
           return <PostItem key={index} post={post} />;
-        })}
+        }) :
+          <ActivityIndicator size={'large'} color='white' />
+        }
       </ScrollView>
       <View>
         <BottomNavBar />
