@@ -8,6 +8,7 @@ import {
   Button,
   ScrollView,
   Alert,
+  ActivityIndicator,
 } from "react-native";
 import globalStyles, { themeStyles } from "../../styles";
 import Layout from "./Layout";
@@ -26,8 +27,10 @@ import { useState } from "react";
 const Profile = () => {
   const [media, setMedia] = useState(null);
   const [file, setFile] = useState(null);
+  const [isLoading, setIsLoading] = useState(false)
+
   const user = useSelector((state) => state.user.user);
-  console.log("user in profile:", user?.user);
+  // console.log("user in profile:", user?.user);
   let currentUser = user?.user;
   const dispatch = useDispatch();
 
@@ -49,6 +52,7 @@ const Profile = () => {
       userId: userId,
       fullName: currentUser?.fullName || "",
       phoneNumber: currentUser?.phoneNumber || "",
+      bio: currentUser?.bio || ""
 
     },
     validationSchema,
@@ -61,42 +65,45 @@ const Profile = () => {
 
   const handleUpdate = async (values) => {
     try {
-    let url = `${EXPO_PUBLIC_API_URL}auth/update`;
+      setIsLoading(true)
+      let url = `${EXPO_PUBLIC_API_URL}auth/update`;
       const formData = new FormData();
       formData.append("userId", values.userId);
       formData.append("fullName", values.fullName);
       formData.append("phoneNumber", values.phoneNumber);
-      formData.append("bio",values.bio);
-      if(file){
-      formData.append("file", {
-        uri: file,
-        type: "image/png",
-        name: "image.png",
-      });
-    }
-      console.log("formData",formData);
+      formData.append("bio", values.bio);
+      if (file) {
+        formData.append("file", {
+          uri: file,
+          type: "image/png",
+          name: "image.png",
+        });
+      }
+      console.log("formData", formData);
       const response = await axios.put(url, formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
       });
       console.log("API response:", response?.data);
-      
-    const updatedUser= response?.data
-    dispatch(setUser({ user: updatedUser }));
+
+      const updatedUser = response?.data
+      dispatch(setUser({ user: updatedUser }));
 
 
-    formik.setValues({
-      ...formik.values,
-      fullName: updatedUser.fullName,
-      phoneNumber: updatedUser.phoneNumber,
-      bio: updatedUser.bio,
+      formik.setValues({
+        ...formik.values,
+        fullName: updatedUser.fullName,
+        phoneNumber: updatedUser.phoneNumber,
+        bio: updatedUser.bio,
 
-    });
-       
+      });
+      setIsLoading(false)
       Alert.alert("User updated successfully");
     } catch (error) {
-      console.log("error",error);
+      setIsLoading(false)
+
+      console.log("error", error);
       Alert.alert("error updated userDetails")
     }
   };
@@ -108,19 +115,19 @@ const Profile = () => {
         allowsEditing: true,
         quality: 1,
       });
-  
+
       if (!result.canceled) {
         setMedia(result.assets[0].uri);
-        setFile(result.assets[0].uri); 
+        setFile(result.assets[0].uri);
       } else {
         setMedia(null);
-        setFile(null); 
+        setFile(null);
       }
     } catch (error) {
       console.error("Error picking image:", error);
     }
   };
-  
+
 
   return (
     <Layout>
@@ -137,8 +144,8 @@ const Profile = () => {
           <Button title="logout" onPress={handleLogout} />
         </View>
         <View style={styles.user}>
-           <Pressable onPress={pickImage} style={styles.profileContainer}>
-            <Image 
+          <Pressable onPress={pickImage} style={styles.profileContainer}>
+            <Image
               source={{
                 uri: media || user?.user?.url,
               }}
@@ -148,7 +155,7 @@ const Profile = () => {
               <Text style={styles.editTitle}>Edit Image</Text>
               <Icon name="pencil" color="gray" size={15} />
             </View>
-          </Pressable> 
+          </Pressable>
           <View style={styles.form}>
             <View style={styles.fieldContainer}>
               <Text style={styles.label}>Name :</Text>
@@ -165,11 +172,12 @@ const Profile = () => {
             <View style={styles.fieldContainer}>
               <Text style={styles.label}>Phone Number</Text>
               <TextInput
-                style={styles.input}
+                style={[styles.input, { color: 'gray' }]}
                 placeholder="User Name"
                 placeholderTextColor={"gray"}
                 value={formik.values.phoneNumber}
-                onChangeText={formik.handleChange("phoneNumber")}
+                // onChangeText={formik.handleChange("phoneNumber")}
+                editable={false}
                 onBlur={formik.handleBlur("phoneNumber")}
                 error={formik.touched.phoneNumber && formik.errors.phoneNumber}
               />
@@ -178,19 +186,22 @@ const Profile = () => {
               <Text style={styles.label}>Bio :</Text>
               <TextInput
                 style={styles.input}
-                placeholder="bio"
+                placeholder="Enter your bio"
                 placeholderTextColor={"gray"}
-                value={formik.values.Bio}
+                value={formik.values.bio}
                 onChangeText={formik.handleChange("bio")}
                 onBlur={formik.handleBlur("bio")}
-                error={formik.touched.Bio && formik.errors.Bio}
+                error={formik.touched.bio && formik.errors.bio}
               />
             </View>
           </View>
         </View>
       </ScrollView>
       <View style={styles.buttonContainer}>
-        <CustomeButton title={"Update"} onPress={formik.handleSubmit} />
+        {isLoading ?
+          <ActivityIndicator size={'large'} color='white' />
+          :
+          <CustomeButton title={"Update"} onPress={formik.handleSubmit} />}
       </View>
     </Layout>
   );

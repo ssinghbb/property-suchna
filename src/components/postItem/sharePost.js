@@ -1,6 +1,6 @@
 import { View, Text,StyleSheet, TouchableOpacity } from 'react-native'
 import React from 'react'
-import Icon from "react-native-vector-icons/FontAwesome";
+import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import { themeStyles } from '../../../styles';
 //import Share from 'react-native-share';
 
@@ -22,7 +22,7 @@ export default function SharePost() {
   return (
     <View>
       <TouchableOpacity >
-          <Icon color={"white"} name={"share"} size={20} />
+          <Icon color={"white"} name={"share"} size={25} />
         </TouchableOpacity>
     </View>
   )

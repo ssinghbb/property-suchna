@@ -13,7 +13,7 @@ import {
   RefreshControl,
 } from "react-native";
 import React, { useState } from "react";
-import Icon from "react-native-vector-icons/FontAwesome5";
+import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import FeatherIcon from "react-native-vector-icons/Feather";
 import axios from "axios";
 import { EXPO_PUBLIC_API_URL } from "../../constants/constant";
@@ -22,7 +22,7 @@ import { useEffect } from "react";
 export default function commentPost({ post = {} }) {
   const [openModal, setOpenModal] = useState(false);
   const [comment, setComment] = useState("");
-  const [commentData, setCommentData]= useState([]);
+  const [commentData, setCommentData] = useState([]);
   const [refreshing, setRefreshing] = React.useState(false);
 
 
@@ -42,10 +42,10 @@ export default function commentPost({ post = {} }) {
   const getAllComments = async (postId) => {
     console.log("postId", postId);
     try {
-      const url=`${EXPO_PUBLIC_API_URL}post/comments/${postId}`;
-       const response= await axios.get(url)
-       console.log("respost to get",response?.data);
-       setCommentData(response?.data?.data||[])
+      const url = `${EXPO_PUBLIC_API_URL}post/comments/${postId}`;
+      const response = await axios.get(url)
+      console.log("respost to get", response?.data);
+      setCommentData(response?.data?.data || [])
     } catch (error) {
       Alert.alert("Error", "Failed to get  All comment");
       console.error("Error feching  comment:", error);
@@ -69,11 +69,11 @@ export default function commentPost({ post = {} }) {
   };
 
 
-  useEffect(()=>{
-    if(openModal && post?._id){
+  useEffect(() => {
+    if (openModal && post?._id) {
       getAllComments(post?._id);
     }
-  },[openModal,post?._id])
+  }, [openModal, post?._id])
 
 
   const renderCommentItem = ({ item }) => (
@@ -88,7 +88,7 @@ export default function commentPost({ post = {} }) {
       </View>
     </View>
   );
-  
+
 
   return (
     <View style={styles.mainContainer}>
@@ -105,7 +105,7 @@ export default function commentPost({ post = {} }) {
             <Text style={styles.modalText}>Comments</Text>
           </View>
 
-      
+
           <FlatList
             data={commentData}
             keyExtractor={(item) => item._id}
@@ -138,7 +138,7 @@ export default function commentPost({ post = {} }) {
       </Modal>
       <View>
         <TouchableOpacity onPress={() => setOpenModal(true)}>
-          <Icon color={"white"} name={"comment"} size={25} />
+          <Icon color={"white"} name={"comment"} size={22} />
         </TouchableOpacity>
       </View>
     </View>
@@ -146,7 +146,7 @@ export default function commentPost({ post = {} }) {
 }
 const styles = StyleSheet.create({
   modalView: {
-    backgroundColor: "white",
+    // backgroundColor: "red",
     borderRadius: 20,
     paddingTop: 20,
     alignItems: "center",

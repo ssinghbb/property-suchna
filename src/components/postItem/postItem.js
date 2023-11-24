@@ -9,7 +9,8 @@ import {
   Pressable,
   Alert,
 } from "react-native";
-import Icon from "react-native-vector-icons/FontAwesome";
+import Icon from "react-native-vector-icons/MaterialCommunityIcons";
+import SimpleLineIcons from "react-native-vector-icons/SimpleLineIcons";
 import axios from "axios";
 import SharePost from "./sharePost";
 import CommentPost from "./commentPost";
@@ -20,12 +21,13 @@ import { useSelector } from "react-redux";
 
 
 export default function PostItem({ post = {} }) {
+  // console.warn("post-----", post)
   //const [totalLikes, setTotalLikes] = useState(post?.likes || 0);
   const [totalLikes, setTotalLikes] = useState(post?.likes?.length || 0);
   const [isLiked, setIsLiked] = useState(false);
   const navigation = useNavigation();
   const user = useSelector((state) => state?.user?.user?.user);
-  console.log("user in postitem:", user)
+  // console.log("user in postitem:", user)
   const userId = user?._id;
   // const userId = "65437e2ed3b869c3002a9072";
 
@@ -64,7 +66,14 @@ export default function PostItem({ post = {} }) {
           navigateToScreen("useraccount")
         }}
       >
-        <Image source={require("../../../assets/lily.png")} />
+        {/* <Image source={require("../../../assets/lily.png")} /> */}
+        <Image
+          source={{
+            uri: post?.user?.url || post?.user?.url,
+          }}
+          style={styles.avatar}
+        />
+
         <Text style={styles.userName}>{post?.user?.fullName}</Text>
       </TouchableOpacity>
       <View style={styles.postImg}>
@@ -76,17 +85,31 @@ export default function PostItem({ post = {} }) {
             color={"white"}
             style={isLiked ? styles.liked : {}}
             name={"heart"}
-            size={20}
+            size={25}
           />
-          <Text style={isLiked ? styles.text : null}>{totalLikes}</Text>
 
         </TouchableOpacity>
-        <CommentPost post={post}/>
+
+        <CommentPost post={post} />
         <SharePost />
+      </View>
+      <View style={styles.likeLocation}>
+        <Text style={styles.text}>{totalLikes} Likes</Text>
+        {post?.location ?
+          <Text style={styles.location}>
+            <SimpleLineIcons
+              color={"white"}
+              // style={isLiked ? styles.liked : {}}
+              name={"location-pin"}
+              size={15}
+            />
+            {" "}{post?.location}</Text>
+          : ''}
       </View>
       <View style={styles.descriptionSection}>
         <Text style={styles.description}>{post?.description}</Text>
       </View>
+
     </View>
   );
 }
@@ -106,8 +129,9 @@ const styles = StyleSheet.create({
     padding: 2,
     paddingTop: 20,
     paddingBottom: 20,
-    paddingLeft: 20,
+    paddingLeft: 10,
     margin: 0,
+    // backgroundColor:'red'
   },
 
   userName: {
@@ -126,18 +150,31 @@ const styles = StyleSheet.create({
   },
   likeComment: {
     flexDirection: "row",
-    gap: 20,
+    gap: 25,
     paddingLeft: 20,
-    paddingTop: 20,
+    paddingTop: 10,
+    // backgroundColor:'red'
   },
   saveIconContainer: {
     paddingLeft: 220,
   },
   descriptionSection: {
-    paddingVertical: 8,
-    paddingLeft: 20,
+    paddingVertical: 2,
+    paddingLeft: 14,
+  },
+  likeLocation: {
+    paddingTop: 8,
+    paddingLeft: 10,
+    // backgroundColor: 'red',
+    flexDirection: "row",
+    gap: 10
+
   },
   description: {
+    color: "white",
+    fontSize: 13,
+  },
+  location: {
     color: "white",
     fontSize: 13,
   },
@@ -163,5 +200,16 @@ const styles = StyleSheet.create({
   liked: {
     color: themeStyles.primaryColor,
 
+  },
+  avatar: {
+    width: 34,
+    height: 34,
+    objectFit: "cover",
+    borderRadius: 50,
+    display: "flex",
+    alignItems: "center",
+
+    // borderColor: themeStyles.primaryColor,
+    // borderWidth: 1,
   },
 });
