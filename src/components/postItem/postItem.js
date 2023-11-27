@@ -11,6 +11,7 @@ import {
 } from "react-native";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import SimpleLineIcons from "react-native-vector-icons/SimpleLineIcons";
+
 import axios from "axios";
 import SharePost from "./sharePost";
 import CommentPost from "./commentPost";
@@ -18,6 +19,7 @@ import { EXPO_PUBLIC_API_URL } from "../../constants/constant";
 import { themeStyles } from "../../../styles";
 import { useNavigation } from "@react-navigation/native";
 import { useSelector } from "react-redux";
+import PostManu from "./postManu";
 
 
 export default function PostItem({ post = {} }) {
@@ -30,10 +32,6 @@ export default function PostItem({ post = {} }) {
   // console.log("user in postitem:", user)
   const userId = user?._id;
   // const userId = "65437e2ed3b869c3002a9072";
-
-
-
-
 
   const navigateToScreen = (screenName) => {
     navigation.navigate(screenName);
@@ -60,6 +58,7 @@ export default function PostItem({ post = {} }) {
 
   return (
     <View key={post?._id} style={styles.postCard}>
+      <View style={styles.postHeader}>
       <TouchableOpacity
         style={styles.profile}
         onPress={() => {
@@ -76,6 +75,17 @@ export default function PostItem({ post = {} }) {
 
         <Text style={styles.userName}>{post?.user?.fullName}</Text>
       </TouchableOpacity>
+      {/* <Pressable style={styles.manuIcon}>
+          <EntypoIcon
+            color={"white"}
+            name={"dots-three-vertical"}
+            size={20}
+            />
+      </Pressable> */}
+      <PostManu/>
+          
+        
+      </View>
       <View style={styles.postImg}>
         <Image style={styles.post} source={{ uri: post?.url }} />
       </View>
@@ -120,6 +130,12 @@ const styles = StyleSheet.create({
     alignItems: "center",
     paddingTop: 0,
   },
+  postHeader:{
+   flexDirection:"row",
+   justifyContent:"flex-end",
+   width:"100%",
+   paddingHorizontal:20,
+  },
   profile: {
     flexDirection: "row",
     alignItems: "center",
@@ -133,6 +149,7 @@ const styles = StyleSheet.create({
     margin: 0,
     // backgroundColor:'red'
   },
+  
 
   userName: {
     color: "white",

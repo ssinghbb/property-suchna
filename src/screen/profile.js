@@ -107,7 +107,7 @@ const Profile = () => {
       Alert.alert("error updated userDetails")
     }
   };
-
+  
   const pickImage = async () => {
     try {
       let result = await ImagePicker.launchImageLibraryAsync({
@@ -213,7 +213,6 @@ const styles = StyleSheet.create({
   form: {
     marginTop: 40,
   },
-
   fieldContainer: {
     width: "100%",
     flexDirection: "row",
@@ -224,7 +223,6 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     paddingVertical: 8,
   },
-
   label: {
     color: themeStyles.secondaryColor,
     width: "50%",
@@ -271,5 +269,4 @@ const styles = StyleSheet.create({
     borderWidth: 1,
   },
 });
-
 export default Profile;
