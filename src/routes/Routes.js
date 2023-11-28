@@ -12,6 +12,8 @@ import Post from "../screen/post";
 import AddPost from "../screen/addpost";
 import ShareDetailsScreen from "../screen/sharedetails";
 import UserAccount from "../screen/useraccount";
+import HeaderScreen from "../screen/headerscreen";
+
 
 
 const Stack = createNativeStackNavigator();
@@ -52,7 +54,9 @@ export const SignedInStack = () => (
     initialRouteName="post"
   >
     <Stack.Screen name="post" component={Post} />
-    <Stack.Screen name="reels" component={ReelsScreen} />
+    <Stack.Screen name="headerscreen" component={HeaderScreen} />
+
+    <Stack.Screen name="reels" component={ReelsScreen}/>
     <Stack.Screen name="addPost" component={AddPost} />
     <Stack.Screen name="useraccount" component={UserAccount} />
     <Stack.Screen name="profile" component={ProfileScreen} />

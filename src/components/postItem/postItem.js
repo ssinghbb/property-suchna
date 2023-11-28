@@ -82,9 +82,7 @@ export default function PostItem({ post = {} }) {
             size={20}
             />
       </Pressable> */}
-      <PostManu/>
-          
-        
+      <PostManu post={post}/>
       </View>
       <View style={styles.postImg}>
         <Image style={styles.post} source={{ uri: post?.url }} />
@@ -97,9 +95,7 @@ export default function PostItem({ post = {} }) {
             name={"heart"}
             size={25}
           />
-
         </TouchableOpacity>
-
         <CommentPost post={post} />
         <SharePost />
       </View>

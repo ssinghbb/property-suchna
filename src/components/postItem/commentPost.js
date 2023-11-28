@@ -95,7 +95,7 @@ export default function commentPost({ post = {} }) {
       <Modal
         visible={openModal}
         animationType="slide"
-        transparent={true}
+        transparent={false}
         onRequestClose={() => {
           setOpenModal(!openModal);
         }}
