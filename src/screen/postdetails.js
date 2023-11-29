@@ -19,18 +19,19 @@ const PostDetails = ({ file, isVideo }) => {
   const user = useSelector((state) => state?.user?.user?.user);
 
   const userId = user?._id;
-
+  const initialValues = {
+    userId: userId,
+    caption: "",
+    location: "",
+    description: "",
+  }
   const navigation = useNavigation();
   const formik = useFormik({
-    initialValues: {
-      userId: userId,
-      caption: "",
-      location: "",
-      description: "",
-    },
+    initialValues,
     onSubmit: (values) => {
       console.log("Form data:", values);
       handleSubmit(values);
+
     },
   });
 
@@ -66,6 +67,10 @@ const PostDetails = ({ file, isVideo }) => {
         },
       });
       console.log("API response:", response?.data);
+      if (response?.data) {
+
+        formik.setValues(initialValues)
+      }
       if (isVideo) {
         navigation.push("reels");
       } else {
