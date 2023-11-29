@@ -13,7 +13,7 @@ import { useFonts, ZillaSlab_500Medium } from "@expo-google-fonts/dev";
 import CoustomButton from "../common/CoustomButton";
 import { themeStyles } from "../../../styles";
 import { useFormik } from "formik";
-import axios from "axios"; // Import Axios for API calls
+import axios from "axios"; 
 import { EXPO_PUBLIC_API_URL } from "../../constants/constant";
 
 export default function Header() {

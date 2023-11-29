@@ -19,10 +19,10 @@ import { EXPO_PUBLIC_API_URL } from "../../constants/constant";
 import { themeStyles } from "../../../styles";
 import { useNavigation } from "@react-navigation/native";
 import { useSelector } from "react-redux";
-import PostManu from "./postManu";
+import PostMenu from "./postMenu";
 
 
-export default function PostItem({ post = {} }) {
+export default function PostItem({ post={} }) {
   // console.warn("post-----", post)
   //const [totalLikes, setTotalLikes] = useState(post?.likes || 0);
   const [totalLikes, setTotalLikes] = useState(post?.likes?.length || 0);
@@ -82,7 +82,7 @@ export default function PostItem({ post = {} }) {
             size={20}
             />
       </Pressable> */}
-      <PostManu post={post}/>
+      <PostMenu postId={post._id}/>
       </View>
       <View style={styles.postImg}>
         <Image style={styles.post} source={{ uri: post?.url }} />
