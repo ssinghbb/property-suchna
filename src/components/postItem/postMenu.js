@@ -16,18 +16,18 @@ import axios from "axios";
 
 export default function PostMenu({ postId }) {
   const [openModal, setOpenModal] = useState(false);
-  console.log("postId",postId);
+  // console.log("postId",postId);
   const user = useSelector((state) => state?.user?.user?.user) || {};
-  console.log("user", user);
+  // console.log("user", user);
   const userId = user?._id;
 
 
   const handelPost = async () => {
     try {
       const url = `${EXPO_PUBLIC_API_URL}post/delete/${postId}/${userId}`;
-      console.log("url", url);
+      // console.log("url", url);
       const response = await axios.delete(url);
-      console.log("response",response);
+      // console.log("response",response);
       if (response?.status >= 200 && response?.status < 300) {
         console.log("Response", response?.status);
         Alert.alert("Post deleted successfully");

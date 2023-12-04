@@ -40,11 +40,11 @@ export default function commentPost({ post = {} }) {
 
 
   const getAllComments = async (postId) => {
-    console.log("postId", postId);
+    // console.log("postId", postId);
     try {
       const url = `${EXPO_PUBLIC_API_URL}post/comments/${postId}`;
       const response = await axios.get(url)
-      console.log("respost to get", response?.data);
+      // console.log("respost to get", response?.data);
       setCommentData(response?.data?.data || [])
     } catch (error) {
       Alert.alert("Error", "Failed to get  All comment");
@@ -54,11 +54,11 @@ export default function commentPost({ post = {} }) {
 
 
   const postComment = async (postId) => {
-    console.log("postId", postId);
+    // console.log("postId", postId);
     try {
       let url = `${EXPO_PUBLIC_API_URL}post/comment`;
       const response = await axios.post(url, { postId, userId, comment });
-      console.log("response", response?.data);
+      // console.log("response", response?.data);
       Alert.alert("Success", "Comment posted successfully");
       setComment("");
       getAllComments(postId);
@@ -191,7 +191,7 @@ const styles = StyleSheet.create({
     fontWeight: "900",
   },
   textComment: {
-    fontWeight: "10%",
+    fontWeight: "600",
   },
   commentInput: {
     borderWidth: 0.5,

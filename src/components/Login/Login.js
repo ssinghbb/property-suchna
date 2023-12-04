@@ -63,7 +63,7 @@ const Login = ({ navigation }) => {
           }, 2000);
         } else {
           setIsLoading(false)
-          console.log("else",response?.data);
+          console.log("else", response?.data);
         }
       } catch (error) {
         setIsLoading(false)
@@ -94,7 +94,7 @@ const Login = ({ navigation }) => {
           value={formik.values.phoneNumber}
           error={formik.touched.phoneNumber && formik.errors.phoneNumber}
           type={'numeric'}
-          
+
         />
         <InputField
           placeholder={t("register.enterYourPassword")}
@@ -112,16 +112,16 @@ const Login = ({ navigation }) => {
         </Text>
       </ScrollView>
       <View style={styles.btnContainer}>
-      {isLoading ?
+        {isLoading ?
           <ActivityIndicator size={'large'} color='white' />
 
           :
           <CoustomButton
-          disable={isLoading}
-          title={t("register.continue")}
-          onPress={formik.handleSubmit}
-        />}
-        
+            disable={isLoading}
+            title={t("register.continue")}
+            onPress={formik.handleSubmit}
+          />}
+
       </View>
     </View>
   );

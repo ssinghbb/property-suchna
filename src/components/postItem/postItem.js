@@ -42,13 +42,13 @@ export default function PostItem({ post={} }) {
   }, [post]);
 
   const likePost = async (postId) => {
-    console.log("postid", postId);
+    // console.log("postid", postId);
 
     try {
       // let url= "http://192.168.1.41:3000/post/like"
       let url = `${EXPO_PUBLIC_API_URL}post/like`;
       const response = await axios.put(url, { postId, userId });
-      console.log(response?.data?.post?.likes?.length);
+      // console.log(response?.data?.post?.likes?.length);
       setTotalLikes(response?.data?.post?.likes?.length);
       setIsLiked(response?.data?.post?.likes?.includes(userId));
     } catch (error) {

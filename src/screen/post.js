@@ -11,6 +11,7 @@ import {
   Share,
   Dimensions,
   ActivityIndicator,
+  Modal,
 } from "react-native";
 import BottomNavBar from "../components/BottomNavbar/bottomNavbar";
 import Icon from "react-native-vector-icons/FontAwesome";
@@ -26,6 +27,8 @@ const Post = () => {
   const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(false);
   const onRefresh = React.useCallback(() => {
+    console.log("in use callback")
+
     setRefreshing(true);
     setTimeout(() => {
       setRefreshing(false);
@@ -33,6 +36,7 @@ const Post = () => {
     }, 2000);
   }, []);
   useEffect(() => {
+    console.log("in use effect")
     getAllPost();
     return () => { };
   }, [page]);
@@ -46,15 +50,16 @@ const Post = () => {
     }
   };
 
- 
+
 
   const getAllPost = async () => {
     setLoading(true)
     try {
-      console.log("get all post");
-      console.log("page:", page)
+      // console.log("get all post");r
+      // console.log("page:", page)
       let url = `${EXPO_PUBLIC_API_URL}post/allpost?page=${page}&limit=10`
       //let url = "http://192.168.43.177:3000/post/allpost";
+      console.log("url:", url)
       let response = await axios.get(
         url
       );
@@ -79,7 +84,7 @@ const Post = () => {
         refreshControl={
           <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
         }
-        onScrollEndDrag={handleLoadMore}
+        onScrollAnimationEnd={handleLoadMore}
       // onScroll={(e) => {
       //   // console.log('eeee',e?.nativeEvent?.contentSize.height)
       //   // console.log('eeee',e?.nativeEvent?.contentOffset.y)
@@ -99,12 +104,33 @@ const Post = () => {
         {posts?.length > 0 ? posts?.map((post, index) => {
           return <PostItem key={index} post={post} />;
         }) :
-          <ActivityIndicator size={'large'} color='white' />
+          ""
         }
       </ScrollView>
       <View>
         <BottomNavBar />
       </View>
+
+      <Modal
+        transparent={true}
+        animationType={'fade'}
+        visible={loading}
+        style={{ zIndex: 1100 }}
+        onRequestClose={() => { }}>
+        <View style={styles.modalBackground}>
+          <View style={styles.activityIndicatorWrapper}>
+            <ActivityIndicator size='large' animating={loading} color="white" />
+
+            {/* If you want to image set source here */}
+            {/* <Image
+              source={require('../assets/images/loader.gif')}
+              style={{ height: 80, width: 80 }}
+              resizeMode="contain"
+              resizeMethod="resize"
+            /> */}
+          </View>
+        </View>
+      </Modal>
     </View>
   );
 };
@@ -172,6 +198,23 @@ const styles = StyleSheet.create({
     flex: 1,
     height: "100%", // Set the height to the full screen height
   },
+  modalBackground: {
+    flex: 1,
+    alignItems: 'center',
+    flexDirection: 'column',
+    justifyContent: 'space-around',
+    backgroundColor: '#rgba(0, 0, 0, 0.5)',
+    zIndex: 1000
+  },
+  // activityIndicatorWrapper: {
+  //   backgroundColor: '#FFFFFF',
+  //   height: 100,
+  //   width: 100,
+  //   borderRadius: 10,
+  //   display: 'flex',
+  //   alignItems: 'center',
+  //   justifyContent: 'space-around'
+  // }
 });
 
 export default Post;

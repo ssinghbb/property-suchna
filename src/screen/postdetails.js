@@ -79,6 +79,7 @@ const PostDetails = ({ file, isVideo }) => {
 
       setLoader(false);
     } catch (error) {
+      console.log("error:", error)
       console.error("API error:", error?.response?.data);
       setLoader(false);
     }

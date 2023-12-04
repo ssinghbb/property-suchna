@@ -12,7 +12,7 @@ const AuthNavigation = () => {
 	console.log("AuthNavigation page start:",)
 
 	const user = useSelector((state) => state?.user?.user?.user);
-	const userr = useSelector((state) => state);
+	// const userr = useSelector((state) => state);
 	// console.log("user:", user)
 	// console.log("user: in auth navigation", user?.phoneNumber)
 	// console.log("user: in auth navigation", user?._id)

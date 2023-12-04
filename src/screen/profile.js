@@ -107,7 +107,7 @@ const Profile = () => {
       Alert.alert("error updated userDetails")
     }
   };
-  
+
   const pickImage = async () => {
     try {
       let result = await ImagePicker.launchImageLibraryAsync({
