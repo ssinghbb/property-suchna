@@ -23,15 +23,15 @@ import PostMenu from "./postMenu";
 
 
 export default function PostItem({ post={} }) {
-  // console.warn("post-----", post)
+ 
   //const [totalLikes, setTotalLikes] = useState(post?.likes || 0);
   const [totalLikes, setTotalLikes] = useState(post?.likes?.length || 0);
   const [isLiked, setIsLiked] = useState(false);
   const navigation = useNavigation();
   const user = useSelector((state) => state?.user?.user?.user);
-  // console.log("user in postitem:", user)
+
   const userId = user?._id;
-  // const userId = "65437e2ed3b869c3002a9072";
+  
 
   const navigateToScreen = (screenName) => {
     navigation.navigate(screenName);
@@ -74,9 +74,9 @@ export default function PostItem({ post={} }) {
           source={{
             uri: post?.user?.url || post?.user?.url,
           }}
+         
           style={styles.avatar}
         />
-
         <Text style={styles.userName}>{post?.user?.fullName}</Text>
       </TouchableOpacity>
       {/* <Pressable style={styles.manuIcon}>

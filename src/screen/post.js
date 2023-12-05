@@ -63,14 +63,12 @@ const Post = () => {
       let response = await axios.get(
         url
       );
-
       // console.log("response",response?.data);
       //let response = await axios.get("http://192.168.1.41:3000/post/allpost");
       // setPosts(response?.data?.data || []);
       setPosts((prevData) => [...prevData, ...response?.data?.data]);
       // setPage(page + 1);
     } catch (error) {
-
       console.log("api error", error);
     }
     setLoading(false)
@@ -78,7 +76,6 @@ const Post = () => {
 
   return (
     <View style={styles.mainContainer}>
-
       <ScrollView
         style={styles.postPage}
         refreshControl={
@@ -99,7 +96,7 @@ const Post = () => {
 
       // }}
       >
-        <Header />
+        <Header/>
 
         {posts?.length > 0 ? posts?.map((post, index) => {
           return <PostItem key={index} post={post} />;

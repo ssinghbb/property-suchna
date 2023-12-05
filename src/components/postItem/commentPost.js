@@ -18,17 +18,20 @@ import FeatherIcon from "react-native-vector-icons/Feather";
 import axios from "axios";
 import { EXPO_PUBLIC_API_URL } from "../../constants/constant";
 import { useEffect } from "react";
+import { useSelector } from "react-redux";
+import { useNavigation } from "@react-navigation/native";
 
 export default function commentPost({ post = {} }) {
+
+  const navigation = useNavigation();
   const [openModal, setOpenModal] = useState(false);
   const [comment, setComment] = useState("");
   const [commentData, setCommentData] = useState([]);
+
   const [refreshing, setRefreshing] = React.useState(false);
-
-
-  const userId = "655de22d0b864d6350212fcf";
-
-
+  const user = useSelector((state) => state?.user?.user?.user);
+  const userId = user?._id;
+  const userName = user?.fullName;
 
   const onRefresh = React.useCallback(() => {
     setRefreshing(true);
@@ -38,28 +41,31 @@ export default function commentPost({ post = {} }) {
     }, 2000);
   }, []);
 
-
   const getAllComments = async (postId) => {
     // console.log("postId", postId);
     try {
-      const url = `${EXPO_PUBLIC_API_URL}post/comments/${postId}`;
-      const response = await axios.get(url)
-      // console.log("respost to get", response?.data);
-      setCommentData(response?.data?.data || [])
+      // const url = `${EXPO_PUBLIC_API_URL}post/comments/${postId}`;
+      const url = `${EXPO_PUBLIC_API_URL}comment/comments/${postId}`;
+      console.log("url", url);
+      const response = await axios.get(url);
+      console.log("response", response);
+      console.log("respost to get", response?.data);
+      setCommentData(response?.data?.data || []);
     } catch (error) {
       Alert.alert("Error", "Failed to get  All comment");
       console.error("Error feching  comment:", error);
     }
   };
 
-
   const postComment = async (postId) => {
     // console.log("postId", postId);
     try {
-      let url = `${EXPO_PUBLIC_API_URL}post/comment`;
+      // let url = `${EXPO_PUBLIC_API_URL}post/comment`;
+      let url = `${EXPO_PUBLIC_API_URL}comment/comments`;
       const response = await axios.post(url, { postId, userId, comment });
       // console.log("response", response?.data);
       Alert.alert("Success", "Comment posted successfully");
+      setCommentData(response?.data?.data || []);
       setComment("");
       getAllComments(postId);
     } catch (error) {
@@ -68,27 +74,27 @@ export default function commentPost({ post = {} }) {
     }
   };
 
-
   useEffect(() => {
     if (openModal && post?._id) {
       getAllComments(post?._id);
     }
-  }, [openModal, post?._id])
-
+  }, [openModal, post?._id]);
 
   const renderCommentItem = ({ item }) => (
     <View style={styles.commentContainer}>
       <Image
         style={styles.commentprofile}
-        source={require("../../../assets/lily.png")}
+        // source={require("../../../assets/lily.png")}
+        source={{
+          uri: user?.url || "",
+        }}
       />
       <View>
-        <Text style={styles.userName}>@{item?.userName}</Text>
+        <Text style={styles.userName}>@{user?.fullName}</Text>
         <Text style={styles.textComment}>{item?.comment}</Text>
       </View>
     </View>
   );
-
 
   return (
     <View style={styles.mainContainer}>
@@ -105,7 +111,6 @@ export default function commentPost({ post = {} }) {
             <Text style={styles.modalText}>Comments</Text>
           </View>
 
-
           <FlatList
             data={commentData}
             keyExtractor={(item) => item._id}
@@ -120,7 +125,10 @@ export default function commentPost({ post = {} }) {
             <View>
               <Image
                 style={styles.profile}
-                source={require("../../../assets/lily.png")}
+                //source={require("../../../assets/lily.png")}
+                source={{
+                  uri: user?.url || "",
+                }}
               />
             </View>
             <TextInput
@@ -186,6 +194,7 @@ const styles = StyleSheet.create({
     height: 30,
     width: 30,
     alignItems: "center",
+    borderRadius: 20,
   },
   userName: {
     fontWeight: "900",
