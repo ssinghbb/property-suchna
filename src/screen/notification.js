@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import {
   Text,
   View,
@@ -26,74 +26,74 @@ const commentsData = [
       "Welcome to this beautiful 3-bedroom, 2-bathroom home located in the heart of [Name of the Neighborhood], known for its [mention a unique feature of the neighborhood, such as parks, schools, or nearby amenities]. This property offers a warm and inviting atmosphere with a host of attractive features.",
   },
 
-  {
-    id: 2,
-    name: "Keerti",
-    comment:
-      "Welcome to this beautiful 3-bedroom, 2-bathroom home located in the heart of [Name of the Neighborhood], known for its [mention a unique feature of the neighborhood, such as parks, schools, or nearby amenities]. This property offers a warm and inviting atmosphere with a host of attractive features.",
-  },
+//   {
+//     id: 2,
+//     name: "Keerti",
+//     comment:
+//       "Welcome to this beautiful 3-bedroom, 2-bathroom home located in the heart of [Name of the Neighborhood], known for its [mention a unique feature of the neighborhood, such as parks, schools, or nearby amenities]. This property offers a warm and inviting atmosphere with a host of attractive features.",
+//   },
 
-  {
-    id: 3,
-    name: "Keerti",
-    comment:
-      "Welcome to this beautiful 3-bedroom, 2-bathroom home located in the heart of [Name of the Neighborhood], known for its [mention a unique feature of the neighborhood, such as parks, schools, or nearby amenities]. This property offers a warm and inviting atmosphere with a host of attractive features.",
-  },
-  {
-    id: 4,
-    name: "Keerti",
-    comment:
-      "Welcome to this beautiful 3-bedroom, 2-bathroom home located in the heart of [Name of the Neighborhood], known for its [mention a unique feature of the neighborhood, such as parks, schools, or nearby amenities]. This property offers a warm and inviting atmosphere with a host of attractive features.",
-  },
+//   {
+//     id: 3,
+//     name: "Keerti",
+//     comment:
+//       "Welcome to this beautiful 3-bedroom, 2-bathroom home located in the heart of [Name of the Neighborhood], known for its [mention a unique feature of the neighborhood, such as parks, schools, or nearby amenities]. This property offers a warm and inviting atmosphere with a host of attractive features.",
+//   },
+//   {
+//     id: 4,
+//     name: "Keerti",
+//     comment:
+//       "Welcome to this beautiful 3-bedroom, 2-bathroom home located in the heart of [Name of the Neighborhood], known for its [mention a unique feature of the neighborhood, such as parks, schools, or nearby amenities]. This property offers a warm and inviting atmosphere with a host of attractive features.",
+//   },
 
-  {
-    id: 5,
-    name: "Keerti",
-    comment:
-      "Welcome to this beautiful 3-bedroom, 2-bathroom home located in the heart of [Name of the Neighborhood], known for its [mention a unique feature of the neighborhood, such as parks, schools, or nearby amenities]. This property offers a warm and inviting atmosphere with a host of attractive features.",
-  },
-  {
-    id: 6,
-    name: "Keerti",
-    comment:
-      "Welcome to this beautiful 3-bedroom, 2-bathroom home located in the heart of [Name of the Neighborhood], known for its [mention a unique feature of the neighborhood, such as parks, schools, or nearby amenities]. This property offers a warm and inviting atmosphere with a host of attractive features.",
-  },
-  {
-    id: 7,
-    name: "Keerti",
-    comment:
-      "Welcome to this beautiful 3-bedroom, 2-bathroom home located in the heart of [Name of the Neighborhood], known for its [mention a unique feature of the neighborhood, such as parks, schools, or nearby amenities]. This property offers a warm and inviting atmosphere with a host of attractive features.",
-  },
-  {
-    id: 8,
-    name: "Keerti",
-    comment:
-      "Welcome to this beautiful 3-bedroom, 2-bathroom home located in the heart of [Name of the Neighborhood], known for its [mention a unique feature of the neighborhood, such as parks, schools, or nearby amenities]. This property offers a warm and inviting atmosphere with a host of attractive features.",
-  },
-  {
-    id: 9,
-    name: "Keerti",
-    comment:
-      "Welcome to this beautiful 3-bedroom, 2-bathroom home located in the heart of [Name of the Neighborhood], known for its [mention a unique feature of the neighborhood, such as parks, schools, or nearby amenities]. This property offers a warm and inviting atmosphere with a host of attractive features.",
-  },
-  {
-    id: 10,
-    name: "Keerti",
-    comment:
-      "Welcome to this beautiful 3-bedroom, 2-bathroom home located in the heart of [Name of the Neighborhood], known for its [mention a unique feature of the neighborhood, such as parks, schools, or nearby amenities]. This property offers a warm and inviting atmosphere with a host of attractive features.",
-  },
-  {
-    id: 11,
-    name: "Keerti",
-    comment:
-      "Welcome to this beautiful 3-bedroom, 2-bathroom home located in the heart of [Name of the Neighborhood], known for its [mention a unique feature of the neighborhood, such as parks, schools, or nearby amenities]. This property offers a warm and inviting atmosphere with a host of attractive features.",
-  },
-  {
-    id: 12,
-    name: "Keerti",
-    comment:
-      "Welcome to this beautiful 3-bedroom, 2-bathroom home located in the heart of [Name of the Neighborhood], known for its [mention a unique feature of the neighborhood, such as parks, schools, or nearby amenities]. This property offers a warm and inviting atmosphere with a host of attractive features.",
-  },
+//   {
+//     id: 5,
+//     name: "Keerti",
+//     comment:
+//       "Welcome to this beautiful 3-bedroom, 2-bathroom home located in the heart of [Name of the Neighborhood], known for its [mention a unique feature of the neighborhood, such as parks, schools, or nearby amenities]. This property offers a warm and inviting atmosphere with a host of attractive features.",
+//   },
+//   {
+//     id: 6,
+//     name: "Keerti",
+//     comment:
+//       "Welcome to this beautiful 3-bedroom, 2-bathroom home located in the heart of [Name of the Neighborhood], known for its [mention a unique feature of the neighborhood, such as parks, schools, or nearby amenities]. This property offers a warm and inviting atmosphere with a host of attractive features.",
+//   },
+//   {
+//     id: 7,
+//     name: "Keerti",
+//     comment:
+//       "Welcome to this beautiful 3-bedroom, 2-bathroom home located in the heart of [Name of the Neighborhood], known for its [mention a unique feature of the neighborhood, such as parks, schools, or nearby amenities]. This property offers a warm and inviting atmosphere with a host of attractive features.",
+//   },
+//   {
+//     id: 8,
+//     name: "Keerti",
+//     comment:
+//       "Welcome to this beautiful 3-bedroom, 2-bathroom home located in the heart of [Name of the Neighborhood], known for its [mention a unique feature of the neighborhood, such as parks, schools, or nearby amenities]. This property offers a warm and inviting atmosphere with a host of attractive features.",
+//   },
+//   {
+//     id: 9,
+//     name: "Keerti",
+//     comment:
+//       "Welcome to this beautiful 3-bedroom, 2-bathroom home located in the heart of [Name of the Neighborhood], known for its [mention a unique feature of the neighborhood, such as parks, schools, or nearby amenities]. This property offers a warm and inviting atmosphere with a host of attractive features.",
+//   },
+//   {
+//     id: 10,
+//     name: "Keerti",
+//     comment:
+//       "Welcome to this beautiful 3-bedroom, 2-bathroom home located in the heart of [Name of the Neighborhood], known for its [mention a unique feature of the neighborhood, such as parks, schools, or nearby amenities]. This property offers a warm and inviting atmosphere with a host of attractive features.",
+//   },
+//   {
+//     id: 11,
+//     name: "Keerti",
+//     comment:
+//       "Welcome to this beautiful 3-bedroom, 2-bathroom home located in the heart of [Name of the Neighborhood], known for its [mention a unique feature of the neighborhood, such as parks, schools, or nearby amenities]. This property offers a warm and inviting atmosphere with a host of attractive features.",
+//   },
+//   {
+//     id: 12,
+//     name: "Keerti",
+//     comment:
+//       "Welcome to this beautiful 3-bedroom, 2-bathroom home located in the heart of [Name of the Neighborhood], known for its [mention a unique feature of the neighborhood, such as parks, schools, or nearby amenities]. This property offers a warm and inviting atmosphere with a host of attractive features.",
+//   },
 
 ];
 
@@ -133,7 +133,8 @@ const Notifications = () => {
     <View style={styles.commentLikeSection}>
       <Image
         style={styles.profileImg}
-        source={require("../../assets/comment1.png")}
+        // source={require("../../assets/comment1.png")}
+        source={{ uri: item?.user?.url }}
       />
       <View style={styles.commentText}>
         <Text style={styles.name}>{item?.name}</Text>
@@ -142,14 +143,31 @@ const Notifications = () => {
       {/* <Pressable style={styles.likeSection}>
         <Icon
           color={"white"}
-          onPress={() => handleLike(item.id)}
+          onPress={() => handleLike(item._id)}
           name={"thumbs-o-up"}
           size={20}
-
         />
       </Pressable> */}
     </View>
   );
+
+  const user = useSelector((state) => state?.user?.user?.user);
+  const userId = user?._id;
+const url=`${EXPO_PUBLIC_API_URL}get-notifications/${userId}`
+  const getNotifications=async ()=>{
+     try {
+      const response=await axios.get(url);
+     console.log(response.data,'lsDNLVnlDnlhsLDIilghsildgil');
+     setCommentsData(response?.data?.data)
+     } catch (error) {
+      console.log('error',error);
+     }
+  }
+
+
+  useEffect(()=>{
+    getNotifications();
+  },[])
 
   return (
     <View style={styles.screenContainer}>
@@ -204,6 +222,7 @@ const styles = StyleSheet.create({
   },
   commentText: {
     maxWidth: "75%",
+    width:'100%'
   },
   name: {
     color: "#D9D9D9",

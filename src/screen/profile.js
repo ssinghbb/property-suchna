@@ -44,7 +44,7 @@ const Profile = () => {
 
   const validationSchema = Yup.object().shape({
     fullName: Yup.string().required("fullName is required"),
-    phoneNumber: Yup.string().required("phoneNumber is required"),
+    //phoneNumber: Yup.string().required("phoneNumber is required"),
   });
 
   const formik = useFormik({
