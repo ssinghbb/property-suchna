@@ -86,7 +86,7 @@ export default function PostItem({ post={} }) {
             size={20}
             />
       </Pressable> */}
-      <PostMenu postId={post._id}/>
+      <PostMenu postId={post?._id} uploadedUserId={post?.userId} />
       </View>
       <View style={styles.postImg}>
         <Image style={styles.post} source={{ uri: post?.url }} />
