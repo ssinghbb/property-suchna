@@ -41,13 +41,16 @@ export default function PostItem({ post={} }) {
     setIsLiked(post?.likes?.includes(userId));
   }, [post]);
 
-  const likePost = async (postId) => {
+  const likePost = async (postId,postUserId) => {
+    console.log("postId:", postId)
+    console.log("postUserId:", postUserId)
     // console.log("postid", postId);
 
     try {
       // let url= "http://192.168.1.41:3000/post/like"
       let url = `${EXPO_PUBLIC_API_URL}post/like`;
-      const response = await axios.put(url, { postId, userId });
+      
+      const response = await axios.put(url, { postId, userId,postUserId });
       // console.log(response?.data?.post?.likes?.length);
       setTotalLikes(response?.data?.post?.likes?.length);
       setIsLiked(response?.data?.post?.likes?.includes(userId));
@@ -58,6 +61,7 @@ export default function PostItem({ post={} }) {
 
   return (
     <View key={post?._id} style={styles.postCard}>
+     {console.log("check---------",post?.userId )}
       <View style={styles.postHeader}>
       <TouchableOpacity
         style={styles.profile}
@@ -88,7 +92,7 @@ export default function PostItem({ post={} }) {
         <Image style={styles.post} source={{ uri: post?.url }} />
       </View>
       <View style={styles.likeComment}>
-        <TouchableOpacity onPress={() => likePost(post?._id)}>
+        <TouchableOpacity onPress={() => likePost(post?._id,post?.userId)}>
           <Icon
             color={"white"}
             style={isLiked ? styles.liked : {}}
