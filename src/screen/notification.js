@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   Text,
   View,
@@ -12,6 +12,11 @@ import Icon from "react-native-vector-icons/FontAwesome";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 import { useNavigation } from "@react-navigation/native";
 import { themeStyles } from "../../styles";
+import axios from "axios";
+import { EXPO_PUBLIC_API_URL } from "../constants/constant";
+import { useSelector, useDispatch } from "react-redux";
+
+
 
 const commentsData = [
   {
@@ -92,9 +97,38 @@ const commentsData = [
 
 ];
 
+
+
 const Notifications = () => {
+  const user = useSelector((state) => state.user.user);
+  let userId = user?.user?._id;
+  const [notificationData, setNotificationData] = useState([])
 
   const navigation = useNavigation();
+
+
+  useEffect(() => {
+    console.log("use effect")
+    handleNotification()
+
+    return () => {
+
+    }
+  }, [])
+  const handleNotification = async () => {
+    let url = `${EXPO_PUBLIC_API_URL}notification/${userId}`;
+
+    console.log("url:", url)
+    let data = await axios.get(url)
+    console.log("data:", data?.data)
+    setNotificationData(data?.data)
+  }
+
+
+
+
+
+
   const renderItem = ({ item }) => (
     <View style={styles.commentLikeSection}>
       <Image
@@ -102,10 +136,10 @@ const Notifications = () => {
         source={require("../../assets/comment1.png")}
       />
       <View style={styles.commentText}>
-        <Text style={styles.name}>{item.name}</Text>
-        <Text style={styles.comment}>{item.comment}</Text>
+        <Text style={styles.name}>{item?.name}</Text>
+        <Text style={styles.comment}>{item?.text}</Text>
       </View>
-      <Pressable style={styles.likeSection}>
+      {/* <Pressable style={styles.likeSection}>
         <Icon
           color={"white"}
           onPress={() => handleLike(item.id)}
@@ -113,7 +147,7 @@ const Notifications = () => {
           size={20}
 
         />
-      </Pressable>
+      </Pressable> */}
     </View>
   );
 
@@ -133,8 +167,8 @@ const Notifications = () => {
         <Text style={styles.name}>Comments</Text>
       </Pressable>
       <FlatList
-        data={commentsData}
-        keyExtractor={(item) => item.id.toString()}
+        data={notificationData}
+        keyExtractor={(item) => item?._id?.toString()}
         renderItem={renderItem}
       />
 
@@ -178,7 +212,7 @@ const styles = StyleSheet.create({
   },
   comment: {
     color: "#D9D9D9",
-    fontSize: 7,
+    fontSize: 13,
   },
   navSection: {
     // Add styling for the bottom navbar section if needed

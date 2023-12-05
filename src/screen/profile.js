@@ -30,7 +30,7 @@ const Profile = () => {
   const [isLoading, setIsLoading] = useState(false)
 
   const user = useSelector((state) => state.user.user);
-  // console.log("user in profile:", user?.user);
+  console.log("user in profile:", user?.user);
   let currentUser = user?.user;
   const dispatch = useDispatch();
 
@@ -145,6 +145,8 @@ const Profile = () => {
         </View>
         <View style={styles.user}>
           <Pressable onPress={pickImage} style={styles.profileContainer}>
+            {console.log("user0000",user?.user?.url)}
+            {/* {console.log("user0000 media",media)} */}
             <Image
               source={{
                 uri: media || user?.user?.url,
