@@ -29,7 +29,7 @@ const Profile = () => {
   const [file, setFile] = useState(null);
   const [isLoading, setIsLoading] = useState(false)
 
-  const user = useSelector((state) => state.user.user);
+  const user = useSelector((state) => state?.user?.user);
   // console.log("user in profile:", user?.user);
   let currentUser = user?.user;
   const dispatch = useDispatch();

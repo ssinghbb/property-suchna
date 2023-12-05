@@ -14,33 +14,35 @@ import { useSelector } from "react-redux";
 import { EXPO_PUBLIC_API_URL } from "../../constants/constant";
 import axios from "axios";
 
-export default function PostMenu({ postId }) {
+export default function PostMenu(post) {
   const [openModal, setOpenModal] = useState(false);
-  // console.log("postId",postId);
+  // console.log(" postId", post?.postId);
   const user = useSelector((state) => state?.user?.user?.user) || {};
-  // console.log("user", user);
-  const userId = user?._id;
+  const uploadedUserId = post?.uploadedUserId;
+  // console.log(" postUserId", post?.uploadedUserId);
 
+  const userId = user?._id;
+  const canDeletePost = userId === uploadedUserId;
 
   const handelPost = async () => {
+    if (!canDeletePost) {
+      // Alert.alert("You don't have permission to delete this post");
+      // return;
+      // setOpenModal(!openModal)
+    }
     try {
-      const url = `${EXPO_PUBLIC_API_URL}post/delete/${postId}/${userId}`;
+      const url = `${EXPO_PUBLIC_API_URL}post/delete/${post?.postId}/${userId}`;
       // console.log("url", url);
       const response = await axios.delete(url);
-      // console.log("response",response);
-      if (response?.status >= 200 && response?.status < 300) {
-        console.log("Response", response?.status);
-        Alert.alert("Post deleted successfully");
-        setOpenModal(false)
-      } else {
-        console.log("Error, deleting post. Status:", response?.status);
-        Alert.alert("Error, deleting post");
-      }
+      console.log("Response", response?.status);
+      Alert.alert("Post deleted successfully");
+      setOpenModal(false);
     } catch (error) {
       console.log("Error, deleting post", error);
       Alert.alert("Error, deleting post");
     }
   };
+
   return (
     <View>
       <View>
