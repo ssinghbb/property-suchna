@@ -66,13 +66,13 @@ export default function PostItem({ post={} }) {
       <TouchableOpacity
         style={styles.profile}
         onPress={() => {
-          navigateToScreen("useraccount")
+          navigateToScreen("useraccount",{post})
         }}
       >
         {/* <Image source={require("../../../assets/lily.png")} /> */}
         <Image
           source={{
-            uri: post?.user?.url || post?.user?.url,
+            uri: post?.user?.url || '',
           }}
          
           style={styles.avatar}

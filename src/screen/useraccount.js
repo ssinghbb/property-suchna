@@ -236,39 +236,55 @@
 
 
 
-import React, { useState } from "react";
-import { View, Text, StyleSheet, Image, ScrollView, FlatList, Pressable } from "react-native";
+import React, { useEffect, useState } from "react";
+import { View, Text, StyleSheet, Image, ScrollView, FlatList, Pressable, Alert } from "react-native";
 import Lightbox from "react-native-lightbox";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 import ButtomNavbar from "../components/BottomNavbar/bottomNavbar";
 import { useNavigation } from "@react-navigation/native";
 import { themeStyles } from "../../styles";
+import { EXPO_PUBLIC_API_URL } from "../constants/constant";
 
-export default function UserAccount() {
+export default function UserAccount({post}) {
+  console.log("postuserId",post?.userId);
   const navigation = useNavigation();
   const [selectedImage, setSelectedImage] = useState(null);
+  const [userPost, setUserPost]=useState([]);
 
-  const data = [
-    { id: "1", source: require("../../assets/post1.png") },
-    { id: "2", source: require("../../assets/post3.png") },
-    { id: "3", source: require("../../assets/post3.png") },
-    { id: "4", source: require("../../assets/post1.png") },
-    { id: "5", source: require("../../assets/post3.png") },
-    { id: "6", source: require("../../assets/post4.png") },
+  // const data = [
+  //   { id: "1", source: require("../../assets/post1.png") },
+  //   { id: "2", source: require("../../assets/post3.png") },
+  //   { id: "3", source: require("../../assets/post3.png") },
+  //   { id: "4", source: require("../../assets/post1.png") },
+  //   { id: "5", source: require("../../assets/post3.png") },
+  //   { id: "6", source: require("../../assets/post4.png") },
 
-    { id: "7", source: require("../../assets/post1.png") },
-    { id: "8", source: require("../../assets/post3.png") },
-    { id: "9", source: require("../../assets/post4.png") },
-    { id: "10", source: require("../../assets/post1.png") },
-    { id: "11", source: require("../../assets/post3.png") },
-    { id: "12", source: require("../../assets/post4.png") },
-    { id: "13", source: require("../../assets/post1.png") },
-    { id: "14", source: require("../../assets/post3.png") },
+  //   { id: "7", source: require("../../assets/post1.png") },
+  //   { id: "8", source: require("../../assets/post3.png") },
+  //   { id: "9", source: require("../../assets/post4.png") },
+  //   { id: "10", source: require("../../assets/post1.png") },
+  //   { id: "11", source: require("../../assets/post3.png") },
+  //   { id: "12", source: require("../../assets/post4.png") },
+  //   { id: "13", source: require("../../assets/post1.png") },
+  //   { id: "14", source: require("../../assets/post3.png") },
+  // ];
 
-    
-  ];
+ useEffect( async ()=>{
+  const userId= post?.userId;
+  const apiUrl= `${EXPO_PUBLIC_API_URL}post/userpost/${userId}`
+ console.log("userId");
+  const response = await axios.get(apiUrl)
+ console.log(response);
+ if(response){
+  console.log("post get successfully");
+  Alert.alert("post get successfully");
+  setUserPost(response.data.data);
+ }else{
+  console.log("error, get post");
+  Alert.alert("error")
+ }
 
-
+ })
   
 
   const renderItem = ({ item }) => (
@@ -277,7 +293,7 @@ export default function UserAccount() {
       onOpen={() => setSelectedImage(item)}
       onClose={() => setSelectedImage(null)}
     >
-      <Image style={styles.post} source={item.source} />
+      <Image style={styles.post} source={item?.posts?.url} />
     </Lightbox>
   );
 
@@ -325,8 +341,8 @@ export default function UserAccount() {
         <View style={styles.postContainer}>
         <View style={styles.img}>
           <FlatList
-            data={data}
-            keyExtractor={(item) => item.id}
+            data={userPost}
+            keyExtractor={(item) => item._id}
             renderItem={renderItem}
             numColumns={3}
           />
