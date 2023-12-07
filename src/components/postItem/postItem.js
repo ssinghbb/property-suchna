@@ -34,7 +34,7 @@ export default function PostItem({ post={} }) {
   
 
   const navigateToScreen = (screenName) => {
-    navigation.navigate(screenName);
+    navigation.navigate(screenName,{post});
   };
 
   useEffect(() => {
@@ -66,7 +66,7 @@ export default function PostItem({ post={} }) {
       <TouchableOpacity
         style={styles.profile}
         onPress={() => {
-          navigateToScreen("useraccount",{post})
+          navigateToScreen("useraccount")
         }}
       >
         {/* <Image source={require("../../../assets/lily.png")} /> */}
@@ -77,7 +77,7 @@ export default function PostItem({ post={} }) {
          
           style={styles.avatar}
         />
-        <Text style={styles.userName}>{post?.user?.fullName}</Text>
+        <Text style={styles.userName} post={post}>{post?.user?.fullName}</Text>
       </TouchableOpacity>
       {/* <Pressable style={styles.manuIcon}>
           <EntypoIcon

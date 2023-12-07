@@ -244,47 +244,37 @@ import ButtomNavbar from "../components/BottomNavbar/bottomNavbar";
 import { useNavigation } from "@react-navigation/native";
 import { themeStyles } from "../../styles";
 import { EXPO_PUBLIC_API_URL } from "../constants/constant";
+import axios from "axios";
 
-export default function UserAccount({post}) {
-  console.log("postuserId",post?.userId);
+export default function UserAccount({ route }) {
+  const { post } = route?.params;
+   console.log("postiiiiiii",post);
+   console.log("postuserId",post?.userId);
+   const userId=post?.userId;
   const navigation = useNavigation();
-  const [selectedImage, setSelectedImage] = useState(null);
-  const [userPost, setUserPost]=useState([]);
+     const [selectedImage, setSelectedImage] = useState(null);
+  const [userPost, setUserPosts]=useState([]);
 
-  // const data = [
-  //   { id: "1", source: require("../../assets/post1.png") },
-  //   { id: "2", source: require("../../assets/post3.png") },
-  //   { id: "3", source: require("../../assets/post3.png") },
-  //   { id: "4", source: require("../../assets/post1.png") },
-  //   { id: "5", source: require("../../assets/post3.png") },
-  //   { id: "6", source: require("../../assets/post4.png") },
+  const fetchUserPosts= async ()=>{
+    try {
+      const apiUrl= `${EXPO_PUBLIC_API_URL}post/userpost/${userId}`;
+      console.log("apiUrl",apiUrl);
+      const response= await axios.get(apiUrl);
+      if(response){
+        console.log("post get successfully",response?.data);
+        Alert.alert("post get successfully");
+        setUserPosts(response?.data?.posts);
+      }
+    } catch (error) {
+      console.log("error",error);
+        Alert.alert("Error fetching user posts:");
+    }
+  };
+  
 
-  //   { id: "7", source: require("../../assets/post1.png") },
-  //   { id: "8", source: require("../../assets/post3.png") },
-  //   { id: "9", source: require("../../assets/post4.png") },
-  //   { id: "10", source: require("../../assets/post1.png") },
-  //   { id: "11", source: require("../../assets/post3.png") },
-  //   { id: "12", source: require("../../assets/post4.png") },
-  //   { id: "13", source: require("../../assets/post1.png") },
-  //   { id: "14", source: require("../../assets/post3.png") },
-  // ];
-
- useEffect( async ()=>{
-  const userId= post?.userId;
-  const apiUrl= `${EXPO_PUBLIC_API_URL}post/userpost/${userId}`
- console.log("userId");
-  const response = await axios.get(apiUrl)
- console.log(response);
- if(response){
-  console.log("post get successfully");
-  Alert.alert("post get successfully");
-  setUserPost(response.data.data);
- }else{
-  console.log("error, get post");
-  Alert.alert("error")
- }
-
- })
+useEffect(()=>{
+  fetchUserPosts();
+}, [userId])
   
 
   const renderItem = ({ item }) => (
@@ -293,13 +283,13 @@ export default function UserAccount({post}) {
       onOpen={() => setSelectedImage(item)}
       onClose={() => setSelectedImage(null)}
     >
-      <Image style={styles.post} source={item?.posts?.url} />
+      <Image style={styles.post} source={{ uri: item.url }} />
     </Lightbox>
   );
 
   return (
     <View style={styles.mainSection}>
-      <ScrollView style={styles.SecondSection}>
+      <View style={styles.SecondSection}>
         <View style={styles.backSection}>
           {/* ... (your back button code) */}
           <Pressable
@@ -342,13 +332,13 @@ export default function UserAccount({post}) {
         <View style={styles.img}>
           <FlatList
             data={userPost}
-            keyExtractor={(item) => item._id}
+            keyExtractor={(item) => item?._id?.toString()}
             renderItem={renderItem}
             numColumns={3}
           />
         </View>
         </View>
-      </ScrollView>
+      </View>
       <View>
         <ButtomNavbar />
       </View>
@@ -429,5 +419,16 @@ const styles = StyleSheet.create({
     // padding: "auto",
     borderWidth: 1,
     borderColor: "white",
+  // //   aspectRatio: 1, // Maintain the aspect ratio
+  // // margin: 4,
+  // // borderRadius: 2,
+  // // height: 110,
+  // // borderWidth: 1,
+  // // borderColor: "white",
+  // margin: 4,
+  // borderRadius: 2,
+  // height: 110,
+  // borderWidth: 1,
+  // borderColor: "white",
   },
 });
