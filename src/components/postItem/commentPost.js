@@ -7,7 +7,6 @@ import {
   StyleSheet,
   Alert,
   Pressable,
-  ScrollView,
   Image,
   FlatList,
   RefreshControl,
@@ -31,7 +30,7 @@ export default function commentPost({ post = {} }) {
   const [refreshing, setRefreshing] = React.useState(false);
   const user = useSelector((state) => state?.user?.user?.user);
   const userId = user?._id;
-  const userName = user?.fullName;
+  //const userName = user?.fullName;
 
   const onRefresh = React.useCallback(() => {
     setRefreshing(true);
@@ -42,7 +41,7 @@ export default function commentPost({ post = {} }) {
   }, []);
 
   const getAllComments = async (postId) => {
-    // console.log("postId", postId);
+    
     try {
       // const url = `${EXPO_PUBLIC_API_URL}post/comments/${postId}`;
       const url = `${EXPO_PUBLIC_API_URL}comment/comments/${postId}`;
@@ -120,7 +119,6 @@ export default function commentPost({ post = {} }) {
               <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
             }
           />
-
           <View style={styles.commentInput}>
             <View>
               <Image
