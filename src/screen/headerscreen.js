@@ -23,7 +23,6 @@ const App = () => {
 
 const styles = StyleSheet.create({
   centeredView: {
-    
    
   },
   modalView: {

@@ -291,7 +291,6 @@ const Notifications = () => {
  const user = useSelector((state) => state?.user?.user?.user);
 const userId = user?._id;
 const url=`${EXPO_PUBLIC_API_URL}notification/${userId}`
-  
 
 const getNotifications=async ()=>{
      try {
