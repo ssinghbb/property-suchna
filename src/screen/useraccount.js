@@ -30,12 +30,10 @@ export default function UserAccount({ route }) {
       const response = await axios.get(apiUrl);
       if (response) {
         console.log("post get successfully", response?.data);
-        Alert.alert("post get successfully");
         setUserPosts(response?.data?.posts);
       }
     } catch (error) {
       console.log("error", error);
-      Alert.alert("Error fetching user posts:");
     }
   };
 
@@ -82,8 +80,8 @@ export default function UserAccount({ route }) {
               <Text style={styles.postName}>{userPost?.length}</Text>
             </View>
             <View style={styles.totalPost}>
-              <Text style={styles.postName}>Reels</Text>
-              <Text style={styles.postName}>10</Text>
+              <Text style={styles.reelsName}>Reels</Text>
+              <Text style={styles.postName}>0</Text>
             </View>
           </View>
           <View style={styles.commentText}>
@@ -150,6 +148,12 @@ const styles = StyleSheet.create({
     color: "#D9D9D9",
     fontSize: 15,
     fontWeight: "800",
+  },
+  reelsName:{
+    fontSize: 15,
+    fontWeight: "800",
+    color: "#D9D9D9",
+    color:'gray'
   },
   commentText: {
     maxWidth: "75%",

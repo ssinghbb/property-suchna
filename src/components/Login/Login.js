@@ -30,7 +30,7 @@ const Login = ({ navigation }) => {
   const dispatch = useDispatch();
 
   const { t } = useTranslation();
-  const [isLoading, setIsLoading] = useState(false)
+  const [isLoading, setIsLoading] = useState(false);
   const formik = useFormik({
     initialValues: {
       phoneNumber: "",
@@ -38,35 +38,30 @@ const Login = ({ navigation }) => {
     },
     validationSchema,
     onSubmit: async (values) => {
-      // console.log("values:", values)
       try {
-        setIsLoading(true)
-        let url = `${EXPO_PUBLIC_API_URL}auth/sign_in`
+        setIsLoading(true);
+        let url = `${EXPO_PUBLIC_API_URL}auth/sign_in`;
         console.log("url", url);
-        // let url = "http://192.168.1.41:3000/auth/sign_in";
         const response = await axios.post(url, {
           phoneNumber: `+91${formik.values.phoneNumber}`,
           password: formik.values.password,
         });
-        // console.log("API Response:", response);
         if (response?.data?.success) {
-          console.log("response?.data?.data:", response?.data?.data)
+          console.log("response?.data?.data:", response?.data?.data);
           dispatch(setUser(response?.data?.data));
-          storeData('user', response?.data?.data)
+          storeData("user", response?.data?.data);
 
-          setIsLoading(false)
-
-
+          setIsLoading(false);
           setTimeout(() => {
             // Alert.alert("Login successful!");
             // navigation.navigate("post");
           }, 2000);
         } else {
-          setIsLoading(false)
+          setIsLoading(false);
           console.log("else", response?.data);
         }
       } catch (error) {
-        setIsLoading(false)
+        setIsLoading(false);
 
         console.error("API Error:", error);
         Alert.alert("Error", error?.response?.data?.message);
@@ -93,8 +88,7 @@ const Login = ({ navigation }) => {
           onBlur={formik.handleBlur("phoneNumber")}
           value={formik.values.phoneNumber}
           error={formik.touched.phoneNumber && formik.errors.phoneNumber}
-          type={'numeric'}
-
+          type={"numeric"}
         />
         <InputField
           placeholder={t("register.enterYourPassword")}
@@ -112,16 +106,15 @@ const Login = ({ navigation }) => {
         </Text>
       </ScrollView>
       <View style={styles.btnContainer}>
-        {isLoading ?
-          <ActivityIndicator size={'large'} color='white' />
-
-          :
+        {isLoading ? (
+          <ActivityIndicator size={"large"} color="white" />
+        ) : (
           <CoustomButton
             disable={isLoading}
             title={t("register.continue")}
             onPress={formik.handleSubmit}
-          />}
-
+          />
+        )}
       </View>
     </View>
   );

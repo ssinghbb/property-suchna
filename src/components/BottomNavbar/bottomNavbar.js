@@ -1,6 +1,5 @@
 import React from "react";
 import { View, StyleSheet, Pressable, Button, Text, } from "react-native";
-import Icon from "react-native-vector-icons/FontAwesome";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import Mater from 'react-native-vector-icons/MaterialCommunityIcons'
 import Feather from 'react-native-vector-icons/Feather'
@@ -23,7 +22,6 @@ const ButtomNavbar = () => {
 
   return (
     // <View style={styles.mainContainer}>
-
     <View style={styles.navigationBar}>
 
       <View  >
@@ -77,17 +75,14 @@ const styles = StyleSheet.create({
     borderTopColor: "gray",
     borderTopWidth: 1,
     flexDirection: "row",
-    // justifyContent: "space-around",
     justifyContent:'space-evenly',
     alignItems: "center",
     width: '100%',
-    // backgroundColor:'green',
     gap:20
   },
   iconContainer: {
     alignItems:'center',
     width:'auto',
-    // backgroundColor:'red'
    
   },
   iconText: {

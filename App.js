@@ -1,15 +1,12 @@
 import { NavigationContainer } from "@react-navigation/native";
 import { StatusBar } from "expo-status-bar";
-// import Routes from "./src/routes/Routes";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import './src/locales/index'
 import { Provider } from 'react-redux';
 import store from "./redux/store";
 import { LogBox } from "react-native";
-//import AuthNavigation from "./AuthNavigation";
 import Routes from "./src/routes/Routes";
 import AuthNavigation from "./AuthNavigation";
-// import { StyleSheet, Text, View } from 'react-native';
 
 //ignored warnings
 LogBox.ignoreLogs(['Warning: ...']);
@@ -30,11 +27,4 @@ export default function App() {
   );
 }
 
-// const styles = StyleSheet.create({
-//   container: {
-//     flex: 1,
-//     backgroundColor: '#fff',
-//     alignItems: 'center',
-//     justifyContent: 'center',
-//   },
-// });
+

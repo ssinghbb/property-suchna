@@ -43,9 +43,7 @@ const Post = () => {
 
   const handleLoadMore = () => {
     console.log("handle load more call", page)
-    // Load more data when reaching the end of the list
     if (!loading) {
-      // You can add additional conditions here if needed
       setPage(page + 1);
     }
   };
@@ -55,17 +53,12 @@ const Post = () => {
   const getAllPost = async () => {
     setLoading(true)
     try {
-      // console.log("get all post");r
-      // console.log("page:", page)
       let url = `${EXPO_PUBLIC_API_URL}post/allpost?page=${page}&limit=10`
       //let url = "http://192.168.43.177:3000/post/allpost";
       console.log("url:", url)
       let response = await axios.get(
         url
       );
-      // console.log("response",response?.data);
-      //let response = await axios.get("http://192.168.1.41:3000/post/allpost");
-      // setPosts(response?.data?.data || []);
       setPosts((prevData) => [...prevData, ...response?.data?.data]);
       // setPage(page + 1);
     } catch (error) {

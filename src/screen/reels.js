@@ -22,17 +22,7 @@ const ReelsPage = () => {
     );
     flatListRef.current.scrollToIndex({ index: validIndex, animated: true });
   };
-   
-
   
-  // const handleLikePress = (index) => {
-  //   const updatedReelsData = [...reelsData];
-  //   updatedReelsData[index].likes += 1;
-  //   setCurrentIndex(index);
-  //   console.log(index);
-  //   // Add your logic for updating likes in the backend or wherever you store your data
-  // };
-
   useEffect(() => {
     getAllReels();
   }, []);
@@ -41,9 +31,6 @@ const ReelsPage = () => {
     try {
 
       const apiUrl =  `${EXPO_PUBLIC_API_URL}post/allreel`
-
-      // const response = await axios.get(
-      //   `${process.env.EXPO_PUBLIC_API_URL}/post/allreel`
         const response = await axios.get(
          apiUrl
       );

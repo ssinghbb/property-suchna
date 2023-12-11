@@ -54,7 +54,6 @@ export default function Register({ navigation }) {
 
     } catch (error) {
       console.log("error:", error)
-      // Alert.alert('Error', 'An error occurred while processing your request. Please try again.');
       Alert.alert("Error", error?.response?.data?.message);
 
     }
@@ -123,7 +122,6 @@ export default function Register({ navigation }) {
 
           :
           <Button title={t('register.continue')} onPress={formik.handleSubmit} />}
-        {/* <Button title="Continue" onPress={handleApi} /> */}
       </View>
     </View>
   );

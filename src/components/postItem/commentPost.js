@@ -21,7 +21,6 @@ import { useSelector } from "react-redux";
 import { useNavigation } from "@react-navigation/native";
 
 export default function commentPost({ post = {} }) {
-
   const navigation = useNavigation();
   const [openModal, setOpenModal] = useState(false);
   const [comment, setComment] = useState("");
@@ -41,7 +40,6 @@ export default function commentPost({ post = {} }) {
   }, []);
 
   const getAllComments = async (postId) => {
-    
     try {
       // const url = `${EXPO_PUBLIC_API_URL}post/comments/${postId}`;
       const url = `${EXPO_PUBLIC_API_URL}comment/comments/${postId}`;
@@ -57,12 +55,10 @@ export default function commentPost({ post = {} }) {
   };
 
   const postComment = async (postId) => {
-    // console.log("postId", postId);
     try {
       // let url = `${EXPO_PUBLIC_API_URL}post/comment`;
       let url = `${EXPO_PUBLIC_API_URL}comment/comments`;
       const response = await axios.post(url, { postId, userId, comment });
-      // console.log("response", response?.data);
       Alert.alert("Success", "Comment posted successfully");
       setCommentData(response?.data?.data || []);
       setComment("");

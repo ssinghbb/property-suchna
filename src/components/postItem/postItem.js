@@ -5,9 +5,6 @@ import {
   StyleSheet,
   Image,
   TouchableOpacity,
-  ScrollView,
-  Pressable,
-  Alert,
 } from "react-native";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import SimpleLineIcons from "react-native-vector-icons/SimpleLineIcons";
@@ -21,7 +18,6 @@ import { useSelector } from "react-redux";
 import PostMenu from "./postMenu";
 
 export default function PostItem({ post={} }) {
-  //const [totalLikes, setTotalLikes] = useState(post?.likes || 0);
   const [totalLikes, setTotalLikes] = useState(post?.likes?.length || 0);
   const [isLiked, setIsLiked] = useState(false);
   const navigation = useNavigation();
@@ -45,7 +41,6 @@ export default function PostItem({ post={} }) {
     try {
       let url = `${EXPO_PUBLIC_API_URL}post/like`;
       const response = await axios.put(url, { postId, userId,postUserId });
-      // console.log(response?.data?.post?.likes?.length);
       setTotalLikes(response?.data?.post?.likes?.length);
       setIsLiked(response?.data?.post?.likes?.includes(userId));
     } catch (error) {
@@ -55,7 +50,7 @@ export default function PostItem({ post={} }) {
 
   return (
     <View key={post?._id} style={styles.postCard}>
-     {console.log("check---------",post?.userId )}
+     {/* {console.log("check",post?.userId )} */}
       <View style={styles.postHeader}>
       <TouchableOpacity
         style={styles.profile}
@@ -72,13 +67,6 @@ export default function PostItem({ post={} }) {
         />
         <Text style={styles.userName} post={post}>{post?.user?.fullName}</Text>
       </TouchableOpacity>
-      {/* <Pressable style={styles.manuIcon}>
-          <EntypoIcon
-            color={"white"}
-            name={"dots-three-vertical"}
-            size={20}
-            />
-      </Pressable> */}
       <PostMenu postId={post?._id} uploadedUserId={post?.userId} />
       </View>
       <View style={styles.postImg}>

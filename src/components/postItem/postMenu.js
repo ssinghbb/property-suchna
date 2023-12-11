@@ -1,11 +1,10 @@
 import {
   View,
-  Text,
   StyleSheet,
-  Pressable,
   TouchableOpacity,
   Modal,
   Alert,
+  TextInput,
 } from "react-native";
 import React, { useState } from "react";
 import EntypoIcon from "react-native-vector-icons/Entypo";
@@ -19,20 +18,16 @@ export default function PostMenu(post) {
   // console.log(" postId", post?.postId);
   const user = useSelector((state) => state?.user?.user?.user) || {};
   const uploadedUserId = post?.uploadedUserId;
-  // console.log(" postUserId", post?.uploadedUserId);
-
   const userId = user?._id;
   const canDeletePost = userId === uploadedUserId;
 
   const handelPost = async () => {
     if (!canDeletePost) {
-      // Alert.alert("You don't have permission to delete this post");
-      // return;
-      // setOpenModal(!openModal)
+      Alert.alert("You don't have permission to delete this post");
+      return;
     }
     try {
       const url = `${EXPO_PUBLIC_API_URL}post/delete/${post?.postId}/${userId}`;
-      // console.log("url", url);
       const response = await axios.delete(url);
       console.log("Response", response?.status);
       Alert.alert("Post deleted successfully");
@@ -44,6 +39,7 @@ export default function PostMenu(post) {
   };
 
   return (
+    userId == uploadedUserId ? (
     <View>
       <View>
         <TouchableOpacity
@@ -68,12 +64,11 @@ export default function PostMenu(post) {
         </View>
       </Modal>
     </View>
+  ) : <TextInput style={{opacity:0,height:0}}/>
   );
 }
 const styles = StyleSheet.create({
   manuIcon: {
-    // flexDirection:"row-reverse",
-    // padding: 2,
     paddingTop: 20,
   },
   centeredView: {
@@ -118,3 +113,36 @@ const styles = StyleSheet.create({
     textAlign: "center",
   },
 });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
