@@ -41,12 +41,9 @@ export default function PostItem({ post={} }) {
   const likePost = async (postId,postUserId) => {
     console.log("postId:", postId)
     console.log("postUserId:", postUserId)
-    // console.log("postid", postId);
 
     try {
-      // let url= "http://192.168.1.41:3000/post/like"
       let url = `${EXPO_PUBLIC_API_URL}post/like`;
-      
       const response = await axios.put(url, { postId, userId,postUserId });
       // console.log(response?.data?.post?.likes?.length);
       setTotalLikes(response?.data?.post?.likes?.length);

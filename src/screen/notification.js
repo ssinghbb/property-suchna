@@ -28,21 +28,21 @@ const Notifications = () => {
         source={{ uri: item?.post?.url }}
       />
       <View style={styles.commentText}>
-        <Text style={styles.name}>{item?.user?.fullName}</Text>
+        <Text style={styles.name}>@{item?.fullName}</Text>
         <Text style={styles.comment}>{item?.comment}</Text>
       </View>
-      <Pressable style={styles.likeSection}>
+      {/* <Pressable style={styles.likeSection}>
         <Icon
           color={"white"}
           onPress={() => handleLike(item._id)}
           name={"thumbs-o-up"}
           size={20}
         />
-      </Pressable>
+      </Pressable> */}
     </View>
   );
 
- const user = useSelector((state) => state?.user?.user?.user);
+const user = useSelector((state) => state?.user?.user?.user);
 const userId = user?._id;
 const url=`${EXPO_PUBLIC_API_URL}notification/${userId}`
 
@@ -116,7 +116,7 @@ const styles = StyleSheet.create({
   name: {
     color: "#D9D9D9",
     fontSize: 12,
-    fontWeight: "600",
+    fontWeight: "900",
   },
   comment: {
     color: "#D9D9D9",
