@@ -11,7 +11,6 @@ import {
 } from "react-native";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import SimpleLineIcons from "react-native-vector-icons/SimpleLineIcons";
-
 import axios from "axios";
 import SharePost from "./sharePost";
 import CommentPost from "./commentPost";
@@ -21,9 +20,7 @@ import { useNavigation } from "@react-navigation/native";
 import { useSelector } from "react-redux";
 import PostMenu from "./postMenu";
 
-
 export default function PostItem({ post={} }) {
- 
   //const [totalLikes, setTotalLikes] = useState(post?.likes || 0);
   const [totalLikes, setTotalLikes] = useState(post?.likes?.length || 0);
   const [isLiked, setIsLiked] = useState(false);
@@ -71,10 +68,9 @@ export default function PostItem({ post={} }) {
       >
         {/* <Image source={require("../../../assets/lily.png")} /> */}
         <Image
-          source={{
-            uri: post?.user?.url || '',
-          }}
-         
+          source={ post?.user?.url ? {
+            uri: post?.user?.url,
+          }:require("../../../assets/lily.png")}
           style={styles.avatar}
         />
         <Text style={styles.userName} post={post}>{post?.user?.fullName}</Text>
@@ -119,11 +115,9 @@ export default function PostItem({ post={} }) {
       <View style={styles.descriptionSection}>
         <Text style={styles.description}>{post?.description}</Text>
       </View>
-
     </View>
   );
 }
-
 const styles = StyleSheet.create({
   mainContainer: {
     flex: 1,
@@ -149,8 +143,6 @@ const styles = StyleSheet.create({
     margin: 0,
     // backgroundColor:'red'
   },
-  
-
   userName: {
     color: "white",
     fontSize: 12,
@@ -185,7 +177,6 @@ const styles = StyleSheet.create({
     // backgroundColor: 'red',
     flexDirection: "row",
     gap: 10
-
   },
   description: {
     color: "white",
@@ -199,9 +190,7 @@ const styles = StyleSheet.create({
     color: "white",
     fontSize: 13,
     paddingLeft: 7,
-
   },
-
   postPage: {
     width: "100%",
   },
@@ -216,7 +205,6 @@ const styles = StyleSheet.create({
   },
   liked: {
     color: themeStyles.primaryColor,
-
   },
   avatar: {
     width: 34,
@@ -225,7 +213,6 @@ const styles = StyleSheet.create({
     borderRadius: 50,
     display: "flex",
     alignItems: "center",
-
     // borderColor: themeStyles.primaryColor,
     // borderWidth: 1,
   },
