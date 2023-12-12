@@ -7,6 +7,7 @@ import {
   FlatList,
   Pressable,
   Alert,
+  ScrollView,
 } from "react-native";
 import Lightbox from "react-native-lightbox";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
@@ -53,7 +54,7 @@ export default function UserAccount({ route }) {
 
   return (
     <View style={styles.mainSection}>
-      <View style={styles.SecondSection}>
+      <ScrollView style={styles.SecondSection}>
         <View style={styles.backSection}>
           <Pressable
             onPress={() => navigation.navigate("post")}
@@ -101,9 +102,9 @@ export default function UserAccount({ route }) {
             />
           </View>
         </View>
-      </View>
-      <View>
-        <ButtomNavbar />
+      </ScrollView>
+      <View style={{backgroundColor:"black"}}>
+        <ButtomNavbar/>
       </View>
     </View>
   );
@@ -182,4 +183,5 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: "white",
   },
+  
 });

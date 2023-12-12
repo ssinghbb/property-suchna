@@ -59,6 +59,7 @@ const Post = () => {
       let response = await axios.get(
         url
       );
+      console.log("response of get",response);
       setPosts((prevData) => [...prevData, ...response?.data?.data]);
       // setPage(page + 1);
     } catch (error) {
@@ -90,7 +91,6 @@ const Post = () => {
       // }}
       >
         <Header/>
-
         {posts?.length > 0 ? posts?.map((post, index) => {
           return <PostItem key={index} post={post} />;
         }) :
@@ -196,15 +196,6 @@ const styles = StyleSheet.create({
     backgroundColor: '#rgba(0, 0, 0, 0.5)',
     zIndex: 1000
   },
-  // activityIndicatorWrapper: {
-  //   backgroundColor: '#FFFFFF',
-  //   height: 100,
-  //   width: 100,
-  //   borderRadius: 10,
-  //   display: 'flex',
-  //   alignItems: 'center',
-  //   justifyContent: 'space-around'
-  // }
 });
 
 export default Post;

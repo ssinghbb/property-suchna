@@ -21,25 +21,31 @@ export default function PostMenu(post) {
   const userId = user?._id;
   const canDeletePost = userId === uploadedUserId;
 
+  
   const handelPost = async () => {
-    if (!canDeletePost) {
-      Alert.alert("You don't have permission to delete this post");
-      return;
-    }
+   console.log("strting time",new Date().toLocaleTimeString());
     try {
+      console.log("Start Time try:", new Date().toLocaleTimeString());
       const url = `${EXPO_PUBLIC_API_URL}post/delete/${post?.postId}/${userId}`;
       const response = await axios.delete(url);
-      console.log("Response", response?.status);
+      console.log(
+        "Response with time",
+        response?.status,
+        new Date().toLocaleTimeString()
+      );
       Alert.alert("Post deleted successfully");
       setOpenModal(false);
     } catch (error) {
-      console.log("Error, deleting post", error);
+      console.log(
+        "Error, deleting post",
+        error,
+        new Date().toLocaleTimeString()
+      );
       Alert.alert("Error, deleting post");
     }
   };
 
-  return (
-    userId == uploadedUserId ? (
+  return userId == uploadedUserId ? (
     <View>
       <View>
         <TouchableOpacity
@@ -64,7 +70,8 @@ export default function PostMenu(post) {
         </View>
       </Modal>
     </View>
-  ) : <TextInput style={{opacity:0,height:0}}/>
+  ) : (
+    <TextInput style={{ opacity: 0, height: 0 }} />
   );
 }
 const styles = StyleSheet.create({
@@ -113,36 +120,3 @@ const styles = StyleSheet.create({
     textAlign: "center",
   },
 });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
