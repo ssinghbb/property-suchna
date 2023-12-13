@@ -2,7 +2,8 @@
     "home": {
         "login": "लॉग इन",
         "signUp": "साइन अप",
-        "selectLanguage":"भाषा चुने"
+        "selectLanguage":"भाषा चुने",
+        "propertySuchna": "संपत्ति सुचना"
     },
     "register": {
         "heading": "रजिस्टर करें",
@@ -26,5 +27,21 @@
     "verification": {
         "heading": "कृपया हमारे द्वारा भेजे गए सत्यापन कोड दर्ज करें",
         "verify": "सत्यापित करें"
+    },
+    "upload": {
+        "uploadVideo": "विडियो को अॅॅपलोड करें",
+        "uploadPhoto": "फोटो अपलोड करें"
+    },
+    "profile": {
+        "profile": "प्रोफ़ाइल",
+        "logout": "लॉग आउट",
+        "editImage":"संपादित छवि",
+        "name":"नाम",
+        "phoneNumber":"फ़ोन नंबर",
+        "bio":"परिचय",
+        "update":"अद्यतन"
+    },
+    "notification": {
+        "comments": "टिप्पणियाँ"
     }
 }

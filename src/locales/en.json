@@ -2,7 +2,8 @@
     "home": {
         "login": "Login",
         "signUp": "Sign Up",
-        "selectLanguage":"Language"
+        "selectLanguage":"Language",
+        "propertySuchna": "Property Suchna"
     },
     "register": {
         "heading": "Register yourself",
@@ -26,5 +27,21 @@
     "verification": {
         "heading": "Please enter the verification code we've send you on",
         "verify": "verify"
+    },
+    "upload": {
+        "uploadVideo": "Upload Video",
+        "uploadPhoto": "Upload Photo"
+    },
+    "profile": {
+        "profile": "Profile",
+        "logout": "LOGOUT",
+        "editImage":"Edit Image",
+        "name":"Name",
+        "phoneNumber":"Phone Number",
+        "bio":"Bio",
+        "update":"Update"
+    },
+    "notification": {
+        "comments": "Comments"
     }
 }

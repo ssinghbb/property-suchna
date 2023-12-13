@@ -93,7 +93,8 @@ const PostDetails = ({ file, isVideo }) => {
             <View style={styles.imgSection}>
               <Image
                 style={styles.img}
-                source={require("../../assets/comment1.png")}
+                // source={require("../../assets/comment1.png")}
+                source={ {uri : user?.url}}
               />
             </View>
             <TextInput
@@ -165,10 +166,13 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     paddingBottom: 20,
   },
-  imgSection: {},
+  imgSection: {
+  },
   img: {
     width: 40,
     height: 40,
+    borderRadius: 20,
+    marginTop:30,
   },
   secImg: {
     width: 100,
