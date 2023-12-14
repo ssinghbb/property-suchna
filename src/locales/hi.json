@@ -62,5 +62,9 @@
         "description":"विवरण",
         "queries":"प्रश्न",
         "submit":"जमा करना"
+    },
+    "userdetails":{
+
     }
+    
 }

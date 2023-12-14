@@ -6,27 +6,35 @@ import {
   Alert,
   TextInput,
 } from "react-native";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import EntypoIcon from "react-native-vector-icons/Entypo";
 import CustomeButton from "../common/CoustomButton";
 import { useSelector } from "react-redux";
 import { EXPO_PUBLIC_API_URL } from "../../constants/constant";
 import axios from "axios";
 
-export default function PostMenu(post) {
+export default function PostMenu(props ) {
+  console.log("f=",props)
   const [openModal, setOpenModal] = useState(false);
-  // console.log(" postId", post?.postId);
+  const [deleteSuccess, setDeleteSuccess] = useState(false);
   const user = useSelector((state) => state?.user?.user?.user) || {};
-  const uploadedUserId = post?.uploadedUserId;
+  const uploadedUserId =props.uploadedUserId;
   const userId = user?._id;
   const canDeletePost = userId === uploadedUserId;
+  console.log("check",userId == uploadedUserId)
 
-  
+  useEffect(() => {
+    if (deleteSuccess) {
+      // getAllPost();
+      setDeleteSuccess(false);
+    }
+  }, [deleteSuccess]);
+
   const handelPost = async () => {
-   console.log("strting time",new Date().toLocaleTimeString());
+    console.log("strting time", new Date().toLocaleTimeString());
     try {
       console.log("Start Time try:", new Date().toLocaleTimeString());
-      const url = `${EXPO_PUBLIC_API_URL}post/delete/${post?.postId}/${userId}`;
+      const url = `${EXPO_PUBLIC_API_URL}post/delete/${props?.postId}/${userId}`;
       const response = await axios.delete(url);
       console.log(
         "Response with time",
@@ -35,6 +43,8 @@ export default function PostMenu(post) {
       );
       Alert.alert("Post deleted successfully");
       setOpenModal(false);
+      setDeleteSuccess(true);
+      props?.getAllPost()
     } catch (error) {
       console.log(
         "Error, deleting post",

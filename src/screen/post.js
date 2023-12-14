@@ -50,7 +50,7 @@ const Post = () => {
 
 
 
-const getAllPost = async () => {
+const getLatestPost = async () => {
     setLoading(true)
     try {
       let url = `${EXPO_PUBLIC_API_URL}post/allpost?page=${page}&limit=10`
@@ -60,6 +60,27 @@ const getAllPost = async () => {
         url
       );
       console.log("response of get",response);
+      // let test=posts
+      setPosts(response?.data?.data);
+      // setPage(page + 1);
+    } catch (error) {
+      console.log("api error", error);
+    }
+    setLoading(false)
+  };
+
+  
+  const getAllPost = async () => {
+    setLoading(true)
+    try {
+      let url = `${EXPO_PUBLIC_API_URL}post/allpost?page=${page}&limit=10`
+      //let url = "http://192.168.43.177:3000/post/allpost";
+      console.log("url:", url)
+      let response = await axios.get(
+        url
+      );
+      console.log("response of get",response);
+      // let test=posts
       setPosts((prevData) => [...prevData, ...response?.data?.data]);
       // setPage(page + 1);
     } catch (error) {
@@ -68,6 +89,7 @@ const getAllPost = async () => {
     setLoading(false)
   };
 
+  
   return (
     <View style={styles.mainContainer}>
       <ScrollView
@@ -92,7 +114,7 @@ const getAllPost = async () => {
       >
         <Header/>
         {posts?.length > 0 ? posts?.map((post, index) => {
-          return <PostItem key={index} post={post} />;
+          return <PostItem key={index} post={post} getAllPost={getLatestPost}/>;
         }) :
           ""
         }

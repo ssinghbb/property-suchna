@@ -17,7 +17,7 @@ import { useNavigation } from "@react-navigation/native";
 import { useSelector } from "react-redux";
 import PostMenu from "./postMenu";
 
-export default function PostItem({ post }) {
+export default function PostItem({ post ,getAllPost }) {
   const [totalLikes, setTotalLikes] = useState(post?.likes?.length || 0);
   const [isLiked, setIsLiked] = useState(false);
   const navigation = useNavigation();
@@ -66,7 +66,7 @@ export default function PostItem({ post }) {
         />
         <Text style={styles.userName} post={post}>{post?.user?.fullName}</Text>
       </TouchableOpacity>
-      <PostMenu postId={post?._id} uploadedUserId={post?.userId}/>
+      <PostMenu postId={post?._id} uploadedUserId={post?.userId} getAllPost={getAllPost}/>
       </View>
       <View style={styles.postImg}>
         <Image style={styles.post} source={{ uri: post?.url }} />
