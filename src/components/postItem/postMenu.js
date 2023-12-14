@@ -35,7 +35,6 @@ export default function PostMenu(post) {
       );
       Alert.alert("Post deleted successfully");
       setOpenModal(false);
-      
     } catch (error) {
       console.log(
         "Error, deleting post",

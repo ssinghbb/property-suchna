@@ -14,9 +14,12 @@ import { useFonts, ZillaSlab_500Medium } from "@expo-google-fonts/dev";
 import CoustomButton from "../common/CoustomButton";
 import { themeStyles } from "../../../styles";
 import { useFormik } from "formik";
+import { useTranslation } from "react-i18next";
+
 
 export default function Header() {
-  const [openModal, setOpenModal] = useState(false);
+const { t } = useTranslation();
+const [openModal, setOpenModal] = useState(false);
 
   let [fontsLoaded, fontError] = useFonts({
     ZillaSlab_500Medium,
@@ -68,7 +71,7 @@ export default function Header() {
             fontWeight: "200",
           }}
         >
-          Property Suchna
+         {t("header.propertySuchna")}
         </Text>
       </View>
       <View style={styles.btnContainer}>
@@ -94,40 +97,40 @@ export default function Header() {
         <View style={styles.modalView}>
           <View style={styles.form}>
             <View style={styles.fieldContainer}>
-              <Text style={styles.label}>Location :</Text>
+              <Text style={styles.label}>{t("header.location")} :</Text>
               <TextInput
                 style={styles.input}
-                placeholder="Location"
+                placeholder={t("header.location")}
                 placeholderTextColor={"gray"}
                 onChangeText={formik.handleChange("Location")}
                 value={formik.values.Location}
               />
             </View>
             <View style={styles.fieldContainer}>
-              <Text style={styles.label}>Name: </Text>
+              <Text style={styles.label}>{t("header.name")}:</Text>
               <TextInput
                 style={styles.input}
-                placeholder="Name"
+                placeholder={t("header.name")}
                 placeholderTextColor={"gray"}
                 onChangeText={formik.handleChange("Name")}
                 value={formik.values.Name}
               />
             </View>
             <View style={styles.fieldContainer}>
-              <Text style={styles.label}>Description :</Text>
+              <Text style={styles.label}>{t("header.description")}:</Text>
               <TextInput
                 style={styles.input}
-                placeholder="Description"
+                placeholder={t("header.description")}
                 placeholderTextColor={"gray"}
                 onChangeText={formik.handleChange("Description")}
                 value={formik.values.Description}
               />
             </View>
             <View style={styles.fieldContainer}>
-              <Text style={styles.label}>Queries :</Text>
+              <Text style={styles.label}>{t("header.queries")}:</Text>
               <TextInput
                 style={styles.input}
-                placeholder="Queries"
+                placeholder={t("header.queries")}
                 placeholderTextColor={"gray"}
                 onChangeText={formik.handleChange("Queries")}
                 value={formik.values.Queries}
@@ -135,7 +138,7 @@ export default function Header() {
             </View>
           </View>
           <View style={styles.btnSection}>
-            <CoustomButton title={"Submit"} onPress={formik.handleSubmit} />
+            <CoustomButton title={t("header.submit")} onPress={formik.handleSubmit} />
           </View>
         </View>
       </Modal>

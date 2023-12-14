@@ -16,7 +16,10 @@ import axios from "axios";
 import { EXPO_PUBLIC_API_URL } from "../constants/constant";
 import { useSelector, useDispatch } from "react-redux";
 import  { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
+
 const Notifications = () => {
+  const { t } = useTranslation();
   const [commentsData,setCommentsData]=useState([]);
   const navigation = useNavigation();
 
@@ -72,7 +75,7 @@ const getNotifications=async ()=>{
         }}
       >
         <FontAwesome name="long-arrow-left" color={"white"} size={30} />
-        <Text style={styles.name}>Comments</Text>
+        <Text style={styles.name}>{t("notification.comments")}</Text>
       </Pressable>
       <FlatList
         data={commentsData}

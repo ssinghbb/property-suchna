@@ -23,11 +23,13 @@ import { removeLocalStorage } from "../utils/asyncStorageHandler";
 import axios from "axios";
 import { EXPO_PUBLIC_API_URL } from "../constants/constant";
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 
 const Profile = () => {
+  const { t } = useTranslation();
   const [media, setMedia] = useState(null);
   const [file, setFile] = useState(null);
-  const [isLoading, setIsLoading] = useState(false)
+  const [isLoading, setIsLoading] = useState(false);
 
   const user = useSelector((state) => state?.user?.user);
   // console.log("user in profile:", user?.user);
@@ -52,8 +54,7 @@ const Profile = () => {
       userId: userId,
       fullName: currentUser?.fullName || "",
       phoneNumber: currentUser?.phoneNumber || "",
-      bio: currentUser?.bio || ""
-
+      bio: currentUser?.bio || "",
     },
     validationSchema,
     onSubmit: (values) => {
@@ -65,7 +66,7 @@ const Profile = () => {
 
   const handleUpdate = async (values) => {
     try {
-      setIsLoading(true)
+      setIsLoading(true);
       let url = `${EXPO_PUBLIC_API_URL}auth/update`;
       const formData = new FormData();
       formData.append("userId", values.userId);
@@ -87,24 +88,22 @@ const Profile = () => {
       });
       console.log("API response:", response?.data);
 
-      const updatedUser = response?.data
+      const updatedUser = response?.data;
       dispatch(setUser({ user: updatedUser }));
-
 
       formik.setValues({
         ...formik.values,
         fullName: updatedUser.fullName,
         phoneNumber: updatedUser.phoneNumber,
         bio: updatedUser.bio,
-
       });
-      setIsLoading(false)
+      setIsLoading(false);
       Alert.alert("User updated successfully");
     } catch (error) {
-      setIsLoading(false)
+      setIsLoading(false);
 
       console.log("error", error);
-      Alert.alert("error updated userDetails")
+      Alert.alert("error updated userDetails");
     }
   };
 
@@ -128,7 +127,6 @@ const Profile = () => {
     }
   };
 
-
   return (
     <Layout>
       <ScrollView style={globalStyles.flex1}>
@@ -139,13 +137,13 @@ const Profile = () => {
               { fontWeight: "800", fontSize: 22 },
             ]}
           >
-            Profile
+            {t("profile.profile")}
           </Text>
-          <Button title="logout" onPress={handleLogout} />
+          <Button title={t("profile.logout")} onPress={handleLogout} />
         </View>
         <View style={styles.user}>
           <Pressable onPress={pickImage} style={styles.profileContainer}>
-            {console.log("user0000",user?.user?.url)}
+            {console.log("user0000", user?.user?.url)}
             {/* {console.log("user0000 media",media)} */}
             <Image
               source={{
@@ -154,16 +152,16 @@ const Profile = () => {
               style={styles.avatar}
             />
             <View style={styles.editContainer}>
-              <Text style={styles.editTitle}>Edit Image</Text>
+              <Text style={styles.editTitle}>{t("profile.editImage")}</Text>
               <Icon name="pencil" color="gray" size={15} />
             </View>
           </Pressable>
           <View style={styles.form}>
             <View style={styles.fieldContainer}>
-              <Text style={styles.label}>Name :</Text>
+              <Text style={styles.label}>{t("profile.name")}:</Text>
               <TextInput
                 style={styles.input}
-                placeholder="Name"
+                placeholder={t("profile.name")}
                 placeholderTextColor={"gray"}
                 value={formik.values.fullName}
                 onChangeText={formik.handleChange("fullName")}
@@ -172,9 +170,9 @@ const Profile = () => {
               />
             </View>
             <View style={styles.fieldContainer}>
-              <Text style={styles.label}>Phone Number</Text>
+              <Text style={styles.label}>{t("profile.phoneNumber")}:</Text>
               <TextInput
-                style={[styles.input, { color: 'gray' }]}
+                style={[styles.input, { color: "gray" }]}
                 placeholder="User Name"
                 placeholderTextColor={"gray"}
                 value={formik.values.phoneNumber}
@@ -185,7 +183,7 @@ const Profile = () => {
               />
             </View>
             <View style={styles.fieldContainer}>
-              <Text style={styles.label}>Bio :</Text>
+              <Text style={styles.label}>{t("profile.bio")}:</Text>
               <TextInput
                 style={styles.input}
                 placeholder="Enter your bio"
@@ -200,10 +198,11 @@ const Profile = () => {
         </View>
       </ScrollView>
       <View style={styles.buttonContainer}>
-        {isLoading ?
-          <ActivityIndicator size={'large'} color='white' />
-          :
-          <CustomeButton title={"Update"} onPress={formik.handleSubmit} />}
+        {isLoading ? (
+          <ActivityIndicator size={"large"} color="white" />
+        ) : (
+          <CustomeButton title={t("profile.update")} onPress={formik.handleSubmit} />
+        )}
       </View>
     </Layout>
   );

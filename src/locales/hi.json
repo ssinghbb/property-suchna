@@ -1,5 +1,6 @@
 {
     "home": {
+        "home":"घर",
         "login": "लॉग इन",
         "signUp": "साइन अप",
         "selectLanguage":"भाषा चुने",
@@ -28,9 +29,18 @@
         "heading": "कृपया हमारे द्वारा भेजे गए सत्यापन कोड दर्ज करें",
         "verify": "सत्यापित करें"
     },
+    "reels": {
+        "reels":"उत्तर",
+        "uploadVideo": "विडियो को अॅॅपलोड करें"
+    },
     "upload": {
+        "upload":"डालना",
         "uploadVideo": "विडियो को अॅॅपलोड करें",
-        "uploadPhoto": "फोटो अपलोड करें"
+        "uploadPhoto": "फोटो अपलोड करें",
+        "loggedIn!":"लॉग इन",
+        "upload!":"डालना!",
+        "next!":"अगला!",
+        "Next!":"अगला!"
     },
     "profile": {
         "profile": "प्रोफ़ाइल",
@@ -42,6 +52,15 @@
         "update":"अद्यतन"
     },
     "notification": {
+        "notification":"अधिसूचना",
         "comments": "टिप्पणियाँ"
+    },
+    "header":{
+        "propertySuchna":"संपत्ति सुचना",
+        "location":"जगह",
+        "name":"नाम",
+        "description":"विवरण",
+        "queries":"प्रश्न",
+        "submit":"जमा करना"
     }
 }

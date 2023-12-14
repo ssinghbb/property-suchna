@@ -50,7 +50,7 @@ const Post = () => {
 
 
 
-  const getAllPost = async () => {
+const getAllPost = async () => {
     setLoading(true)
     try {
       let url = `${EXPO_PUBLIC_API_URL}post/allpost?page=${page}&limit=10`
@@ -73,7 +73,7 @@ const Post = () => {
       <ScrollView
         style={styles.postPage}
         refreshControl={
-          <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+          <RefreshControl refreshing={refreshing} onRefresh={onRefresh}/>
         }
         onScrollAnimationEnd={handleLoadMore}
       // onScroll={(e) => {

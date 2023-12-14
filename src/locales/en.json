@@ -1,5 +1,6 @@
 {
     "home": {
+        "home":"Home",
         "login": "Login",
         "signUp": "Sign Up",
         "selectLanguage":"Language",
@@ -28,9 +29,18 @@
         "heading": "Please enter the verification code we've send you on",
         "verify": "verify"
     },
+    "reels": {
+        "reels":"Reels",
+        "uploadVideo": "Upload Video"
+    },
     "upload": {
+        "upload":"Upload",
         "uploadVideo": "Upload Video",
-        "uploadPhoto": "Upload Photo"
+        "uploadPhoto": "Upload Photo",
+        "loggedIn!":"Logged In!",
+        "upload!":"Upload!",
+        "next!":"next!",
+        "Next!":"Next!"
     },
     "profile": {
         "profile": "Profile",
@@ -42,6 +52,15 @@
         "update":"Update"
     },
     "notification": {
+        "notification":"Notification",
         "comments": "Comments"
+    },
+    "header":{
+        "propertySuchna":"Property Suchna",
+        "location":"Location",
+        "name":"Name",
+        "description":"Description",
+        "queries":"Queries",
+        "submit":"Submit"
     }
 }

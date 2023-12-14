@@ -6,8 +6,10 @@ import React from "react";
 import { useNavigation } from "@react-navigation/native";
 import PostDetails from "./postdetails";
 import { themeStyles } from "../../styles";
+import { useTranslation } from "react-i18next";
 
 const AddPost = () => {
+  const { t } = useTranslation();
   const [media, setMedia] = useState(null);
   const [isVideo, setIsVideo] = useState(false);
   const navigation = useNavigation();
@@ -84,7 +86,7 @@ const AddPost = () => {
                     letterSpacing: 2,
                   }}
                 >
-                  {pressed ? "Next!" : "NEXT"}
+                  {t(pressed ? "upload.next!" : "upload.Next!")}
                 </Text>
               )}
             </Pressable>
@@ -103,7 +105,7 @@ const AddPost = () => {
                 name="videocam-outline"
                 size={30}
                 // color={themeStyles.primaryColor}
-                color={'gray'}
+                color={"gray"}
                 style={{ paddingRight: 3 }}
               />
               <Pressable
@@ -118,7 +120,7 @@ const AddPost = () => {
                       fontSize: 15,
                     }}
                   >
-                    {pressed ? "Upload!" : "Upload Video"}
+                    {t(pressed ? "upload.upload!" : "upload.uploadVideo")}
                   </Text>
                 )}
               </Pressable>
@@ -140,10 +142,10 @@ const AddPost = () => {
                       textAlign: "center",
                       color: "white",
                       fontSize: 15,
-                      padding:3
+                      padding: 3,
                     }}
                   >
-                    {pressed ? "Logged In!" : "Upload Photo"}
+                    {t(pressed ? "upload.loggedIn!" : "upload.uploadPhoto")}
                   </Text>
                 )}
               </Pressable>
@@ -182,14 +184,15 @@ const styles = StyleSheet.create({
     height: "5%",
     flexDirection: "row",
     justifyContent: "space-evenly",
-    alignItems:'center',
+    alignItems: "center",
     // backgroundColor:'red'
   },
   reel: {
-    flexDirection: "row",flex:1,
-    justifyContent:'center',
-    alignContent:'center',
-    alignItems:'center'
+    flexDirection: "row",
+    flex: 1,
+    justifyContent: "center",
+    alignContent: "center",
+    alignItems: "center",
     // backgroundColor:'orange'
   },
 });
