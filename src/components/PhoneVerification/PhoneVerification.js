@@ -22,7 +22,9 @@ import axios from "axios";
 import { EXPO_PUBLIC_API_URL } from "../../constants/constant";
 import { useSelector, useDispatch } from "react-redux";
 import { setUser } from "../../redux/slices/userSlice";
-import { themeStyles } from "../../../styles";
+import globalStyles , { themeStyles } from "../../../styles";
+import { storeData } from "../../utils/asyncStorageHandler";
+
 
 export default function PhoneVerification({ route, navigation }) {
   console.log(route.params, "params-------1");
@@ -85,12 +87,13 @@ export default function PhoneVerification({ route, navigation }) {
       let url = `${EXPO_PUBLIC_API_URL}auth/verify`;
       axios.post(url, userObject).then((response) => {
         console.log("response.data", response);
+        
+        dispatch(setUser(userObject));
+        storeData("user", userObject);
         setTimeout(() => {
           Alert.alert("Registration Done!!");
           navigation.navigate("login");
         }, 2000);
-        dispatch(setUser(userObject));
-        storeData("user", userObject);
       });
       // .catch((err) => {
       //   setLoader(false);

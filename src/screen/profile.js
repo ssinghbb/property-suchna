@@ -101,7 +101,6 @@ const Profile = () => {
       Alert.alert("User updated successfully");
     } catch (error) {
       setIsLoading(false);
-
       console.log("error", error);
       Alert.alert("error updated userDetails");
     }

@@ -49,13 +49,12 @@ export default function Register({ navigation }) {
       const result= await axios.post(url,{ phoneNumber: `+91${formik.values.phoneNumber}` })
 
      console.log(result);
-      if(result?.data)
+      if(result.data)
       navigation.navigate("verification", formik.values);
 
     } catch (error) {
       console.log("error:", error)
       Alert.alert("Error", error?.response?.data?.message);
-
     }
     setLoader(false)
   }

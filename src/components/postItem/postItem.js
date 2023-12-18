@@ -24,6 +24,7 @@ export default function PostItem({ post ,getAllPost }) {
   const user = useSelector((state) => state?.user?.user?.user);
 
   const userId = user?._id;
+  console.log("post?.user?.url",post?.user?.url);
 
   const navigateToScreen = (screenName) => {
     navigation.navigate(screenName,{post});
@@ -59,10 +60,12 @@ export default function PostItem({ post ,getAllPost }) {
       >
         {/* <Image source={require("../../../assets/lily.png")} /> */}
         <Image
-          source={ post?.user?.url ? {
-            uri: post?.user?.url,
-          }:require("../../../assets/lily.png")}
+          // source={ post?.user?.url ? {
+          //   uri: post?.user?.url,
+          // }:require("../../../assets/lily.png")}
+          source={ {uri: post?.user?.url}}
           style={styles.avatar}
+          
         />
         <Text style={styles.userName} post={post}>{post?.user?.fullName}</Text>
       </TouchableOpacity>
