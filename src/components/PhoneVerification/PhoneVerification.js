@@ -26,7 +26,6 @@ import { themeStyles } from "../../../styles";
 
 export default function PhoneVerification({ route, navigation }) {
   console.log(route.params, "params-------1");
-  // console.log("process", EXPO_PUBLIC_API_URL)
   const { t } = useTranslation();
   const inputRef = useRef();
   const [loader, setLoader] = useState(false);
@@ -59,13 +58,10 @@ export default function PhoneVerification({ route, navigation }) {
   const boxDigit = (_, index) => {
     const emptyInput = "";
     const digit = code[index] || emptyInput;
-
     const isCurrentValue = index === code.length;
     const isLastValue = index === maximumLength - 1;
     const isCodeComplete = code.length === maximumLength;
-
     const isValueFocused = isCurrentValue || (isLastValue && isCodeComplete);
-
     const StyledSplitBoxes =
       isInputBoxFocused && isValueFocused ? SplitBoxesFocused : SplitBoxes;
     return (
@@ -86,31 +82,23 @@ export default function PhoneVerification({ route, navigation }) {
         confirmPassword: route.params.confirmPassword,
         code: code,
       };
-
       let url = `${EXPO_PUBLIC_API_URL}auth/verify`;
-      //  let url = "http://192.168.1.41:3000/auth/verify"
-
-      axios
-        .post(url, userObject)
-        .then((response) => {
-          console.log("response.data", response?.data);
-          dispatch(setUser(userObject));
-          storeData("user", userObject);
-
-          setTimeout(() => {
-            Alert.alert("Verification done");
-            navigation.navigate("post");
-          }, 2000);
-        })
-        .catch((err) => {
-          setLoader(false);
-
-          console.log("api Erorr: ", err.response.data);
-          Alert.alert("Error", err.response.data?.message);
-        });
+      axios.post(url, userObject).then((response) => {
+        console.log("response.data", response);
+        setTimeout(() => {
+          Alert.alert("Registration Done!!");
+          navigation.navigate("login");
+        }, 2000);
+        dispatch(setUser(userObject));
+        storeData("user", userObject);
+      });
+      // .catch((err) => {
+      //   setLoader(false);
+      //   console.log("api Erorr: ", err?.response?.data);
+      //   Alert.alert("Error", err?.response?.data?.message);
+      // });
     } catch (error) {
       setLoader(false);
-
       console.log("error:", error);
       Alert.alert("Error", error);
     }
