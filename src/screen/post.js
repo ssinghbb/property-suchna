@@ -32,7 +32,7 @@ const Post = () => {
     setTimeout(() => {
       setRefreshing(false);
       getAllPost();
-    }, 2000);
+    }, 1000);
   }, []);
   useEffect(() => {
     getAllPost();
@@ -56,17 +56,25 @@ const Post = () => {
 
 
   const getLatestPost = async () => {
+    var ts = new Date();
+
     setLoading(true)
     try {
       let url = `${EXPO_PUBLIC_API_URL}post/allpost?page=${page}&limit=10`
       //let url = "http://192.168.43.177:3000/post/allpost";
       console.log("url:", url)
+      console.log(ts.toGMTString(), "1");
+
       let response = await axios.get(
         url
       );
       // console.log("response of get",response);
       // let test=posts
+      console.log(ts.toGMTString(), "2");
+
       setPosts(response?.data?.data);
+      console.log(ts.toGMTString(), "3");
+
       // setPage(page + 1);
     } catch (error) {
       console.log("api error", error);
@@ -77,13 +85,21 @@ const Post = () => {
 
   const getAllPost = async () => {
     setLoading(true)
+    var ts = new Date();
+
     try {
+      console.log(ts.toGMTString(), "1");
+
       let url = `${EXPO_PUBLIC_API_URL}post/allpost?page=${page}&limit=10`
       //let url = "http://192.168.43.177:3000/post/allpost";
       console.log("url:", url)
+      console.log(ts.toGMTString(), "2");
+
       let response = await axios.get(
         url
       );
+      console.log(ts.toGMTString(), "3");
+
       // console.log("response of get",response);
       // let test=posts
       setPosts((prevData) => [...prevData, ...response?.data?.data]);
@@ -117,7 +133,7 @@ const Post = () => {
 
           }
         }}
-    
+
       >
         <Header />
         {posts?.length > 0 ? posts?.map((post, index) => {
@@ -127,7 +143,7 @@ const Post = () => {
         }
         {loading
           ?
-          <View style={{marginVertical:1}}>
+          <View style={{ marginVertical: 1 }}>
 
             <ActivityIndicator size='large' animating={loading} color="white" />
           </View>
