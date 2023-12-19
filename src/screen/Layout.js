@@ -13,8 +13,6 @@ export default function Layout({children}) {
     </View>
  </SafeAreaView>
   )
-
-
  
 }
 
@@ -23,10 +21,8 @@ const styles=StyleSheet.create({
     screenSection:{
         flex:1,
     },
-
     screenContainer:{
        flex:1,
        position:'relative'
-       
     }
 })
