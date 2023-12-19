@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback, useMemo } from "react";
 import {
   View,
   Text,
@@ -41,16 +41,25 @@ const Post = () => {
     return () => { };
   }, [page]);
 
-  const handleLoadMore = () => {
+
+
+  const handleLoadMore_ = () => {
+    // handlee()
     console.log("handle load more call", page)
     if (!loading) {
+      console.log("loading:", loading)
       setPage(page + 1);
     }
   };
 
 
 
-const getLatestPost = async () => {
+
+
+
+
+
+  const getLatestPost = async () => {
     setLoading(true)
     try {
       let url = `${EXPO_PUBLIC_API_URL}post/allpost?page=${page}&limit=10`
@@ -59,7 +68,7 @@ const getLatestPost = async () => {
       let response = await axios.get(
         url
       );
-      console.log("response of get",response);
+      // console.log("response of get",response);
       // let test=posts
       setPosts(response?.data?.data);
       // setPage(page + 1);
@@ -69,7 +78,7 @@ const getLatestPost = async () => {
     setLoading(false)
   };
 
-  
+
   const getAllPost = async () => {
     setLoading(true)
     try {
@@ -79,7 +88,7 @@ const getLatestPost = async () => {
       let response = await axios.get(
         url
       );
-      console.log("response of get",response);
+      // console.log("response of get",response);
       // let test=posts
       setPosts((prevData) => [...prevData, ...response?.data?.data]);
       // setPage(page + 1);
@@ -89,41 +98,52 @@ const getLatestPost = async () => {
     setLoading(false)
   };
 
-  
+
+  const [canmomentum, setCanMomentum] = useState(false);
+
   return (
     <View style={styles.mainContainer}>
       <ScrollView
         style={styles.postPage}
         refreshControl={
-          <RefreshControl refreshing={refreshing} onRefresh={onRefresh}/>
+          <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
         }
-        onScrollAnimationEnd={handleLoadMore}
-      // onScroll={(e) => {
-      //   // console.log('eeee',e?.nativeEvent?.contentSize.height)
-      //   // console.log('eeee',e?.nativeEvent?.contentOffset.y)
-      //   var windowHeight = Dimensions.get('window').height,
-      //     height = e.nativeEvent.contentSize.height,
-      //     offset = e.nativeEvent.contentOffset.y;
-      //   if (windowHeight + offset >= height) {
-      //     //ScrollEnd, do sth...
-      //     console.log("end function calll")
-      //     handleLoadMore()
-      //   }
+        scrollEnabled={true}
+        // onMomentumScrollEnd={(e)=>check(e)}
+        onScroll={(event) => {
+          setCanMomentum(true)
+        }}
+        onMomentumScrollEnd={() => {
+          if (canmomentum) {
+            console.log('onMomentumScrollEnd')
+            handleLoadMore_()
+            setCanMomentum(false)
 
-      // }}
+          }
+        }}
+    
       >
-        <Header/>
+        <Header />
         {posts?.length > 0 ? posts?.map((post, index) => {
-          return <PostItem key={index} post={post} getAllPost={getLatestPost}/>;
+          return <PostItem key={index} post={post} getAllPost={getLatestPost} />;
         }) :
           ""
         }
+        {loading
+          ?
+          <View style={{marginVertical:1}}>
+
+            <ActivityIndicator size='large' animating={loading} color="white" />
+          </View>
+          : ''
+        }
+
       </ScrollView>
       <View>
         <BottomNavBar />
       </View>
 
-      <Modal
+      {/* <Modal
         transparent={true}
         animationType={'fade'}
         visible={loading}
@@ -133,16 +153,10 @@ const getLatestPost = async () => {
           <View style={styles.activityIndicatorWrapper}>
             <ActivityIndicator size='large' animating={loading} color="white" />
 
-            {/* If you want to image set source here */}
-            {/* <Image
-              source={require('../assets/images/loader.gif')}
-              style={{ height: 80, width: 80 }}
-              resizeMode="contain"
-              resizeMethod="resize"
-            /> */}
+          
           </View>
         </View>
-      </Modal>
+      </Modal> */}
     </View>
   );
 };

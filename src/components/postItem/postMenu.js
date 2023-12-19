@@ -14,14 +14,14 @@ import { EXPO_PUBLIC_API_URL } from "../../constants/constant";
 import axios from "axios";
 
 export default function PostMenu(props ) {
-  console.log("f=",props)
+  // console.log("f=",props)
   const [openModal, setOpenModal] = useState(false);
   const [deleteSuccess, setDeleteSuccess] = useState(false);
   const user = useSelector((state) => state?.user?.user?.user) || {};
   const uploadedUserId =props.uploadedUserId;
   const userId = user?._id;
   const canDeletePost = userId === uploadedUserId;
-  console.log("check",userId == uploadedUserId)
+  // console.log("check",userId == uploadedUserId)
 
   useEffect(() => {
     if (deleteSuccess) {
