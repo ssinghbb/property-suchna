@@ -23,7 +23,7 @@
         "reEnterYourPassword": "Re enter your password",
        "logInForTheBestProperty" :"Log in for the best property" ,
        "enterYourPhoneNumberToContinue":"Enter your phone number to continue",
-       "byContinuingYouAgreeToPropertySuchnaTermsOfUseAndPrivacyPolicy":"By continuing, you agree to Property Suchna Terms of Use and Privacy Policy"
+       "byConYouAgreeToProSuchnaTermsOfUseAndPrivacyPolicy":"By continuing, you agree to Property Suchna Terms of Use and Privacy Policy"
     },
     "verification": {
         "heading": "Please enter the verification code we've send you on",
@@ -62,5 +62,9 @@
         "description":"Description",
         "queries":"Queries",
         "submit":"Submit"
+    },
+    "useraccount":{
+      "post":"Post",
+      "reels":"Reels"
     }
 }

@@ -16,8 +16,11 @@ import { useNavigation } from "@react-navigation/native";
 import { themeStyles } from "../../styles";
 import { EXPO_PUBLIC_API_URL } from "../constants/constant";
 import axios from "axios";
+import { useTranslation } from "react-i18next";
+
 
 export default function UserAccount({ route }) {
+const { t } = useTranslation();
   const { post } = route?.params;
   const userId = post?.userId;
   const navigation = useNavigation();
@@ -66,7 +69,7 @@ export default function UserAccount({ route }) {
             }}
           >
             <FontAwesome name="long-arrow-left" color={"white"} size={30} />
-            <Text style={styles.name}>Post</Text>
+            <Text style={styles.name}>{t("useraccount.post")}</Text>
           </Pressable>
         </View>
         <View style={styles.profileContainer}>
@@ -74,20 +77,20 @@ export default function UserAccount({ route }) {
             <Image
               style={styles.profileImg}
               //source={require("../../assets/comment1.png")}
-              source={{ uri: post?.user?.url }}
+              source={{ uri: post?.userDetails?.url }}
             />
             <View style={styles.totalPost}>
-              <Text style={styles.postName}>Post</Text>
+              <Text style={styles.postName}>{t("useraccount.post")}</Text>
               <Text style={styles.postName}>{userPost?.length}</Text>
             </View>
             <View style={styles.totalPost}>
-              <Text style={styles.reelsName}>Reels</Text>
+              <Text style={styles.reelsName}>{t("useraccount.reels")}</Text>
               <Text style={styles.postName}>0</Text>
             </View>
           </View>
           <View style={styles.commentText}>
-            <Text style={styles.profileName}>@{post?.user?.fullName}@</Text>
-            <Text style={styles.profileName}>@{post?.user?.bio}</Text>
+            <Text style={styles.profileName}>@{post?.userDetails?.fullName}@</Text>
+            <Text style={styles.profileName}>@{post?.userDetails?.bio}</Text>
             <Text style={styles.profileName}>caption put caption ....</Text>
             <Text style={styles.profileName}>caption put caption here....</Text>
           </View>

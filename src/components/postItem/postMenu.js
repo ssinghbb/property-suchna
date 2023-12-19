@@ -12,9 +12,11 @@ import CustomeButton from "../common/CoustomButton";
 import { useSelector } from "react-redux";
 import { EXPO_PUBLIC_API_URL } from "../../constants/constant";
 import axios from "axios";
+import { useTranslation } from "react-i18next";
+
 
 export default function PostMenu(props ) {
-  // console.log("f=",props)
+const { t } = useTranslation();
   const [openModal, setOpenModal] = useState(false);
   const [deleteSuccess, setDeleteSuccess] = useState(false);
   const user = useSelector((state) => state?.user?.user?.user) || {};
