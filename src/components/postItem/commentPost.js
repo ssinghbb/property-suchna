@@ -45,8 +45,8 @@ export default function commentPost({ post = {} }) {
       const url = `${EXPO_PUBLIC_API_URL}comment/comments/${postId}`;
       console.log("url", url);
       const response = await axios.get(url);
-      console.log("response", response);
-      console.log("respost to get", response?.data);
+      // console.log("response", response);
+      // console.log("respost to get", response?.data);
       setCommentData(response?.data?.data || []);
     } catch (error) {
       Alert.alert("Error", "Failed to get  All comment");
@@ -59,7 +59,7 @@ export default function commentPost({ post = {} }) {
       // let url = `${EXPO_PUBLIC_API_URL}post/comment`;
       let url = `${EXPO_PUBLIC_API_URL}comment/comments`;
       const response = await axios.post(url, { postId, userId, comment });
-      Alert.alert("Success", "Comment posted successfully");
+      // Alert.alert("Success", "Comment posted successfully");
       setCommentData(response?.data?.data || []);
       setComment("");
       getAllComments(postId);

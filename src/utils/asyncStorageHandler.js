@@ -8,7 +8,7 @@ export const storeData = async (key, value) => {
         await AsyncStorage.setItem(key, jsonValue);
         return true;
     } catch (e) {
-        console.log("e:", e)
+        // console.log("e:", e)
         // saving error
         return false;
     }
@@ -19,7 +19,7 @@ export const getData = async (key) => {
         // console.log("jsonValue:", jsonValue)
         return jsonValue != null ? JSON.parse(jsonValue) : null;
     } catch (e) {
-        console.log("e:", e)
+        // console.log("e:", e)
         // error reading value
     }
 };

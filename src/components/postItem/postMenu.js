@@ -23,7 +23,6 @@ const { t } = useTranslation();
   const uploadedUserId =props.uploadedUserId;
   const userId = user?._id;
   const canDeletePost = userId === uploadedUserId;
-  // console.log("check",userId == uploadedUserId)
 
   useEffect(() => {
     if (deleteSuccess) {
@@ -33,16 +32,15 @@ const { t } = useTranslation();
   }, [deleteSuccess]);
 
   const handelPost = async () => {
-    console.log("strting time", new Date().toLocaleTimeString());
+    // console.log("strting time", new Date().toLocaleTimeString());
     try {
-      console.log("Start Time try:", new Date().toLocaleTimeString());
       const url = `${EXPO_PUBLIC_API_URL}post/delete/${props?.postId}/${userId}`;
       const response = await axios.delete(url);
-      console.log(
-        "Response with time",
-        response?.status,
-        new Date().toLocaleTimeString()
-      );
+      // console.log(
+      //   "Response with time",
+      //   response?.status,
+      //   new Date().toLocaleTimeString()
+      // );
       Alert.alert("Post deleted successfully");
       setOpenModal(false);
       setDeleteSuccess(true);

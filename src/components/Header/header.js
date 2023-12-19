@@ -39,7 +39,7 @@ const [openModal, setOpenModal] = useState(false);
       const whatsappLink = `whatsapp://send?phone=${phoneNumber}&text=${encodeURIComponent(
         message
       )}`;
-      console.log("start");
+      // console.log("start");
       try {
         const canOpen = await Linking.canOpenURL(whatsappLink);
 

@@ -33,7 +33,7 @@ const { t } = useTranslation();
       console.log("apiUrl", apiUrl);
       const response = await axios.get(apiUrl);
       if (response) {
-        console.log("post get successfully", response?.data);
+        // console.log("post get successfully", response?.data);
         setUserPosts(response?.data?.posts);
       }
     } catch (error) {

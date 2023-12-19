@@ -27,7 +27,6 @@ const Post = () => {
   const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(false);
   const onRefresh = React.useCallback(() => {
-    console.log("in use callback")
 
     setRefreshing(true);
     setTimeout(() => {
@@ -36,7 +35,6 @@ const Post = () => {
     }, 2000);
   }, []);
   useEffect(() => {
-    console.log("in use effect")
     getAllPost();
     return () => { };
   }, [page]);
@@ -45,9 +43,7 @@ const Post = () => {
 
   const handleLoadMore_ = () => {
     // handlee()
-    console.log("handle load more call", page)
     if (!loading) {
-      console.log("loading:", loading)
       setPage(page + 1);
     }
   };

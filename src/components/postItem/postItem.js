@@ -24,7 +24,6 @@ export default function PostItem({ post ,getAllPost }) {
   const user = useSelector((state) => state?.user?.user?.user);
 
   const userId = user?._id;
-  console.log("post?.user?.url",post?.user?.url);
 
   const navigateToScreen = (screenName) => {
     navigation.navigate(screenName,{post});

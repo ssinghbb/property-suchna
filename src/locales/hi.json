@@ -4,7 +4,7 @@
         "login": "लॉग इन",
         "signUp": "साइन अप",
         "selectLanguage":"भाषा चुने",
-        "propertySuchna": "संपत्ति सुचना"
+        "propertySuchna": "Property Suchna"
     },
     "register": {
         "heading": "रजिस्टर करें",
@@ -56,7 +56,7 @@
         "comments": "टिप्पणियाँ"
     },
     "header":{
-        "propertySuchna":"संपत्ति सुचना",
+        "propertySuchna":"Property Suchna",
         "location":"जगह",
         "name":"नाम",
         "description":"विवरण",

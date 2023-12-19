@@ -66,7 +66,7 @@ const PostDetails = ({ file, isVideo }) => {
           "Content-Type": "multipart/form-data",
         },
       });
-      console.log("API response:", response?.data);
+      // console.log("API response:", response?.data);
       if (response?.data) {
 
         formik.setValues(initialValues)

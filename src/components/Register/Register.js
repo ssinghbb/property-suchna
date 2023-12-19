@@ -34,9 +34,7 @@ export default function Register({ navigation }) {
     },
     validationSchema: validationSchema,
     onSubmit: (values) => {
-      console.log("values:", values)
-      // console.log("Form data:", values);
-      console.log("check submit")
+      // console.log("values:", values)
       handleApi()
     },
   });

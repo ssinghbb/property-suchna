@@ -35,7 +35,7 @@ const AddPost = () => {
     const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
 
     if (status !== "granted") {
-      console.log("Permission to access media library was denied");
+      // console.log("Permission to access media library was denied");
       return;
     }
 

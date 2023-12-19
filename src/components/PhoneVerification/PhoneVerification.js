@@ -73,7 +73,7 @@ export default function PhoneVerification({ route, navigation }) {
     );
   };
   const handleVerifyCode = () => {
-    console.log("code.length", code.length);
+    // console.log("code.length", code.length);
 
     try {
       setLoader(true);
@@ -86,7 +86,7 @@ export default function PhoneVerification({ route, navigation }) {
       };
       let url = `${EXPO_PUBLIC_API_URL}auth/verify`;
       axios.post(url, userObject).then((response) => {
-        console.log("response.data", response);
+        // console.log("response.data", response);
         
         dispatch(setUser(userObject));
         storeData("user", userObject);

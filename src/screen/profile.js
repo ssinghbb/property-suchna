@@ -37,7 +37,6 @@ const Profile = () => {
   const dispatch = useDispatch();
 
   let userId = user?.user?._id;
-  console.log("userId", userId);
   const handleLogout = () => {
     console.log("logout");
     dispatch(setUser());
@@ -58,8 +57,7 @@ const Profile = () => {
     },
     validationSchema,
     onSubmit: (values) => {
-      console.log("values:", values);
-      console.log("check submit");
+      // console.log("values:", values);
       handleUpdate(values);
     },
   });
@@ -80,13 +78,13 @@ const Profile = () => {
           name: "image.png",
         });
       }
-      console.log("formData", formData);
+      // console.log("formData", formData);
       const response = await axios.put(url, formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
       });
-      console.log("API response:", response?.data);
+      // console.log("API response:", response?.data);
 
       const updatedUser = response?.data;
       dispatch(setUser({ user: updatedUser }));

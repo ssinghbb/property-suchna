@@ -56,7 +56,7 @@ const Login = ({ navigation }) => {
           password: formik.values.password,
         });
         if(response?.data?.success) {
-          console.log("response?.data?.data:", response?.data?.data);
+          // console.log("response?.data?.data:", response?.data?.data);
           dispatch(setUser(response?.data?.data));
           storeData("user", response?.data?.data);
 
