@@ -22,13 +22,22 @@ import { setUser } from "../../redux/slices/userSlice";
 import { storeData } from "../../utils/asyncStorageHandler";
 
 const validationSchema = yup.object().shape({
-  phoneNumber: yup.string().required("Phone number is required"),
-  password: yup.string().required("Password is required"),
+  phoneNumber: yup
+    .string()
+    .matches(/^[0-9]{10}$/, "Invalid phone number")
+    .required("Phone number is required"),
+  password: yup
+    .string()
+    .required("Password is required")
+    .min(8, "Password must be at least 8 characters")
+    .matches(
+      /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]+$/,
+      "Password must contain at least one uppercase letter, one lowercase letter, one digit, and one special character"
+    ),
 });
 
 const Login = ({ navigation }) => {
   const dispatch = useDispatch();
-
   const { t } = useTranslation();
   const [isLoading, setIsLoading] = useState(false);
   const formik = useFormik({
@@ -46,23 +55,19 @@ const Login = ({ navigation }) => {
           phoneNumber: `+91${formik.values.phoneNumber}`,
           password: formik.values.password,
         });
-        if (response?.data?.success) {
+        if(response?.data?.success) {
           console.log("response?.data?.data:", response?.data?.data);
           dispatch(setUser(response?.data?.data));
           storeData("user", response?.data?.data);
 
           setIsLoading(false);
-          setTimeout(() => {
-            // Alert.alert("Login successful!");
-            // navigation.navigate("post");
-          }, 2000);
+          setTimeout(() => {}, 2000);
         } else {
           setIsLoading(false);
           console.log("else", response?.data);
         }
       } catch (error) {
         setIsLoading(false);
-
         console.error("API Error:", error);
         Alert.alert("Error", error?.response?.data?.message);
       }
@@ -101,7 +106,7 @@ const Login = ({ navigation }) => {
         />
         <Text style={[styles.text, { fontSize: 12, color: "gray" }]}>
           {t(
-            "register.byContinuingYouAgreeToPropertySuchnaTermsOfUseAndPrivacyPolicy"
+            "register.byConYouAgreeToProSuchnaTermsOfUseAndPrivacyPolicy"
           )}
         </Text>
       </ScrollView>

@@ -11,10 +11,9 @@ const resources = {
     translation: hi,
   },
 };
-
 i18n.use(initReactI18next).init({
   resources,
-  lng: 'en',
+  lng: 'hi',
   fallbackLng: 'hi',
   compatibilityJSON: 'v3',
   interpolation:{

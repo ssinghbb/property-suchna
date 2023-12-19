@@ -23,7 +23,7 @@
         "reEnterYourPassword": "फिर से अपना पासवर्ड दर्ज करें",
         "logInForTheBestProperty":"सर्वोत्तम संपत्ति के लिए लॉग इन करें",
         "enterYourPhoneNumberToContinue":"जारी रखने के लिए अपना फ़ोन नंबर दर्ज करें",
-        "byContinuingYouAgreeToPropertySuchnaTermsOfUseAndPrivacyPolicy":"जारी रखकर, आप संपत्ति सुचना के उपयोग की शर्तों और गोपनीयता नीति से सहमत हैं"
+        "byConYouAgreeToProSuchnaTermsOfUseAndPrivacyPolicy":"जारी रखकर, आप संपत्ति सुचना के उपयोग की शर्तों और गोपनीयता नीति से सहमत हैं"
     },
     "verification": {
         "heading": "कृपया हमारे द्वारा भेजे गए सत्यापन कोड दर्ज करें",
@@ -63,8 +63,9 @@
         "queries":"प्रश्न",
         "submit":"जमा करना"
     },
-    "userdetails":{
-
-    }
+    "useraccount":{
+        "post":"फोटो",
+        "reels":"उत्तर"
+      }
     
 }

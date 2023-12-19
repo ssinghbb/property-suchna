@@ -79,7 +79,7 @@ const getLatestPost = async () => {
       let response = await axios.get(
         url
       );
-      console.log("response of get",response);
+      console.log("response of get",response?.data);
       // let test=posts
       setPosts((prevData) => [...prevData, ...response?.data?.data]);
       // setPage(page + 1);

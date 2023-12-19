@@ -45,7 +45,6 @@ export default function Register({ navigation }) {
     setLoader(true)
     try {
      let url = `${EXPO_PUBLIC_API_URL}auth/register`
-      // let url = "http://192.168.1.41:3000/auth/register"
       const result= await axios.post(url,{ phoneNumber: `+91${formik.values.phoneNumber}` })
 
      console.log(result);

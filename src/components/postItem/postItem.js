@@ -63,11 +63,11 @@ export default function PostItem({ post ,getAllPost }) {
           // source={ post?.user?.url ? {
           //   uri: post?.user?.url,
           // }:require("../../../assets/lily.png")}
-          source={ {uri: post?.user?.url}}
+          source={ {uri: post?.userDetails?.url}}
           style={styles.avatar}
           
         />
-        <Text style={styles.userName} post={post}>{post?.user?.fullName}</Text>
+        <Text style={styles.userName} post={post}>{post?.userDetails?.fullName}</Text>
       </TouchableOpacity>
       <PostMenu postId={post?._id} uploadedUserId={post?.userId} getAllPost={getAllPost}/>
       </View>
