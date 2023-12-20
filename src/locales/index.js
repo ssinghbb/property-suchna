@@ -13,7 +13,7 @@ const resources = {
 };
 i18n.use(initReactI18next).init({
   resources,
-  lng: 'hi',
+  lng: 'en',
   fallbackLng: 'hi',
   compatibilityJSON: 'v3',
   interpolation:{

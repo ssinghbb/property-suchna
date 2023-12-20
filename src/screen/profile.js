@@ -9,6 +9,7 @@ import {
   ScrollView,
   Alert,
   ActivityIndicator,
+  Modal,
 } from "react-native";
 import globalStyles, { themeStyles } from "../../styles";
 import Layout from "./Layout";
@@ -22,17 +23,20 @@ import { setUser } from "../../redux/slices/userSlice";
 import { removeLocalStorage } from "../utils/asyncStorageHandler";
 import axios from "axios";
 import { EXPO_PUBLIC_API_URL } from "../constants/constant";
-import { useState } from "react";
+import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
+import { Picker } from "@react-native-picker/picker";
+import { storeData } from "../utils/asyncStorageHandler";
 
 const Profile = () => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const [media, setMedia] = useState(null);
   const [file, setFile] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
+  const [selectedLanguage, setSelectedLanguage] = useState("en");
+  const [isPickerVisible, setPickerVisible] = useState(false);
 
   const user = useSelector((state) => state?.user?.user);
-  // console.log("user in profile:", user?.user);
   let currentUser = user?.user;
   const dispatch = useDispatch();
 
@@ -45,7 +49,6 @@ const Profile = () => {
 
   const validationSchema = Yup.object().shape({
     fullName: Yup.string().required("fullName is required"),
-    //phoneNumber: Yup.string().required("phoneNumber is required"),
   });
 
   const formik = useFormik({
@@ -57,7 +60,6 @@ const Profile = () => {
     },
     validationSchema,
     onSubmit: (values) => {
-      // console.log("values:", values);
       handleUpdate(values);
     },
   });
@@ -78,14 +80,12 @@ const Profile = () => {
           name: "image.png",
         });
       }
-      // console.log("formData", formData);
-      console.log("url:", url)
+
       const response = await axios.put(url, formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
       });
-      console.log("API response:", response?.data);
 
       const updatedUser = response?.data;
       dispatch(setUser({ user: updatedUser }));
@@ -101,7 +101,7 @@ const Profile = () => {
     } catch (error) {
       setIsLoading(false);
       console.log("error", error);
-      Alert.alert("error updated userDetails");
+      Alert.alert("Error updating user details");
     }
   };
 
@@ -125,6 +125,15 @@ const Profile = () => {
     }
   };
 
+  
+
+  const changeLanguage = (language) => {
+    console.log("language", language);
+    i18n.changeLanguage(language);
+    storeData("language", language);
+    setSelectedLanguage(language);
+  };
+
   return (
     <Layout>
       <ScrollView style={globalStyles.flex1}>
@@ -141,8 +150,6 @@ const Profile = () => {
         </View>
         <View style={styles.user}>
           <Pressable onPress={pickImage} style={styles.profileContainer}>
-            {/* {console.log("user0000", user?.user?.url)} */}
-            {/* {console.log("user0000 media",media)} */}
             <Image
               source={{
                 uri: media || user?.user?.url,
@@ -174,7 +181,6 @@ const Profile = () => {
                 placeholder="User Name"
                 placeholderTextColor={"gray"}
                 value={formik.values.phoneNumber}
-                // onChangeText={formik.handleChange("phoneNumber")}
                 editable={false}
                 onBlur={formik.handleBlur("phoneNumber")}
                 error={formik.touched.phoneNumber && formik.errors.phoneNumber}
@@ -192,6 +198,36 @@ const Profile = () => {
                 error={formik.touched.bio && formik.errors.bio}
               />
             </View>
+            <View style={styles.fieldContainer}>
+              <Text style={styles.label}>{t("profile.language")}:</Text>
+              <Pressable
+                style={styles.input}
+                onPress={() => setPickerVisible(true)}
+              >
+                <Text style={styles.input}>{t(`profile.select`)}</Text>
+              </Pressable>
+              <Modal
+                visible={isPickerVisible}
+                animationType="slide"
+                transparent={true}
+                onRequestClose={() => setPickerVisible(false)}
+              >
+                <View style={styles.modal}>
+                  <Picker
+                    selectedValue={selectedLanguage}
+                    style={{ height: 100, width: 150 }}
+                    onValueChange={(itemValue) => {
+                      changeLanguage(itemValue);
+                      setPickerVisible(false);
+                    }}
+                    color={"white"}
+                  >
+                    <Picker.Item label="English" value="en" />
+                    <Picker.Item label="Hindi" value="hi" />
+                  </Picker>
+                </View>
+              </Modal>
+            </View>
           </View>
         </View>
       </ScrollView>
@@ -199,12 +235,16 @@ const Profile = () => {
         {isLoading ? (
           <ActivityIndicator size={"large"} color="white" />
         ) : (
-          <CustomeButton title={t("profile.update")} onPress={formik.handleSubmit} />
+          <CustomeButton
+            title={t("profile.update")}
+            onPress={formik.handleSubmit}
+          />
         )}
       </View>
     </Layout>
   );
 };
+
 const styles = StyleSheet.create({
   buttonContainer: {
     padding: 10,
@@ -229,6 +269,33 @@ const styles = StyleSheet.create({
   input: {
     color: themeStyles.secondaryColor,
     width: "50%",
+  },
+  // modal: {
+  //   flex: 1,
+  //   justifyContent: "center",
+  //   alignItems: "center",
+  //   backgroundColor: "white",
+  //   borderRadius: 20,
+  // },
+  modal: {
+    margin: 40,
+    marginTop: 300,
+    backgroundColor: "white",
+    borderRadius: 10,
+    padding: 10,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  modalClose: {
+    alignSelf: "flex-end",
+  },
+  modalCloseText: {
+    fontSize: 20,
+    fontWeight: "bold",
+  },
+  modalOption: {
+    fontSize: 18,
+    marginVertical: 10,
   },
   editContainer: {
     flexDirection: "row",
@@ -268,4 +335,5 @@ const styles = StyleSheet.create({
     borderWidth: 1,
   },
 });
+
 export default Profile;

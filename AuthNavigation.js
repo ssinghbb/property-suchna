@@ -23,7 +23,6 @@ const AuthNavigation = () => {
 	// console.log("user:", user)
 	useEffect(() => {
 		userHandler(user)
-
 		getLocalStorageLoginInfo()
 		return () => {
 		}

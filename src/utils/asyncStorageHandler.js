@@ -31,6 +31,5 @@ export const removeLocalStorage = async (key) => {
         console.log("e:", e)
         // remove error
     }
-
     console.log('Done.')
 }

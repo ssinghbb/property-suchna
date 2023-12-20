@@ -49,7 +49,11 @@
         "name":"नाम",
         "phoneNumber":"फ़ोन नंबर",
         "bio":"परिचय",
-        "update":"अद्यतन"
+        "update":"अद्यतन",
+        "language":"भाषा",
+        "select":"चुनना",
+        "english":"अंग्रेज़ी"
+
     },
     "notification": {
         "notification":"अधिसूचना",
