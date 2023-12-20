@@ -49,7 +49,10 @@
         "name":"Name",
         "phoneNumber":"Phone Number",
         "bio":"Bio",
-        "update":"Update"
+        "update":"Update",
+        "language":"Language",
+        "selectlanguage":"select",
+        "select":"Select"
     },
     "notification": {
         "notification":"Notification",
