@@ -2,7 +2,6 @@ import { View, Text, Image, StyleSheet, Button } from "react-native";
 import React, { useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useTranslation } from 'react-i18next';
-import { Picker } from '@react-native-picker/picker';  // Update this line
 
 export default function Home({ navigation }) {
   const { t, i18n } = useTranslation();
@@ -34,18 +33,7 @@ export default function Home({ navigation }) {
               onPress={() => navigation.navigate("register")}
             />
           </View>
-          {/* <View style={styles?.btnDiv}>
-            <Text >{t('home.selectLanguage')}</Text>
-            <Picker
-              selectedValue={selectedLanguage}
-              style={{ height: 50, width: 150 }}
-              onValueChange={(itemValue) => changeLanguage(itemValue)}
-              color={"white"}
-            >
-              <Picker.Item label="English" value="en" />
-              <Picker.Item label="Hindi" value="hi" />
-            </Picker>
-          </View> */}
+          
         </View>
       </View>
     </SafeAreaView>

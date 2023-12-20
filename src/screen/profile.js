@@ -79,12 +79,13 @@ const Profile = () => {
         });
       }
       // console.log("formData", formData);
+      console.log("url:", url)
       const response = await axios.put(url, formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
       });
-      // console.log("API response:", response?.data);
+      console.log("API response:", response?.data);
 
       const updatedUser = response?.data;
       dispatch(setUser({ user: updatedUser }));
@@ -140,7 +141,7 @@ const Profile = () => {
         </View>
         <View style={styles.user}>
           <Pressable onPress={pickImage} style={styles.profileContainer}>
-            {console.log("user0000", user?.user?.url)}
+            {/* {console.log("user0000", user?.user?.url)} */}
             {/* {console.log("user0000 media",media)} */}
             <Image
               source={{

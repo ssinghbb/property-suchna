@@ -31,7 +31,7 @@ const Post = () => {
     setRefreshing(true);
     setTimeout(() => {
       setRefreshing(false);
-      getAllPost();
+      getLatestPost();
     }, 1000);
   }, []);
   useEffect(() => {
@@ -125,14 +125,22 @@ const Post = () => {
         onScroll={(event) => {
           setCanMomentum(true)
         }}
-        onMomentumScrollEnd={() => {
+        onMomentumScrollEnd={(e)=>{
+          console.log('onScrollEndDrag',e.nativeEvent.contentOffset)
           if (canmomentum) {
             console.log('onMomentumScrollEnd')
             handleLoadMore_()
             setCanMomentum(false)
-
-          }
         }}
+      }
+        // onMomentumScrollEnd={() => {
+        //   if (canmomentum) {
+        //     console.log('onMomentumScrollEnd')
+        //     handleLoadMore_()
+        //     setCanMomentum(false)
+
+        //   }
+        // }}
 
       >
         <Header />
