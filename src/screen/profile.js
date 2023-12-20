@@ -128,7 +128,7 @@ const Profile = () => {
   
 
   const changeLanguage = (language) => {
-    console.log("language", language);
+    // console.log("language", language);
     i18n.changeLanguage(language);
     storeData("language", language);
     setSelectedLanguage(language);
