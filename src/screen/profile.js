@@ -146,7 +146,7 @@ const Profile = () => {
           >
             {t("profile.profile")}
           </Text>
-          <Button title={t("profile.logout")} onPress={handleLogout} />
+          <Button title={t("profile.logout")} onPress={handleLogout}   color="#FDCB0A" />
         </View>
         <View style={styles.user}>
           <Pressable onPress={pickImage} style={styles.profileContainer}>
@@ -210,7 +210,7 @@ const Profile = () => {
                 visible={isPickerVisible}
                 animationType="slide"
                 transparent={true}
-                onRequestClose={() => setPickerVisible(false)}
+                onRequestClose={() =>setPickerVisible(false)}
               >
                 <View style={styles.modal}>
                   <Picker
@@ -251,6 +251,11 @@ const styles = StyleSheet.create({
   },
   form: {
     marginTop: 40,
+  },
+  btn1:{
+   
+    
+
   },
   fieldContainer: {
     width: "100%",
