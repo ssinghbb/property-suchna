@@ -17,13 +17,13 @@ const globalStyles=StyleSheet.create({
         color:'black'
     },
     primaryBackground:{
-       backgroundColor:'#29D4FF'
+       backgroundColor:'#FDCB0A'
     },
     primaryColor:{
-        color:'#29D4FF'
+        color:'#FDCB0A'
     },
     primaryBorder:{
-        borderColor:'#29D4FF'
+        borderColor:'#FDCB0A'
     },
     secondaryBackground:{
         backgroundColor:'white'
@@ -43,7 +43,7 @@ const globalStyles=StyleSheet.create({
 export default globalStyles
 
 export const themeStyles={
-    primaryColor:'#29D4FF',
+    primaryColor:'#FDCB0A', //#29D4FF
     secondaryColor:'white',
     themeColor:'black',
     primarySecColor:'#60929c'

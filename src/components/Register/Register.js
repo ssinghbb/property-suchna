@@ -17,7 +17,7 @@ import { useTranslation } from 'react-i18next';
 import axios from 'axios';
 import { EXPO_PUBLIC_API_URL } from "../../constants/constant";
 import { themeStyles } from "../../../styles";
-
+import CoustomButton from "../common/CoustomButton";
 
 
 export default function Register({ navigation }) {
@@ -117,7 +117,7 @@ export default function Register({ navigation }) {
           <ActivityIndicator size={'large'} color='white' />
 
           :
-          <Button title={t('register.continue')} onPress={formik.handleSubmit} />}
+          <CoustomButton title={t('register.continue')} onPress={formik.handleSubmit} />}
       </View>
     </View>
   );
@@ -144,7 +144,7 @@ const Styles = StyleSheet.create({
   },
   logo: {
     height: 45,
-    width: 90,
+    width: 135,
   },
   input: {
     borderRadius: 5,

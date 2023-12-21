@@ -16,7 +16,6 @@ const style = StyleSheet.create({
     padding: 12,
     borderRadius: 4,
     //  textAlign:"center",
-
   },
   textInput: {
     fontStyle: "normal",
