@@ -37,10 +37,10 @@ const route = useRoute();
         </Pressable>
       </View>
       <View >
-        {/* <Pressable onPress={() => navigateToScreen("reels")} style={styles.iconContainer}> */}
-        <Pressable  style={styles.iconContainer}>
-          <Mater color={"gray"} name={"play-circle-outline"} size={32} />
-          <Text style={{color:'gray',fontSize:10}}>{t("reels.reels")}</Text>
+        <Pressable onPress={() => navigateToScreen("reels")} style={styles.iconContainer}>
+        {/* <Pressable  style={styles.iconContainer}> */}
+          <Mater color={"white"} name={"play-circle-outline"} size={32} />
+          <Text style={{color:'white',fontSize:10}}>{t("reels.reels")}</Text>
         </Pressable>
       </View>
 
@@ -48,7 +48,6 @@ const route = useRoute();
         <Pressable onPress={() => navigateToScreen("addPost")} style={styles.iconContainer}>
           <Mater color={"white"} name={"plus-circle-outline"} size={32} />
           <Text style={styles.iconText}>{t("upload.upload")}</Text>
-
         </Pressable>
       </View>
       <View >
