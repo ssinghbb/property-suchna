@@ -151,7 +151,7 @@ const Post = () => {
         }
         {loading
           ?
-          <View style={{ marginVertical: 1 }}>
+          <View style={styles.container}>
 
             <ActivityIndicator size='large' animating={loading} color="white" />
           </View>
@@ -182,6 +182,11 @@ const Post = () => {
 };
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    flexDirection: "column",
+    justifyContent: 'center'
+  },
   mainContainer: {
     flex: 1,
     alignItems: "center",

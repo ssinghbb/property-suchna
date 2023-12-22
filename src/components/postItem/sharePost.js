@@ -3,12 +3,28 @@ import React from "react";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import { themeStyles } from "../../../styles";
 //import Share from 'react-native-share';
+import * as Linking from 'expo-linking';
+import * as Sharing from 'expo-sharing';
 
-export default function SharePost() {
+export default function SharePost({ post }) {
+  // console.log("post:", post)
+  const handleShare =async () => {
+    // Create a shareable link to your Expo app
+    const appLink = 'https://exp.host/ssinghbb/property-suchna';
+    const app=await Linking.createURL('https://www.example.com')
+
+    console.log("app:", app)
+
+    // Open the WhatsApp share sheet with the link
+    // Linking.
+    Linking.openURL(`whatsapp://send?text=${encodeURIComponent(`${app}`)}`)
+      .then(() => console.log('WhatsApp opened'))
+      .catch(() => alert('WhatsApp is not installed on your device.'));
+  };
   return (
     <View>
       <TouchableOpacity>
-        <Icon color={"white"} name={"share"} size={25} />
+        <Icon color={"white"} name={"share"} size={25} onPress={handleShare} />
       </TouchableOpacity>
     </View>
   );

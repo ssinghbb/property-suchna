@@ -23,10 +23,11 @@ import { setUser } from "../../redux/slices/userSlice";
 import { removeLocalStorage } from "../utils/asyncStorageHandler";
 import axios from "axios";
 import { EXPO_PUBLIC_API_URL } from "../constants/constant";
-import React, { useState } from "react";
+import React, { useCallback, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Picker } from "@react-native-picker/picker";
 import { storeData } from "../utils/asyncStorageHandler";
+import { useFocusEffect } from "@react-navigation/native";
 
 const Profile = () => {
   const { t, i18n } = useTranslation();
@@ -35,9 +36,10 @@ const Profile = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [selectedLanguage, setSelectedLanguage] = useState("en");
   const [isPickerVisible, setPickerVisible] = useState(false);
-
+  const [pageLoading, setPageLoading] = useState(true);
   const user = useSelector((state) => state?.user?.user);
   let currentUser = user?.user;
+  // console.log("currentUser:", currentUser)
   const dispatch = useDispatch();
 
   let userId = user?.user?._id;
@@ -86,6 +88,7 @@ const Profile = () => {
           "Content-Type": "multipart/form-data",
         },
       });
+      console.log("response:", response?.data)
 
       const updatedUser = response?.data;
       dispatch(setUser({ user: updatedUser }));
@@ -125,127 +128,153 @@ const Profile = () => {
     }
   };
 
-  
+
 
   const changeLanguage = (language) => {
-     console.log("language", language);
+    console.log("language", language);
     i18n.changeLanguage(language);
     storeData("language", language);
     setSelectedLanguage(language);
   };
 
+  useFocusEffect(
+    useCallback(() => {
+      console.log("useFocusEffect")
+      // Trigger the loading when the screen is focused
+      // setIsLoading(true);
+      // fetchData();
+      setPageLoading(true);
+      setTimeout(() => {
+        setPageLoading(false)
+      }, 300);
+    }, [])
+  );
   return (
     <Layout>
-      <ScrollView style={globalStyles.flex1}>
-        <View style={styles?.header}>
-          <Text
-            style={[
-              globalStyles.secondaryColor,
-              { fontWeight: "800", fontSize: 22 },
-            ]}
-          >
-            {t("profile.profile")}
-          </Text>
-          <Button title={t("profile.logout")} onPress={handleLogout} />
-        </View>
-        <View style={styles.user}>
-          <Pressable onPress={pickImage} style={styles.profileContainer}>
-            <Image
-              source={{
-                uri: media || user?.user?.url,
-              }}
-              style={styles.avatar}
-            />
-            <View style={styles.editContainer}>
-              <Text style={styles.editTitle}>{t("profile.editImage")}</Text>
-              <Icon name="pencil" color="gray" size={15} />
-            </View>
-          </Pressable>
-          <View style={styles.form}>
-            <View style={styles.fieldContainer}>
-              <Text style={styles.label}>{t("profile.name")}:</Text>
-              <TextInput
-                style={styles.input}
-                placeholder={t("profile.name")}
-                placeholderTextColor={"gray"}
-                value={formik.values.fullName}
-                onChangeText={formik.handleChange("fullName")}
-                onBlur={formik.handleBlur("fullName")}
-                error={formik.touched.fullName && formik.errors.fullName}
-              />
-            </View>
-            <View style={styles.fieldContainer}>
-              <Text style={styles.label}>{t("profile.phoneNumber")}:</Text>
-              <TextInput
-                style={[styles.input, { color: "gray" }]}
-                placeholder="User Name"
-                placeholderTextColor={"gray"}
-                value={formik.values.phoneNumber}
-                editable={false}
-                onBlur={formik.handleBlur("phoneNumber")}
-                error={formik.touched.phoneNumber && formik.errors.phoneNumber}
-              />
-            </View>
-            <View style={styles.fieldContainer}>
-              <Text style={styles.label}>{t("profile.bio")}:</Text>
-              <TextInput
-                style={styles.input}
-                placeholder="Enter your bio"
-                placeholderTextColor={"gray"}
-                value={formik.values.bio}
-                onChangeText={formik.handleChange("bio")}
-                onBlur={formik.handleBlur("bio")}
-                error={formik.touched.bio && formik.errors.bio}
-              />
-            </View>
-            <View style={styles.fieldContainer}>
-              <Text style={styles.label}>{t("profile.language")}:</Text>
-              <Pressable
-                style={styles.input}
-                onPress={() => setPickerVisible(true)}
-              >
-                <Text style={styles.input}>{t(`profile.select`)}</Text>
-              </Pressable>
-              <Modal
-                visible={isPickerVisible}
-                animationType="slide"
-                transparent={true}
-                onRequestClose={() => setPickerVisible(false)}
-              >
-                <View style={styles.modal}>
-                  <Picker
-                    selectedValue={selectedLanguage}
-                    style={{ height: 100, width: 150 }}
-                    onValueChange={(itemValue) => {
-                      changeLanguage(itemValue);
-                      setPickerVisible(false);
-                    }}
-                    color={"white"}
-                  >
-                    <Picker.Item label="English" value="en" />
-                    <Picker.Item label="Hindi" value="hi" />
-                  </Picker>
-                </View>
-              </Modal>
-            </View>
-          </View>
-        </View>
-      </ScrollView>
-      <View style={styles.buttonContainer}>
-        {isLoading ? (
-          <ActivityIndicator size={"large"} color="white" />
-        ) : (
-          <CustomeButton
-            title={t("profile.update")}
-            onPress={formik.handleSubmit}
-          />
-        )}
+      <View style={styles?.header}>
+        <Text
+          style={[
+            globalStyles.secondaryColor,
+            { fontWeight: "800", fontSize: 22 },
+          ]}
+        >
+          {t("profile.profile")}
+        </Text>
+        <Button title={t("profile.logout")} onPress={handleLogout} />
       </View>
+      {pageLoading ?
+        <View style={styles.container}>
+          <ActivityIndicator size="large" color="#fff" />
+        </View> :
+        <>
+          <ScrollView style={globalStyles.flex1}>
+
+            <View style={styles.user}>
+              <Pressable onPress={pickImage} style={styles.profileContainer}>
+                <Image
+                  source={{
+                    uri: media || user?.user?.url,
+                  }}
+                  style={styles.avatar}
+                />
+                <View style={styles.editContainer}>
+                  <Text style={styles.editTitle}>{t("profile.editImage")}</Text>
+                  <Icon name="pencil" color="gray" size={15} />
+                </View>
+              </Pressable>
+              <View style={styles.form}>
+                <View style={styles.fieldContainer}>
+                  <Text style={styles.label}>{t("profile.name")}:</Text>
+                  <TextInput
+                    style={styles.input}
+                    placeholder={t("profile.name")}
+                    placeholderTextColor={"gray"}
+                    value={formik.values.fullName}
+                    onChangeText={formik.handleChange("fullName")}
+                    onBlur={formik.handleBlur("fullName")}
+                    error={formik.touched.fullName && formik.errors.fullName}
+                  />
+                </View>
+                <View style={styles.fieldContainer}>
+                  <Text style={styles.label}>{t("profile.phoneNumber")}:</Text>
+                  <TextInput
+                    style={[styles.input, { color: "gray" }]}
+                    placeholder="User Name"
+                    placeholderTextColor={"gray"}
+                    value={formik.values.phoneNumber}
+                    editable={false}
+                    onBlur={formik.handleBlur("phoneNumber")}
+                    error={formik.touched.phoneNumber && formik.errors.phoneNumber}
+                  />
+                </View>
+                <View style={styles.fieldContainer}>
+                  <Text style={styles.label}>{t("profile.bio")}:</Text>
+                  <TextInput
+                    style={styles.input}
+                    placeholder="Enter your bio"
+                    placeholderTextColor={"gray"}
+                    value={formik.values.bio}
+                    onChangeText={formik.handleChange("bio")}
+                    onBlur={formik.handleBlur("bio")}
+                    error={formik.touched.bio && formik.errors.bio}
+                  />
+                </View>
+                <View style={styles.fieldContainer}>
+                  <Text style={styles.label}>{t("profile.language")}:</Text>
+                  <Pressable
+                    style={styles.input}
+                    onPress={() => setPickerVisible(true)}
+                  >
+                    <Text style={styles.input}>{t(`profile.select`)}</Text>
+                  </Pressable>
+                  <Modal
+                    visible={isPickerVisible}
+                    animationType="slide"
+                    transparent={true}
+                    onRequestClose={() => setPickerVisible(false)}
+                  >
+                    <View style={styles.modal}>
+                      <Picker
+                        selectedValue={selectedLanguage}
+                        style={{ height: 100, width: 150 }}
+                        onValueChange={(itemValue) => {
+                          changeLanguage(itemValue);
+                          setPickerVisible(false);
+                        }}
+                        color={"white"}
+                      >
+                        <Picker.Item label="English" value="en" />
+                        <Picker.Item label="Hindi" value="hi" />
+                      </Picker>
+                    </View>
+                  </Modal>
+                </View>
+              </View>
+            </View>
+          </ScrollView>
+          <View style={styles.buttonContainer}>
+            {isLoading ? (
+              <ActivityIndicator size={"large"} color="white" />
+            ) : (
+              <CustomeButton
+                title={t("profile.update")}
+                onPress={formik.handleSubmit}
+              />
+            )}
+          </View>
+        </>
+
+      }
     </Layout>
   );
 };
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    flexDirection: "column",
+    justifyContent: 'center'
+  },
   buttonContainer: {
     padding: 10,
   },

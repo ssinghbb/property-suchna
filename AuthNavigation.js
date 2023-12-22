@@ -43,7 +43,7 @@ const AuthNavigation = () => {
 		// console.log("_data:---------", await _data)
 	}
 
-	// console.log("------isLogin", isLogin)
+	console.log("------isLogin", isLogin)
 	return <>{isLogin ? <SignedInStack /> : <SignedOutStack />}</>
 }
 

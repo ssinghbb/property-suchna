@@ -84,7 +84,7 @@ export default function PostItem({ post ,getAllPost }) {
           />
         </TouchableOpacity>
         <CommentPost post={post} />
-        <SharePost />
+        <SharePost post={post} />
       </View>
       <View style={styles.likeLocation}>
         <Text style={styles.text}>{totalLikes} Likes</Text>
