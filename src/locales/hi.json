@@ -23,7 +23,22 @@
         "reEnterYourPassword": "फिर से अपना पासवर्ड दर्ज करें",
         "logInForTheBestProperty":"सर्वोत्तम संपत्ति के लिए लॉग इन करें",
         "enterYourPhoneNumberToContinue":"जारी रखने के लिए अपना फ़ोन नंबर दर्ज करें",
-        "byConYouAgreeToProSuchnaTermsOfUseAndPrivacyPolicy":"जारी रखकर, आप संपत्ति सुचना के उपयोग की शर्तों और गोपनीयता नीति से सहमत हैं"
+        "byConYouAgreeToProSuchnaTermsOfUseAndPrivacyPolicy":"जारी रखकर, आप संपत्ति सुचना के उपयोग की शर्तों और गोपनीयता नीति से सहमत हैं",
+        "invalidPhoneNumber":"अमान्य फोन नंबर",
+       "phoneNumberIsRequired":"फ़ोन नंबर आवश्यक है",
+       "phoneIsRequired":"फ़ोन आवश्यक है",
+       "passwordIsrequired":"पासवर्ड की आवश्यक है",
+       "passwordMustBeAtLeast8Characters":"पासवर्ड कम से कम 8 वर्णों का होना चाहिए",
+       "pMustCtAtLeastOneUcLr,OneLcLr,OneDt,AndOneSpecialCha":"पासवर्ड में कम से कम एक अपरकेस अक्षर, एक लोअरकेस अक्षर, एक अंक और एक विशेष अक्षर होना चाहिए",
+       "passwordsMustMatch":"पासवर्ड मेल नहीं खाता",
+       "confirmPasswordIsRequired":"कन्फर्म पासवर्ड आवश्यक है"
+    },
+    "login":{
+        "phoneNumberIsRequired":"फ़ोन नंबर आवश्यक है",
+        "password":"पासवर्ड की आवश्यकता है",
+        "invalidpPhoneNumber":"अमान्य फोन नंबर",
+        "passwordMustBeAtLeast8Characters":"पासवर्ड कम से कम 8 वर्णों का होना चाहिए",
+        "pMustContainAtLOneUpL,OneLowercaseLetter,OneDigit,AndOneSpCh":"पासवर्ड में कम से कम एक अपरकेस अक्षर, एक लोअरकेस अक्षर, एक अंक और एक विशेष अक्षर होना चाहिए"
     },
     "verification": {
         "heading": "कृपया हमारे द्वारा भेजे गए सत्यापन कोड दर्ज करें",
@@ -38,7 +53,7 @@
         "uploadVideo": "विडियो को अॅॅपलोड करें",
         "uploadPhoto": "फोटो अपलोड करें",
         "loggedIn!":"लॉग इन",
-        "upload!":"डालना!",
+        "upload!":"अपलोड!",
         "next!":"अगला!",
         "Next!":"अगला!"
     },

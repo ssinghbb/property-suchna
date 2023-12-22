@@ -23,7 +23,22 @@
         "reEnterYourPassword": "Re enter your password",
        "logInForTheBestProperty" :"Log in for the best property" ,
        "enterYourPhoneNumberToContinue":"Enter your phone number to continue",
-       "byConYouAgreeToProSuchnaTermsOfUseAndPrivacyPolicy":"By continuing, you agree to Property Suchna Terms of Use and Privacy Policy"
+       "byConYouAgreeToProSuchnaTermsOfUseAndPrivacyPolicy":"By continuing, you agree to Property Suchna Terms of Use and Privacy Policy",
+       "invalidPhoneNumber":"Invalid phone number",
+       "phoneNumberIsRequired":"Phone number is required",
+       "phoneIsRequired":"Phone is required",
+       "passwordIsrequired":"Password is required",
+       "passwordMustBeAtLeast8Characters":"Password must be at least 8 characters",
+       "pMustCtAtLeastOneUcLr,OneLcLr,OneDt,AndOneSpecialCha":"Password must contain at least one uppercase letter, one lowercase letter, one digit, and one special character",
+       "passwordsMustMatch":"Passwords must match",
+       "confirmPasswordIsRequired":"Confirm Password is required"
+    },
+    "login":{
+        "phoneNumberIsRequired":"Phone number is required",
+        "password":"Password is required",
+        "invalidpPhoneNumber":"Invalid phone number",
+        "passwordMustBeAtLeast8Characters":"Password must be at least 8 characters",
+        "pMustContainAtLOneUpL,OneLowercaseLetter,OneDigit,AndOneSpCh":"Password must contain at least one uppercase letter, one lowercase letter, one digit, and one special character"
     },
     "verification": {
         "heading": "Please enter the verification code we've send you on",

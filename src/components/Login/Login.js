@@ -21,25 +21,27 @@ import { useDispatch } from "react-redux";
 import { setUser } from "../../redux/slices/userSlice";
 import { storeData } from "../../utils/asyncStorageHandler";
 
-const validationSchema = yup.object().shape({
-  phoneNumber: yup
-    .string()
-    .matches(/^[0-9]{10}$/, "Invalid phone number")
-    .required("Phone number is required"),
-  password: yup
-    .string()
-    .required("Password is required")
-    .min(8, "Password must be at least 8 characters")
-    .matches(
-      /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]+$/,
-      "Password must contain at least one uppercase letter, one lowercase letter, one digit, and one special character"
-    ),
-});
-
 const Login = ({ navigation }) => {
   const dispatch = useDispatch();
   const { t } = useTranslation();
   const [isLoading, setIsLoading] = useState(false);
+
+  const validationSchema = yup.object().shape({
+    phoneNumber: yup
+      .string()
+      .matches(/^[0-9]{10}$/, t("login.invalidpPhoneNumber"))
+      .required(t("login.phoneNumberIsRequired")),
+    password: yup
+      .string()
+      .required(t("login.password"))
+      .min(8, t("login.passwordMustBeAtLeast8Characters"))
+      .matches(
+        /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]+$/,
+        t("login.pMustContainAtLOneUpL,OneLowercaseLetter,OneDigit,AndOneSpCh")
+      ),
+  });
+
+
   const formik = useFormik({
     initialValues: {
       phoneNumber: "",
