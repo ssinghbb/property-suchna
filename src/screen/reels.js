@@ -1,3 +1,5 @@
+
+import React, { useRef, useState, useEffect } from "react";
 import {
   View,
   Text,
@@ -7,7 +9,6 @@ import {
   FlatList,
   Dimensions,
 } from "react-native";
-import React, { useRef, useState } from "react";
 import BottomNavBar from "../components/BottomNavbar/bottomNavbar";
 import { ResizeMode, Video } from "expo-av";
 import { Ionicons } from "@expo/vector-icons";
@@ -22,119 +23,125 @@ const videoData = [
     likes: 100,
     comments: 60,
   },
-  {
-    id: "1",
-    uri: "https://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4",
-    likes: 100,
-    comments: 60,
-  },
-  {
-    id: "1",
-    uri: "https://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4",
-    likes: 100,
-    comments: 60,
-  },
-  {
-    id: "1",
-    uri: "https://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4",
-    likes: 100,
-    comments: 60,
-  },
-  {
-    id: "1",
-    uri: "https://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4",
-    likes: 100,
-    comments: 60,
-  },
-  {
-    id: "1",
-    uri: "https://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4",
-    likes: 100,
-    comments: 60,
-  },
-  {
-    id: "1",
-    uri: "https://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4",
-    likes: 100,
-    comments: 60,
-  },
+  
+  // Add more video data if needed
 ];
 
 const handleIconPress = (icon) => {
-  // Implement logic for handling icon press (like, comment, share, dots)
   console.log(`Icon pressed: ${icon}`);
 };
 
 const ReelsPage = () => {
   const flatListRef = useRef(null);
+  const [currentItemIndex, setCurrentItemIndex] = useState(0);
+  const videoRef = useRef(null);
+  const [isPlaying, setIsPlaying] = useState(true);
 
-  const renderItem = ({ item }) => (
-    <View style={[styles.ReelsPage, { height, width }]}>
-      <Video
-        style={styles.video}
-        source={{ uri: item.uri }}
-        shouldPlay={true}
-        isLooping={true}
-        resizeMode={ResizeMode.COVER}
-        isMuted={false}
-      />
-      <View style={styles.secondMainSection}>
-        {/* <View style={styles.iconFirstScetion}> */}
-        <View style={styles.icon}></View>
-        <View style={styles.iconContainer}>
-          <TouchableOpacity onPress={() => handleIconPress("like")}>
-            <Ionicons name="heart-outline" size={30} color="white" />
-            <Text>{item.likes}</Text>
-          </TouchableOpacity>
-          <TouchableOpacity onPress={() => handleIconPress("comment")}>
-            <Ionicons name="chatbubble-outline" size={30} color="white" />
-            <Text>{item.comments}</Text>
-          </TouchableOpacity>
-          <TouchableOpacity onPress={() => handleIconPress("share")}>
-            <Ionicons name="share-social-outline" size={30} color="white" />
-          </TouchableOpacity>
-          <TouchableOpacity onPress={() => handleIconPress("share")}>
-            <EntypoIcon
-              color={"white"}
-              name={"dots-three-vertical"}
-              size={20}
-            />
-          </TouchableOpacity>
-        </View>
-        {/* </View> */}
-        <View style={styles.userProfile}>
-          <View style={styles.user}>
-            <Image
-              style={styles.profileImg}
-              source={require("../../assets/comment1.png")}
-            />
-            <Text style={styles.name}>@keerti@@</Text>
+  useEffect(() => {
+    // Start playing the video when the component mounts
+    if (videoRef.current) {
+      videoRef.current.playAsync();
+    }
+
+    // Pause the video when the component unmounts
+    return () => {
+      if (videoRef.current) {
+        videoRef.current.pauseAsync();
+      }
+    };
+  }, []);
+
+  const onMomentumScrollEnd = (event) => {
+    const newIndex = Math.floor(event.nativeEvent.contentOffset.y / height);
+    setCurrentItemIndex(newIndex);
+    setIsPlaying(false);
+  };
+
+  const handleVideoPress = async () => {
+    if (videoRef.current) {
+      if (isPlaying) {
+        await videoRef.current.pauseAsync();
+      } else {
+        await videoRef.current.playAsync();
+      }
+      setIsPlaying(!isPlaying);
+    }
+  };
+
+  const renderItem = ({ item, index }) => (
+    <TouchableOpacity
+      onPress={handleVideoPress}
+      activeOpacity={1}
+      style={{ flex: 1, height, width }}
+    >
+      <View style={styles.ReelsPage}>
+        <Video
+          ref={videoRef}
+          source={{ uri: item.uri }}
+          shouldPlay={index === currentItemIndex && isPlaying}
+          isLooping={true}
+          resizeMode={ResizeMode.COVER}
+          isMuted={false}
+          style={styles.video}
+          onPlaybackStatusUpdate={(status) => {
+            if (!status.isPlaying) {
+              setIsPlaying(false);
+            }
+          }}
+        />
+        <View style={styles.secondMainSection}>
+          <View style={styles.icon}></View>
+          <View style={styles.iconContainer}>
+            <TouchableOpacity onPress={() => handleIconPress("like")}>
+              <Ionicons name="heart-outline" size={30} color="white" />
+              <Text>{item.likes}</Text>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => handleIconPress("comment")}>
+              <Ionicons name="chatbubble-outline" size={30} color="white" />
+              <Text>{item.comments}</Text>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => handleIconPress("share")}>
+              <Ionicons name="share-social-outline" size={30} color="white" />
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => handleIconPress("share")}>
+              <EntypoIcon
+                color={"white"}
+                name={"dots-three-vertical"}
+                size={20}
+              />
+            </TouchableOpacity>
           </View>
-          <View stylr={styles.profileCaption}>
-            <Text style={styles.caption}>
-              Welcome to this beautiful 3-bedroom, 2-bathroom home located in
-              the heart
-            </Text>
+          <View style={styles.userProfile}>
+            <View style={styles.user}>
+              <Image
+                style={styles.profileImg}
+                source={require("../../assets/comment1.png")}
+              />
+              <Text style={styles.name}>@keerti@@</Text>
+            </View>
+            <View stylr={styles.profileCaption}>
+              <Text style={styles.caption}>
+                Welcome to this beautiful 3-bedroom, 2-bathroom home located in
+                the heart
+              </Text>
+            </View>
           </View>
         </View>
       </View>
-    </View>
+    </TouchableOpacity>
   );
+
   return (
     <View style={styles.mainContainer}>
       <FlatList
+        ref={flatListRef}
         data={videoData}
         keyExtractor={(item) => item.id}
         renderItem={renderItem}
         showsVerticalScrollIndicator={false}
-        onMomentumScrollEnd={(event) => {
-          const index = Math.floor(event.nativeEvent.contentOffset.x / width);
-          // Implement logic based on the current index (e.g., autoplay next video)
-        }}
+        onMomentumScrollEnd={onMomentumScrollEnd}
       />
-      <View>
-        <BottomNavBar />
-      </View>
+      <BottomNavBar />
     </View>
   );
 };
@@ -145,21 +152,13 @@ const styles = StyleSheet.create({
   },
   ReelsPage: {
     flex: 1,
-    // width: "100%",
-    //  height: "100%",
   },
   video: {
     ...StyleSheet.absoluteFillObject,
-    // width: "100%",
-    // height: "100%",
-  },
-  iconFirstScetion: {
-    flex: 1,
   },
   icon: {
     flex: 1,
   },
-
   secondMainSection: {
     flex: 1,
     padding: 10,
@@ -172,13 +171,6 @@ const styles = StyleSheet.create({
   },
   userProfile: {
     maxWidth: 500,
-    // flex: 0.2,
-    // backgroundColor: 'rgba(0, 0, 0, 0.40)',
-    // borderWidth: 1,
-    // borderRadius: 10,
-    // borderColor: '#FDCB0A',
-    // padding:10,
-    // flexDirection:"row"
   },
   user: {
     flexDirection: "row",
@@ -188,15 +180,11 @@ const styles = StyleSheet.create({
   profileImg: {
     width: 37,
     height: 37,
-    objectFit: "cover",
     borderRadius: 50,
-    // display: "flex",
-    // alignItems: "center",
     borderWidth: 1,
     borderColor: "#FDCB0A",
   },
   profileCaption: {
-    // maxWidth: '75%',
     marginTop: 10,
   },
   name: {
@@ -211,4 +199,5 @@ const styles = StyleSheet.create({
     fontWeight: "650",
   },
 });
+
 export default ReelsPage;
