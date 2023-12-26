@@ -1,5 +1,3 @@
-
-import React, { useRef, useState, useEffect } from "react";
 import {
   View,
   Text,
@@ -9,6 +7,7 @@ import {
   FlatList,
   Dimensions,
 } from "react-native";
+import React, { useRef, useState, useEffect } from "react";
 import BottomNavBar from "../components/BottomNavbar/bottomNavbar";
 import { ResizeMode, Video } from "expo-av";
 import { Ionicons } from "@expo/vector-icons";
@@ -23,8 +22,42 @@ const videoData = [
     likes: 100,
     comments: 60,
   },
-  
-  // Add more video data if needed
+  {
+    id: "2",
+    uri: "https://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4",
+    likes: 100,
+    comments: 60,
+  },
+  {
+    id: "3",
+    uri: "https://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4",
+    likes: 100,
+    comments: 60,
+  },
+  {
+    id: "4",
+    uri: "https://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4",
+    likes: 100,
+    comments: 60,
+  },
+  {
+    id: "5",
+    uri: "https://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4",
+    likes: 100,
+    comments: 60,
+  },
+  {
+    id: "6",
+    uri: "https://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4",
+    likes: 100,
+    comments: 60,
+  },
+  {
+    id: "7",
+    uri: "https://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4",
+    likes: 100,
+    comments: 60,
+  },
 ];
 
 const handleIconPress = (icon) => {
@@ -38,58 +71,47 @@ const ReelsPage = () => {
   const [isPlaying, setIsPlaying] = useState(true);
 
   useEffect(() => {
-    // Start playing the video when the component mounts
-    if (videoRef.current) {
+    if (videoRef.current && isPlaying) {
       videoRef.current.playAsync();
     }
-
-    // Pause the video when the component unmounts
-    return () => {
-      if (videoRef.current) {
-        videoRef.current.pauseAsync();
-      }
-    };
-  }, []);
+  } );  //[isPlaying]
 
   const onMomentumScrollEnd = (event) => {
     const newIndex = Math.floor(event.nativeEvent.contentOffset.y / height);
     setCurrentItemIndex(newIndex);
-    setIsPlaying(false);
+    setIsPlaying(true);
   };
 
-  const handleVideoPress = async () => {
-    if (videoRef.current) {
-      if (isPlaying) {
-        await videoRef.current.pauseAsync();
-      } else {
-        await videoRef.current.playAsync();
-      }
-      setIsPlaying(!isPlaying);
-    }
+  const handleVideoPress = () => {
+    setIsPlaying((prev) => !prev);
   };
 
   const renderItem = ({ item, index }) => (
     <TouchableOpacity
       onPress={handleVideoPress}
       activeOpacity={1}
-      style={{ flex: 1, height, width }}
+      style={{ height, width }}
     >
+      {/* <View style={[styles.ReelsPage, { height, width }]}> */}
       <View style={styles.ReelsPage}>
+        {/* <TouchableOpacity onPress={handleVideoPress}> */}
         <Video
           ref={videoRef}
+          style={styles.video}
           source={{ uri: item.uri }}
           shouldPlay={index === currentItemIndex && isPlaying}
           isLooping={true}
           resizeMode={ResizeMode.COVER}
           isMuted={false}
-          style={styles.video}
           onPlaybackStatusUpdate={(status) => {
             if (!status.isPlaying) {
               setIsPlaying(false);
             }
           }}
         />
+        {/* </TouchableOpacity> */}
         <View style={styles.secondMainSection}>
+          {/* <View style={styles.iconFirstScetion}> */}
           <View style={styles.icon}></View>
           <View style={styles.iconContainer}>
             <TouchableOpacity onPress={() => handleIconPress("like")}>
@@ -111,6 +133,7 @@ const ReelsPage = () => {
               />
             </TouchableOpacity>
           </View>
+          {/* </View> */}
           <View style={styles.userProfile}>
             <View style={styles.user}>
               <Image
@@ -141,7 +164,9 @@ const ReelsPage = () => {
         showsVerticalScrollIndicator={false}
         onMomentumScrollEnd={onMomentumScrollEnd}
       />
-      <BottomNavBar />
+      <View>
+        <BottomNavBar />
+      </View>
     </View>
   );
 };
@@ -152,13 +177,21 @@ const styles = StyleSheet.create({
   },
   ReelsPage: {
     flex: 1,
+    // width: "100%",
+    //  height: "100%",
   },
   video: {
     ...StyleSheet.absoluteFillObject,
+    // width: "100%",
+    // height: "100%",
+  },
+  iconFirstScetion: {
+    flex: 1,
   },
   icon: {
     flex: 1,
   },
+
   secondMainSection: {
     flex: 1,
     padding: 10,
@@ -171,6 +204,13 @@ const styles = StyleSheet.create({
   },
   userProfile: {
     maxWidth: 500,
+    // flex: 0.2,
+    // backgroundColor: 'rgba(0, 0, 0, 0.40)',
+    // borderWidth: 1,
+    // borderRadius: 10,
+    // borderColor: '#FDCB0A',
+    // padding:10,
+    // flexDirection:"row"
   },
   user: {
     flexDirection: "row",
@@ -180,11 +220,15 @@ const styles = StyleSheet.create({
   profileImg: {
     width: 37,
     height: 37,
+    objectFit: "cover",
     borderRadius: 50,
+    // display: "flex",
+    // alignItems: "center",
     borderWidth: 1,
     borderColor: "#FDCB0A",
   },
   profileCaption: {
+    // maxWidth: '75%',
     marginTop: 10,
   },
   name: {
@@ -199,5 +243,5 @@ const styles = StyleSheet.create({
     fontWeight: "650",
   },
 });
-
 export default ReelsPage;
+
