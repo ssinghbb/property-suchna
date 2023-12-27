@@ -12,6 +12,8 @@ import BottomNavBar from "../components/BottomNavbar/bottomNavbar";
 import { ResizeMode, Video } from "expo-av";
 import { Ionicons } from "@expo/vector-icons";
 import EntypoIcon from "react-native-vector-icons/Entypo";
+import { EXPO_PUBLIC_API_URL } from "../constants/constant";
+import axios from "axios";
 
 const { width, height } = Dimensions.get("window");
 
@@ -60,6 +62,7 @@ const videoData = [
   },
 ];
 
+
 const handleIconPress = (icon) => {
   console.log(`Icon pressed: ${icon}`);
 };
@@ -69,12 +72,30 @@ const ReelsPage = () => {
   const [currentItemIndex, setCurrentItemIndex] = useState(0);
   const videoRef = useRef(null);
   const [isPlaying, setIsPlaying] = useState(true);
+  const [videoData, setVideoData] = useState([]);
+
+  // useEffect(() => {
+  //   // Fetch video data from API
+  //   getReelsData();
+  // }, []);
+
+  // const getReelsData = async () => {
+  //   try {
+  //     let url = `${EXPO_PUBLIC_API_URL}post/allreel`;
+  //     console.log("url", url);
+  //     const response = await axios.get(url);
+  //     console.log("response", response);
+  //     setVideoData(response?.data?.data);
+  //   } catch (error) {
+  //     console.error("Error fetching video data:", error);
+  //   }
+  // };
 
   useEffect(() => {
     if (videoRef.current && isPlaying) {
       videoRef.current.playAsync();
     }
-  } );  //[isPlaying]
+  }); //[isPlaying]
 
   const onMomentumScrollEnd = (event) => {
     const newIndex = Math.floor(event.nativeEvent.contentOffset.y / height);
@@ -98,7 +119,7 @@ const ReelsPage = () => {
         <Video
           ref={videoRef}
           style={styles.video}
-          source={{ uri: item.uri }}
+          source={{ uri: item?.url }}
           shouldPlay={index === currentItemIndex && isPlaying}
           isLooping={true}
           resizeMode={ResizeMode.COVER}
@@ -159,7 +180,7 @@ const ReelsPage = () => {
       <FlatList
         ref={flatListRef}
         data={videoData}
-        keyExtractor={(item) => item.id}
+        keyExtractor={(item) => item?._id}
         renderItem={renderItem}
         showsVerticalScrollIndicator={false}
         onMomentumScrollEnd={onMomentumScrollEnd}
@@ -244,4 +265,3 @@ const styles = StyleSheet.create({
   },
 });
 export default ReelsPage;
-

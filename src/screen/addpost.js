@@ -109,7 +109,7 @@ const AddPost = () => {
                 style={{ paddingRight: 3 }}
               />
               <Pressable
-                // onPress={pickVideo}
+                 onPress={pickVideo}
                 style={({ pressed }) => [{}, styles.Custom]}
               >
                 {({ pressed }) => (
