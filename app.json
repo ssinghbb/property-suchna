@@ -1,6 +1,7 @@
 {
   "expo": {
     "name": "property-suchna",
+    "scheme": "property",
     "slug": "property-suchna",
     "version": "1.0.0",
     "orientation": "portrait",
@@ -56,6 +57,12 @@
           "app/images/**/*.png"
         ]
       }
+    },
+    "runtimeVersion": {
+      "policy": "appVersion"
+    },
+    "updates": {
+      "url": "https://u.expo.dev/afc47845-44c1-4527-8697-cd21e2d0d3f1"
     }
   }
 }
