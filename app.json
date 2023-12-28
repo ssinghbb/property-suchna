@@ -1,5 +1,6 @@
 {
   "expo": {
+ 
     "name": "property-suchna",
     "scheme": "property",
     "slug": "property-suchna",
@@ -20,6 +21,20 @@
       "bundleIdentifier": "property-suchna-ios"
     },
     "android": {
+      "intentFilters": [
+        {
+          "action": "VIEW",
+          "autoVerify": true,
+          "data": [
+            {
+              "scheme": "https",
+              "host": "abc.property.com",
+              "pathPrefix": "/"
+            }
+          ],
+          "category": ["BROWSABLE", "DEFAULT"]
+        }
+      ],
       "adaptiveIcon": {
         "foregroundImage": "./assets/test/adaptive-icon.png",
         "backgroundColor": "#ffffff"
@@ -57,12 +72,6 @@
           "app/images/**/*.png"
         ]
       }
-    },
-    "runtimeVersion": {
-      "policy": "appVersion"
-    },
-    "updates": {
-      "url": "https://u.expo.dev/afc47845-44c1-4527-8697-cd21e2d0d3f1"
     }
   }
 }
