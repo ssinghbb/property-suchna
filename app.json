@@ -1,6 +1,8 @@
 {
   "expo": {
+ 
     "name": "property-suchna",
+    "scheme": "property",
     "slug": "property-suchna",
     "version": "1.0.0",
     "orientation": "portrait",
@@ -19,6 +21,20 @@
       "bundleIdentifier": "property-suchna-ios"
     },
     "android": {
+      "intentFilters": [
+        {
+          "action": "VIEW",
+          "autoVerify": true,
+          "data": [
+            {
+              "scheme": "https",
+              "host": "abc.property.com",
+              "pathPrefix": "/"
+            }
+          ],
+          "category": ["BROWSABLE", "DEFAULT"]
+        }
+      ],
       "adaptiveIcon": {
         "foregroundImage": "./assets/test/adaptive-icon.png",
         "backgroundColor": "#ffffff"

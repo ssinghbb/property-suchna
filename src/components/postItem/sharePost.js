@@ -1,5 +1,5 @@
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
-import React from "react";
+import React,{useEffect} from "react";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import { themeStyles } from "../../../styles";
 //import Share from 'react-native-share';
@@ -21,6 +21,26 @@ export default function SharePost({ post }) {
       .then(() => console.log('WhatsApp opened'))
       .catch(() => alert('WhatsApp is not installed on your device.'));
   };
+  useEffect(() => {
+    console.log("in1111111")
+    // Add event listener to handle deep links
+    const handleDeepLink = (event) => {
+      // Extract the path from the deep link
+      const path = event.url.split('://')[1];
+      console.log('Deep link path:', path);
+
+      // Handle the deep link as needed
+      // For example, navigate to a specific screen based on the path
+    };
+
+    // Add event listener when the component mounts
+    Linking.addEventListener('url', handleDeepLink);
+
+    // Remove event listener when the component unmounts
+    return () => {
+      Linking.removeEventListener('url', handleDeepLink);
+    };
+  }, []);
   return (
     <View>
       <TouchableOpacity>
