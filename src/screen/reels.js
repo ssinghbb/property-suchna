@@ -17,52 +17,6 @@ import axios from "axios";
 
 const { width, height } = Dimensions.get("window");
 
-const videoData = [
-  {
-    id: "1",
-    uri: "https://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4",
-    likes: 100,
-    comments: 60,
-  },
-  {
-    id: "2",
-    uri: "https://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4",
-    likes: 100,
-    comments: 60,
-  },
-  {
-    id: "3",
-    uri: "https://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4",
-    likes: 100,
-    comments: 60,
-  },
-  {
-    id: "4",
-    uri: "https://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4",
-    likes: 100,
-    comments: 60,
-  },
-  {
-    id: "5",
-    uri: "https://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4",
-    likes: 100,
-    comments: 60,
-  },
-  {
-    id: "6",
-    uri: "https://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4",
-    likes: 100,
-    comments: 60,
-  },
-  {
-    id: "7",
-    uri: "https://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4",
-    likes: 100,
-    comments: 60,
-  },
-];
-
-
 const handleIconPress = (icon) => {
   console.log(`Icon pressed: ${icon}`);
 };
@@ -70,32 +24,37 @@ const handleIconPress = (icon) => {
 const ReelsPage = () => {
   const flatListRef = useRef(null);
   const [currentItemIndex, setCurrentItemIndex] = useState(0);
-  const videoRef = useRef(null);
+  const videoRefs = useRef({});;
   const [isPlaying, setIsPlaying] = useState(true);
   const [videoData, setVideoData] = useState([]);
 
-  // useEffect(() => {
-  //   // Fetch video data from API
-  //   getReelsData();
-  // }, []);
+  useEffect(() => {
+    getReelsData();
+  }, []);
 
-  // const getReelsData = async () => {
-  //   try {
-  //     let url = `${EXPO_PUBLIC_API_URL}post/allreel`;
-  //     console.log("url", url);
-  //     const response = await axios.get(url);
-  //     console.log("response", response);
-  //     setVideoData(response?.data?.data);
-  //   } catch (error) {
-  //     console.error("Error fetching video data:", error);
+const getReelsData = async () => {
+    try {
+      let url = `${EXPO_PUBLIC_API_URL}post/allreel`;
+      console.log("url", url);
+      const response = await axios.get(url);
+      console.log("response", response);
+      setVideoData(response?.data?.data);
+    } catch (error) {
+      console.error("Error fetching video data:", error);
+    }
+  };
+
+  // useEffect(() => {
+  //   if (videoRef.current && isPlaying) {
+  //     videoRef.current.playAsync();
   //   }
-  // };
+  // },[isPlaying]); //[isPlaying]
 
   useEffect(() => {
-    if (videoRef.current && isPlaying) {
-      videoRef.current.playAsync();
+    if (videoRefs.current[currentItemIndex] && isPlaying) {
+      videoRefs.current[currentItemIndex].playAsync();
     }
-  }); //[isPlaying]
+  }, [currentItemIndex, isPlaying]);
 
   const onMomentumScrollEnd = (event) => {
     const newIndex = Math.floor(event.nativeEvent.contentOffset.y / height);
@@ -107,6 +66,13 @@ const ReelsPage = () => {
     setIsPlaying((prev) => !prev);
   };
 
+  const handleVideoFinish = () => {
+    // Stop or reset audio playback when video finishes
+    setIsPlaying(false);
+    videoRefs.current[currentItemIndex]?.setPositionAsync(0);
+  };
+
+
   const renderItem = ({ item, index }) => (
     <TouchableOpacity
       onPress={handleVideoPress}
@@ -117,7 +83,7 @@ const ReelsPage = () => {
       <View style={styles.ReelsPage}>
         {/* <TouchableOpacity onPress={handleVideoPress}> */}
         <Video
-          ref={videoRef}
+          ref={videoRefs}
           style={styles.video}
           source={{ uri: item?.url }}
           shouldPlay={index === currentItemIndex && isPlaying}
@@ -126,7 +92,8 @@ const ReelsPage = () => {
           isMuted={false}
           onPlaybackStatusUpdate={(status) => {
             if (!status.isPlaying) {
-              setIsPlaying(false);
+              // setIsPlaying(false);
+              handleVideoFinish();
             }
           }}
         />
@@ -220,7 +187,7 @@ const styles = StyleSheet.create({
   },
   iconContainer: {
     flex: 1,
-    flexWrap: "wrap-reverse",
+    flexWrap:"wrap-reverse",
     rowGap: 15,
   },
   userProfile: {

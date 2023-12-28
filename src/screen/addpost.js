@@ -33,21 +33,44 @@ const AddPost = () => {
 
   const pickVideo = async () => {
     const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
-
     if (status !== "granted") {
-      // console.log("Permission to access media library was denied");
       return;
     }
-
     let result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.Videos,
       allowsEditing: true,
       quality: 1,
+      videoOptions: {
+        maxDuration: 15,
+      },
     });
 
+    // if (!result.canceled) {
+    //   console.log("Selected video duration:", result.duration);
+    //   setMedia(result.uri);
+    //   setIsVideo(true);
+    // } else {
+    //   setMedia(null);
+    //   setIsVideo(false);
+    // }
     if (!result.canceled) {
-      setMedia(result.uri);
-      setIsVideo(true);
+      const selectedVideo =
+        result?.assets && result?.assets?.length > 0 && result?.assets[0];
+
+      if (selectedVideo) {
+        const videoDuration = selectedVideo?.duration;
+        console.log("videoDuration", videoDuration);
+        if (videoDuration <= 15000) {
+          setMedia(selectedVideo.uri);
+          setIsVideo(true);
+        } else {
+          alert(
+            "Selected video duration more then 15 seconds. Please choose a shorter video."
+          );
+          setMedia(null);
+          setIsVideo(false);
+        }
+      }
     } else {
       setMedia(null);
       setIsVideo(false);
@@ -109,7 +132,7 @@ const AddPost = () => {
                 style={{ paddingRight: 3 }}
               />
               <Pressable
-                 onPress={pickVideo}
+                onPress={pickVideo}
                 style={({ pressed }) => [{}, styles.Custom]}
               >
                 {({ pressed }) => (

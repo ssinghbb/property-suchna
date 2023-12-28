@@ -89,17 +89,14 @@ const Post = () => {
 
     try {
       console.log(ts.toGMTString(), "1");
-
       let url = `${EXPO_PUBLIC_API_URL}post/allpost?page=${page}&limit=10`
       //let url = "http://192.168.43.177:3000/post/allpost";
       console.log("url:", url)
-      console.log(ts.toGMTString(), "2");
-
+      console.log(ts.toGMTString(),"2");
       let response = await axios.get(
         url
       );
       console.log(ts.toGMTString(), "3");
-
       // console.log("response of get",response);
       // let test=posts
       setPosts((prevData) => [...prevData, ...response?.data?.data]);
@@ -109,10 +106,7 @@ const Post = () => {
     }
     setLoading(false)
   };
-
-
   const [canmomentum, setCanMomentum] = useState(false);
-
   return (
     <View style={styles.mainContainer}>
       <ScrollView
