@@ -24,7 +24,7 @@ const handleIconPress = (icon) => {
 const ReelsPage = () => {
   const flatListRef = useRef(null);
   const [currentItemIndex, setCurrentItemIndex] = useState(0);
-  const videoRefs = useRef({});;
+  const videoRefs = useRef({});
   const [isPlaying, setIsPlaying] = useState(true);
   const [videoData, setVideoData] = useState([]);
 
@@ -61,6 +61,7 @@ const getReelsData = async () => {
     setCurrentItemIndex(newIndex);
     setIsPlaying(true);
   };
+  
 
   const handleVideoPress = () => {
     setIsPlaying((prev) => !prev);
@@ -141,7 +142,6 @@ const getReelsData = async () => {
       </View>
     </TouchableOpacity>
   );
-
   return (
     <View style={styles.mainContainer}>
       <FlatList
@@ -151,6 +151,7 @@ const getReelsData = async () => {
         renderItem={renderItem}
         showsVerticalScrollIndicator={false}
         onMomentumScrollEnd={onMomentumScrollEnd}
+        pagingEnabled={true}
       />
       <View>
         <BottomNavBar />
@@ -158,7 +159,6 @@ const getReelsData = async () => {
     </View>
   );
 };
-
 const styles = StyleSheet.create({
   mainContainer: {
     flex: 1,
@@ -179,7 +179,6 @@ const styles = StyleSheet.create({
   icon: {
     flex: 1,
   },
-
   secondMainSection: {
     flex: 1,
     padding: 10,

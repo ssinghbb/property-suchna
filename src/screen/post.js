@@ -49,12 +49,6 @@ const Post = () => {
   };
 
 
-
-
-
-
-
-
   const getLatestPost = async () => {
     var ts = new Date();
 
@@ -146,7 +140,6 @@ const Post = () => {
         {loading
           ?
           <View style={styles.container}>
-
             <ActivityIndicator size='large' animating={loading} color="white" />
           </View>
           : ''
@@ -166,8 +159,6 @@ const Post = () => {
         <View style={styles.modalBackground}>
           <View style={styles.activityIndicatorWrapper}>
             <ActivityIndicator size='large' animating={loading} color="white" />
-
-          
           </View>
         </View>
       </Modal> */}
