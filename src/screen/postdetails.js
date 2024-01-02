@@ -17,7 +17,7 @@ import { useSelector } from "react-redux";
 const PostDetails = ({ file, isVideo }) => {
   const [loader, setLoader] = useState(false);
   const user = useSelector((state) => state?.user?.user?.user);
-
+  // console.log("video",isVideo);
   const userId = user?._id;
   const initialValues = {
     userId: userId,
@@ -60,13 +60,13 @@ const PostDetails = ({ file, isVideo }) => {
           name: "image.png",
         });
       }
-      console.log("fromData....", formData);
+      console.log(" apiurl, fromData....", formData,apiUrl);
       const response = await axios.post(apiUrl, formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
       });
-      // console.log("API response:", response?.data);
+       console.log("API response:", response);
       if (response?.data) {
 
         formik.setValues(initialValues)
