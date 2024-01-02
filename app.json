@@ -1,9 +1,8 @@
 {
   "expo": {
- 
     "name": "property-suchna",
     "scheme": "property",
-    "slug": "property-suchna",
+    "slug": "test1",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/test/icon.png",
@@ -32,7 +31,10 @@
               "pathPrefix": "/"
             }
           ],
-          "category": ["BROWSABLE", "DEFAULT"]
+          "category": [
+            "BROWSABLE",
+            "DEFAULT"
+          ]
         }
       ],
       "adaptiveIcon": {
@@ -65,13 +67,14 @@
     ],
     "extra": {
       "eas": {
-        "projectId": "afc47845-44c1-4527-8697-cd21e2d0d3f1"
+        "projectId": "44ad5fee-f71f-4239-b3ba-e69480cb166f"
       },
       "updates": {
         "assetPatternsToBeBundled": [
           "app/images/**/*.png"
         ]
       }
-    }
+    },
+    "owner": "ameeshwar"
   }
 }

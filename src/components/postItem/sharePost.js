@@ -3,44 +3,18 @@ import React,{useEffect} from "react";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import { themeStyles } from "../../../styles";
 //import Share from 'react-native-share';
-import * as Linking from 'expo-linking';
 import * as Sharing from 'expo-sharing';
 
 export default function SharePost({ post }) {
   // console.log("post:", post)
   const handleShare =async () => {
     // Create a shareable link to your Expo app
-    const appLink = 'https://exp.host/ssinghbb/property-suchna';
-    const app=await Linking.createURL('https://www.example.com')
-
-    console.log("app:", app)
+    console.log("app:sg=hare post")
 
     // Open the WhatsApp share sheet with the link
     // Linking.
-    Linking.openURL(`whatsapp://send?text=${encodeURIComponent(`${app}`)}`)
-      .then(() => console.log('WhatsApp opened'))
-      .catch(() => alert('WhatsApp is not installed on your device.'));
   };
-  useEffect(() => {
-    console.log("in1111111")
-    // Add event listener to handle deep links
-    const handleDeepLink = (event) => {
-      // Extract the path from the deep link
-      const path = event.url.split('://')[1];
-      console.log('Deep link path:', path);
 
-      // Handle the deep link as needed
-      // For example, navigate to a specific screen based on the path
-    };
-
-    // Add event listener when the component mounts
-    Linking.addEventListener('url', handleDeepLink);
-
-    // Remove event listener when the component unmounts
-    return () => {
-      Linking.removeEventListener('url', handleDeepLink);
-    };
-  }, []);
   return (
     <View>
       <TouchableOpacity>

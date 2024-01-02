@@ -12,6 +12,8 @@ import Post from "../screen/post";
 import AddPost from "../screen/addpost";
 import ShareDetailsScreen from "../screen/sharedetails";
 import UserAccount from "../screen/useraccount";
+import Test from "../screen/Test";
+import PostById from "../screen/PostById";
 
 const Stack = createNativeStackNavigator();
 
@@ -25,11 +27,13 @@ export const SignedInStack = () => (
     initialRouteName="post"
   >
     <Stack.Screen name="post" component={Post} />
+    <Stack.Screen name="postId" component={PostById} />
     <Stack.Screen name="reels" component={ReelsScreen}/>
     <Stack.Screen name="addPost" component={AddPost} />
     <Stack.Screen name="useraccount" component={UserAccount} />
     <Stack.Screen name="profile" component={ProfileScreen} />
     <Stack.Screen name="notifications" component={NotificationsScreen} />
+    <Stack.Screen name="test" component={Test} />
   </Stack.Navigator>
 );
 
@@ -46,6 +50,8 @@ export const SignedOutStack = () => (
     <Stack.Screen name="register" component={Register} />
     <Stack.Screen name="verification" component={PhoneVerification} />
     <Stack.Screen name="login" component={Login} />
+    <Stack.Screen name="test" component={Test} />
+
   </Stack.Navigator>
 );
 
