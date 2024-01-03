@@ -21,7 +21,7 @@ const SingleReel = ({item, index, currentIndex, isPlaying}) => {
   };
 
   const [mute, setMute] = useState(false);
-  const [like, setLike] = useState(item.isLike);
+  const [like, setLike] = useState(item?.isLike);
 
   return (
     <View
@@ -55,6 +55,7 @@ const SingleReel = ({item, index, currentIndex, isPlaying}) => {
             width: '100%',
             height: '100%',
             position: 'absolute',
+            bottom: 20,
           }}
 
         />
@@ -75,7 +76,7 @@ const SingleReel = ({item, index, currentIndex, isPlaying}) => {
           position: 'absolute',
           width: windowWidth,
           zIndex: 1,
-          bottom: 0, //edited
+          bottom: 60, //edited
           padding: 10,
         }}>
         <View style={{}}>
@@ -91,7 +92,7 @@ const SingleReel = ({item, index, currentIndex, isPlaying}) => {
                   margin: 10,
                 }}>
                 <Image
-                  source={item.postProfile}
+                  source={item?.userDetails?.url}
                   style={{
                     width: '100%',
                     height: '100%',
@@ -99,26 +100,31 @@ const SingleReel = ({item, index, currentIndex, isPlaying}) => {
                     borderRadius: 100,
                   }}
                 />
+                
               </View>
-              <Text style={{color: 'white', fontSize: 16}}>{item.title}</Text>
+              <View>
+                 <Text style={{color: 'white', fontSize: 16,fontWeight:600}}>@keerti</Text>
+                 </View>
+            <Text style={{color: 'white', fontSize: 16,fontWeight:700}}>{item.title}</Text>
             </View>
           </TouchableOpacity>
           <Text style={{color: 'white', fontSize: 14, marginHorizontal: 10}}>
-            {item.description}
+            {item?.description} Welcome to this beautiful 3-bedroom, 2-bathroom home located in
+                the heart
           </Text>
-          <View style={{flexDirection: 'row', padding: 10}}>
+          {/* <View style={{flexDirection: 'row', padding: 50}}>
             <Ionic
               name="ios-musical-note"
               style={{color: 'white', fontSize: 16}}
             />
             <Text style={{color: 'white'}}>Original Audio</Text>
-          </View>
+          </View> */}
         </View>
       </View>
       <View
         style={{
           position: 'absolute',
-          bottom: 10, //edited
+          bottom: 100, //edited
           right: 0,
         }}>
         <TouchableOpacity onPress={() => setLike(!like)} style={{padding: 10}}>
@@ -126,7 +132,8 @@ const SingleReel = ({item, index, currentIndex, isPlaying}) => {
             name={like ? 'heart' : 'hearto'}
             style={{color: like ? 'red' : 'white', fontSize: 25}}
           />
-          <Text style={{color: 'white'}}>{item.likes}</Text>
+          <Text style={{color: 'white'}}>100</Text>  
+          {/* //{item.likes} */}
         </TouchableOpacity>
         <TouchableOpacity style={{padding: 10}}>
           <Ionic
@@ -146,7 +153,7 @@ const SingleReel = ({item, index, currentIndex, isPlaying}) => {
             style={{color: 'white', fontSize: 25}}
           />
         </TouchableOpacity>
-        <View
+        {/* <View
           style={{
             width: 30,
             height: 30,
@@ -164,7 +171,7 @@ const SingleReel = ({item, index, currentIndex, isPlaying}) => {
               resizeMode: 'cover',
             }}
           />
-        </View>
+        </View> */}
       </View>
     </View>
   );

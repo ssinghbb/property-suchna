@@ -602,10 +602,26 @@ const Reels = () => {
         </Text>
         <Feather name="camera" style={{fontSize: 25, color: 'white'}} />
       </View>
-      <ReelsComponent />
+      <ReelsComponent/>
+     <View style={{
+          position: 'absolute',
+          bottom: 5,
+          left: 0,
+          right: 0,
+          // flexDirection: 'row',
+          // justifyContent: 'space-between',
+          backgroundColor:"black",
+          }}>
+     <BottomNavBar/>
+     </View>
     </View>
     
   );
 };
+
+const styles= StyleSheet.create({
+
+
+})
 
 export default Reels;
