@@ -92,7 +92,7 @@ const SingleReel = ({item, index, currentIndex, isPlaying}) => {
                   margin: 10,
                 }}>
                 <Image
-                  source={item?.userDetails?.url}
+                  source={{uri:item?.userDetails?.url}}
                   style={{
                     width: '100%',
                     height: '100%',
