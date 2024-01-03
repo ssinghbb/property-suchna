@@ -66,18 +66,18 @@ const AuthNavigation = () => {
 			let postId=  ExpoLinking.parse(url)
 			console.log("postId:", postId?.queryParams?.id)
 			let _postId= postId?.queryParams?.id
-			Alert.alert(_postId, "postid");
+			// Alert.alert(_postId, "postid");
 
-			Alert.alert(url, "first if");
+			// Alert.alert(url, "first if");
 			if (url.includes('exp://192.168.149.226:8081') || url.includes('https://abc.property.com/post')) {
-				Alert.alert(url, "if");
+				// Alert.alert(url, "if");
 				navigation.navigate("postId",{id:_postId})
 
   
 		  }
 		}
 		else {
-			Alert.alert(url, "else")
+			// Alert.alert(url, "else")
 		}
 		
   

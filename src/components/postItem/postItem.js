@@ -17,7 +17,7 @@ import { useNavigation } from "@react-navigation/native";
 import { useSelector } from "react-redux";
 import PostMenu from "./postMenu";
 
-export default function PostItem({ post ,getAllPost }) {
+export default function PostItem({ post, getAllPost }) {
   const [totalLikes, setTotalLikes] = useState(post?.likes?.length || 0);
   const [isLiked, setIsLiked] = useState(false);
   const navigation = useNavigation();
@@ -27,20 +27,20 @@ export default function PostItem({ post ,getAllPost }) {
   // console.log("post?.user?.url",post?.user?.url);
 
   const navigateToScreen = (screenName) => {
-    navigation.navigate(screenName,{post});
+    navigation.navigate(screenName, { post });
   };
 
   useEffect(() => {
     setIsLiked(post?.likes?.includes(userId));
   }, [post]);
 
-  const likePost = async (postId,postUserId) => {
+  const likePost = async (postId, postUserId) => {
     console.log("postId:", postId)
     console.log("postUserId:", postUserId)
 
     try {
       let url = `${EXPO_PUBLIC_API_URL}post/like`;
-      const response = await axios.put(url, { postId, userId,postUserId });
+      const response = await axios.put(url, { postId, userId, postUserId });
       setTotalLikes(response?.data?.post?.likes?.length);
       setIsLiked(response?.data?.post?.likes?.includes(userId));
     } catch (error) {
@@ -50,32 +50,32 @@ export default function PostItem({ post ,getAllPost }) {
 
   return (
     <View key={post?._id} style={styles.postCard}>
-     {/* {console.log("check",post?.userId )} */}
+      {/* {console.log("check",post?.userId )} */}
       <View style={styles.postHeader}>
-      <TouchableOpacity
-        style={styles.profile}
-        onPress={() => {
-          navigateToScreen("useraccount")
-        }}
-      >
-        {/* <Image source={require("../../../assets/lily.png")} /> */}
-        <Image
-          // source={ post?.user?.url ? {
-          //   uri: post?.user?.url,
-          // }:require("../../../assets/lily.png")}
-          source={ {uri: post?.userDetails?.url}}
-          style={styles.avatar}
-          
-        />
-        <Text style={styles.userName} post={post}>{post?.userDetails?.fullName}</Text>
-      </TouchableOpacity>
-      <PostMenu postId={post?._id} uploadedUserId={post?.userId} getAllPost={getAllPost}/>
+        <TouchableOpacity
+          style={styles.profile}
+          onPress={() => {
+            navigateToScreen("useraccount")
+          }}
+        >
+          {/* <Image source={require("../../../assets/lily.png")} /> */}
+          <Image
+            // source={ post?.user?.url ? {
+            //   uri: post?.user?.url,
+            // }:require("../../../assets/lily.png")}
+            source={{ uri: post?.userDetails?.url }}
+            style={styles.avatar}
+
+          />
+          <Text style={styles.userName} post={post}>{post?.userDetails?.fullName}</Text>
+        </TouchableOpacity>
+        <PostMenu postId={post?._id} uploadedUserId={post?.userId} getAllPost={getAllPost} />
       </View>
       <View style={styles.postImg}>
         <Image style={styles.post} source={{ uri: post?.url }} />
       </View>
       <View style={styles.likeComment}>
-        <TouchableOpacity onPress={() => likePost(post?._id,post?.userId)}>
+        <TouchableOpacity onPress={() => likePost(post?._id, post?.userId)}>
           <Icon
             color={"white"}
             style={isLiked ? styles.liked : {}}
@@ -111,11 +111,11 @@ const styles = StyleSheet.create({
     alignItems: "center",
     paddingTop: 0,
   },
-  postHeader:{
-   flexDirection:"row",
-   justifyContent:"flex-end",
-   width:"100%",
-   paddingHorizontal:20,
+  postHeader: {
+    flexDirection: "row",
+    justifyContent: "flex-end",
+    width: "100%",
+    paddingHorizontal: 20,
   },
   profile: {
     flexDirection: "row",

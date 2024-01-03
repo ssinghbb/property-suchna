@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
+import { View, Text, StyleSheet, TouchableOpacity, Share, Alert } from "react-native";
 import React,{useEffect} from "react";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import { themeStyles } from "../../../styles";
@@ -6,13 +6,34 @@ import { themeStyles } from "../../../styles";
 import * as Sharing from 'expo-sharing';
 
 export default function SharePost({ post }) {
-  // console.log("post:", post)
+  // console.log("post:", post?._id)
   const handleShare =async () => {
     // Create a shareable link to your Expo app
     console.log("app:sg=hare post")
+    // if(Sharing.isAvailableAsync()){
+    //   let url=`https://abc.property.com/post/${post?._id}`
+    //     let shareable=await Sharing.shareAsync(url,{dialogTitle: 'Share'})
+    // }
 
-    // Open the WhatsApp share sheet with the link
-    // Linking.
+      try {
+      let url=`https://abc.property.com/post/?id=${post?._id}`
+
+        const result = await Share.share({
+          message:
+            url
+        });
+        if (result.action === Share.sharedAction) {
+          if (result.activityType) {
+            // shared with activity type of result.activityType
+          } else {
+            // shared
+          }
+        } else if (result.action === Share.dismissedAction) {
+          // dismissed
+        }
+      } catch (error) {
+        Alert.alert(error.message);
+      }
   };
 
   return (
