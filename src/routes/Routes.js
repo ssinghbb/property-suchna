@@ -14,6 +14,7 @@ import ShareDetailsScreen from "../screen/sharedetails";
 import UserAccount from "../screen/useraccount";
 import Test from "../screen/Test";
 import PostById from "../screen/PostById";
+import TestReel from "../components/TestReel.js/TestReel";
 
 const Stack = createNativeStackNavigator();
 
@@ -24,11 +25,11 @@ export const SignedInStack = () => (
       statusBarColor: "black",
       contentStyle: { backgroundColor: "#000" },
     }}
-    initialRouteName="post"
+    initialRouteName="reels"
   >
     <Stack.Screen name="post" component={Post} />
     <Stack.Screen name="postId" component={PostById} />
-    <Stack.Screen name="reels" component={ReelsScreen}/>
+    <Stack.Screen name="reels" component={TestReel}/>
     <Stack.Screen name="addPost" component={AddPost} />
     <Stack.Screen name="useraccount" component={UserAccount} />
     <Stack.Screen name="profile" component={ProfileScreen} />
