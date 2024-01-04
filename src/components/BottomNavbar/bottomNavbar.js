@@ -43,7 +43,6 @@ const route = useRoute();
           <Text style={{color:'white',fontSize:10}}>{t("reels.reels")}</Text>
         </Pressable>
       </View>
-
       <View >
         <Pressable onPress={() => navigateToScreen("addPost")} style={styles.iconContainer}>
           <Mater color={"white"} name={"plus-circle-outline"} size={32} />
@@ -87,7 +86,6 @@ const styles = StyleSheet.create({
   iconContainer: {
     alignItems:'center',
     width:'auto',
-   
   },
   iconText: {
     color: "white",
@@ -97,6 +95,10 @@ const styles = StyleSheet.create({
 });
 
 export default ButtomNavbar;
+
+
+
+
 
 
 
