@@ -23,7 +23,7 @@ const AddPost = () => {
     });
 
     if (!result.canceled) {
-      setMedia(result.uri);
+      setMedia(result?.uri);
       setIsVideo(false);
     } else {
       setMedia(null);
@@ -53,6 +53,7 @@ const AddPost = () => {
     //   setMedia(null);
     //   setIsVideo(false);
     // }
+
     if (!result.canceled) {
       const selectedVideo =
         result?.assets && result?.assets?.length > 0 && result?.assets[0];
@@ -60,7 +61,7 @@ const AddPost = () => {
       if (selectedVideo) {
         const videoDuration = selectedVideo?.duration;
         console.log("videoDuration", videoDuration);
-        if (videoDuration <= 15000) {
+        if (videoDuration <= 30000) {
           setMedia(selectedVideo.uri);
           setIsVideo(true);
         } else {
