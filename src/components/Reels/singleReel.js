@@ -6,7 +6,9 @@ import Ionic from "react-native-vector-icons/Ionicons";
 import AntDesign from "react-native-vector-icons/AntDesign";
 import ReelMenu from "./reelMenu";
 
-const SingleReel = ({ item, index, currentIndex, isPlaying }) => {
+const SingleReel = ({ item, index, currentIndex, isPlaying,getReelsData }) => {
+  getReelsData()
+  console.log("getReelsData()",getReelsData());
   const video = React.useRef(null);
   const windowWidth = Dimensions.get("window").width;
   const windowHeight = Dimensions.get("window").height;
@@ -164,7 +166,7 @@ const SingleReel = ({ item, index, currentIndex, isPlaying }) => {
             style={{ color: "white", fontSize: 30 }}
           />
         </TouchableOpacity> */}
-        <ReelMenu/>
+        <ReelMenu item={item} getFunction={getReelsData}/>
         {/* <View
           style={{
             width: 30,
