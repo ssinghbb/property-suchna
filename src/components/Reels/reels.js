@@ -56,6 +56,7 @@ const ReelsComponent = () => {
           index={index}
           currentIndex={currentIndex}
           isPlaying={isPlaying}
+          getReelsData={getReelsData}
         />
       )}
       keyExtractor={(item, index) => index.toString()}
