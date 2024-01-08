@@ -3,7 +3,7 @@ import React, { useRef, useState } from 'react';
 import { FlatList } from 'react-native';
 import Reel from './Reels';
 
-const ReelList = ({ data }) => {
+const ReelList = ({ data, loadMoreData }) => {
   const flatListRef = useRef(null);
   const [currentIndex, setCurrentIndex] = useState(0);
 
@@ -17,14 +17,19 @@ const ReelList = ({ data }) => {
   });
   return (
     <FlatList
-    ref={flatListRef}
+      ref={flatListRef}
       pagingEnabled
       data={data}
       keyExtractor={(item) => item._id.toString()}
-      renderItem={({ item ,index}) => <Reel reel={item} index={index} currentIndex={currentIndex} />}
+      renderItem={({ item, index }) => <Reel reel={item} index={index} currentIndex={currentIndex} />}
       onViewableItemsChanged={onViewableItemsChanged.current}
       viewabilityConfig={{ itemVisiblePercentThreshold: 50 }} // Adjust as needed
-   
+      onEndReached={() => {
+        console.log("call by reel list function")
+        loadMoreData()
+      }}
+      onEndReachedThreshold={0.1}
+
     />
   );
 };

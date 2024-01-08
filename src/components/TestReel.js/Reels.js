@@ -7,7 +7,8 @@ import AntDesign from 'react-native-vector-icons/AntDesign';
 import Feather from 'react-native-vector-icons/Feather';
 
 const Reel = ({ reel, index, currentIndex }) => {
-  console.log("index:", index)
+  console.log("reel:", reel?._id)
+  // console.log("index:", index)
   const videoRef = React.useRef(null);
   const [like, setLike] = useState(reel?.isLike);
 

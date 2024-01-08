@@ -25,7 +25,7 @@ export const SignedInStack = () => (
       statusBarColor: "black",
       contentStyle: { backgroundColor: "#000" },
     }}
-    initialRouteName="reels"
+    initialRouteName="post"
   >
     <Stack.Screen name="post" component={Post} />
     <Stack.Screen name="postId" component={PostById} />
